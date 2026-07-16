@@ -241,27 +241,31 @@
       <div class="route-card" style="padding:22px;">
         <form id="lead-form" novalidate>
           <div class="form-msg" id="form-msg" role="status" aria-live="polite"></div>
+          <input type="hidden" name="_subject" value="DataSpace — design-partner request">
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+          <label>Name
+            <input type="text" name="name" placeholder="Jane Doe" autocomplete="name">
+          </label>
           <label>Work email
             <input type="email" name="email" required placeholder="you@company.com" autocomplete="email">
           </label>
           <label>Company
             <input type="text" name="company" placeholder="Acme Inc." autocomplete="organization">
           </label>
-          <label>What would you expose first?
-            <select name="use_case">
+          <label>Where are you today?
+            <select name="context">
               <option value="">Choose one…</option>
-              <option>Power our own apps</option>
-              <option>Share data with partners</option>
-              <option>Sell data to our customers</option>
-              <option>Internal tools / dashboards</option>
-              <option>Not sure yet</option>
+              <option>Scaling on Snowflake — data sprawl</option>
+              <option>Need to serve data to apps / partners</option>
+              <option>Snowflake + Databricks (mixed stack)</option>
+              <option>Just exploring</option>
             </select>
           </label>
-          <label>Anything specific? <span class="fine">(optional)</span>
-            <textarea name="message" placeholder="e.g. we want our merchants to pull their orders via API"></textarea>
+          <label>What’s the pain? <span class="fine">(optional)</span>
+            <textarea name="message" placeholder="e.g. every team builds data differently; governance is a bottleneck"></textarea>
           </label>
-          <button class="btn full" type="submit" id="submit-btn">Book a demo</button>
-          <p class="fine">We’ll only use this to contact you about a demo.</p>
+          <button class="btn full" type="submit" id="submit-btn">Request early access</button>
+          <p class="fine">We’ll only use this to talk to you about the design-partner program.</p>
         </form>
       </div>
     </div>
@@ -272,7 +276,7 @@
 <footer>
   <div class="wrap line">
     <span><strong>DataSpace for Snowflake</strong> — the data-platform team, as a Marketplace app.</span>
-    <span class="mono" style="color:var(--muted);">DataSpace HQ · <a href="mailto:hello@dataspacehq.com">hello@dataspacehq.com</a></span>
+    <span class="mono" style="color:var(--muted);">DataSpace HQ · <a href="mailto:dmitrii.raev@gmail.com">dmitrii.raev@gmail.com</a></span>
   </div>
 </footer>
 
@@ -283,16 +287,16 @@
   //
   // For GitHub Pages (static): create a free form at https://formspree.io and
   // paste its endpoint here, e.g. "https://formspree.io/f/abcdwxyz".
-  const FORM_ENDPOINT = "";
-  const LEAD_EMAIL = "hello@dataspacehq.com";
+  const FORM_ENDPOINT = "https://formspree.io/f/mwvglkre";
+  const LEAD_EMAIL = "dmitrii.raev@gmail.com";
   const form = document.getElementById('lead-form');
   const msg = document.getElementById('form-msg');
   const btn = document.getElementById('submit-btn');
 
   function show(kind, text) { msg.className = 'form-msg ' + kind; msg.textContent = text; }
   function mailtoFallback(data) {
-    const body = `Email: ${data.email}\nCompany: ${data.company || '-'}\nUse case: ${data.use_case || '-'}\nMessage: ${data.message || '-'}`;
-    window.location.href = `mailto:${LEAD_EMAIL}?subject=${encodeURIComponent('DataSpace demo request')}&body=${encodeURIComponent(body)}`;
+    const body = `Name: ${data.name || '-'}\nEmail: ${data.email}\nCompany: ${data.company || '-'}\nContext: ${data.context || '-'}\nPain: ${data.message || '-'}`;
+    window.location.href = `mailto:${LEAD_EMAIL}?subject=${encodeURIComponent('DataSpace — design-partner request')}&body=${encodeURIComponent(body)}`;
   }
 
   form.addEventListener('submit', async (e) => {
@@ -309,12 +313,12 @@
       if (!r.ok) throw new Error('bad status');
       form.reset();
       show('ok', "Thanks — we'll be in touch within one business day.");
-      btn.textContent = 'Book a demo';
+      btn.textContent = 'Request early access';
     } catch (err) {
       // No backend reachable → open the user's mail client as a fallback.
       show('ok', 'Opening your email client to send the request…');
       mailtoFallback(data);
-      btn.textContent = 'Book a demo';
+      btn.textContent = 'Request early access';
     } finally {
       btn.disabled = false;
     }
