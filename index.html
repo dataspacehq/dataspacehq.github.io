@@ -144,56 +144,76 @@
   <section class="hero">
     <div class="hero-grid">
       <div class="stack">
-        <span class="eyebrow mono">DataSpace HQ · Snowflake Native App</span>
-        <h1>Governed data mesh. <span class="accent">Out of the box.</span></h1>
-        <p class="lede">Stand up complete data domains — ingest, transform, serve — as many
-        as you need, under one governance. No platform, no infra, no DevOps. It runs inside
-        Snowflake and manages itself.</p>
+        <span class="eyebrow mono">Snowflake Native App</span>
+        <h1>Governed data domains,<br>in <span class="accent">minutes.</span></h1>
+        <p class="lede">Stand up ingest → transform → serve on Snowflake — without a data-platform
+        team. DataSpace runs in your account and manages itself.</p>
         <div class="cta-row">
-          <a class="btn" href="#demo">Become a design partner →</a>
+          <a class="btn" href="#demo">Get a demo →</a>
           <a class="btn ghost" href="#how">How it works</a>
         </div>
-        <div class="trust"><span class="dot"></span> Runs in your Snowflake account. Your data never leaves.</div>
+        <div class="trust"><span class="dot"></span> Runs in your Snowflake account · your data never leaves.</div>
       </div>
-      <div class="route-card" aria-label="A governed data domain">
+      <div class="route-card" aria-label="Your data mesh, governed">
         <div class="route-head mono">
-          <span class="verb">DOMAIN</span><span class="path">storefront</span>
-          <span class="status"><span class="dot"></span>governed</span>
+          <span class="verb">MESH</span><span class="path">your account</span>
+          <span class="status"><span class="dot"></span>all governed</span>
         </div>
         <div class="route-body mono">
-<pre><span class="k">owner </span>  sales-eng@company.com
-<span class="k">layers</span>  raw → staging → marts
-<span class="k">ports </span>  /orders · /products · share
-<span class="k">policy</span>  ✓ inherited · PII tagged · access: deny
-<span class="k">status</span>  READY</pre>
+<pre><span style="color:var(--signal)">●</span> storefront    ingest → serve · 2 APIs
+<span style="color:var(--signal)">●</span> marketing     ingest → serve · 1 API
+<span style="color:var(--signal)">●</span> fulfillment   ingest → serve · 2 APIs
+
+one governance · one console · minutes each</pre>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- COVERAGE — the full lifecycle a domain covers -->
+  <!-- TRUST BAND -->
+  <section style="padding:34px 0;">
+    <div class="safe" style="grid-template-columns:repeat(3,1fr);margin-top:0;">
+      <div><span class="ck">✓</span><span><strong>Snowflake Native App.</strong> Installs into your account.</span></div>
+      <div><span class="ck">✓</span><span><strong>Your data never leaves.</strong> Nothing is copied out.</span></div>
+      <div><span class="ck">✓</span><span><strong>No infra, no DevOps.</strong> It runs itself.</span></div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section>
+    <div class="stack">
+      <span class="eyebrow mono">Why teams use it</span>
+      <h2 style="font-size:clamp(1.5rem,3.6vw,2.1rem);">Skip the data-platform project.</h2>
+      <p style="max-width:36em;">As you scale on Snowflake, every team builds data differently and the
+      central team becomes the bottleneck. DataSpace makes every domain the same — governed, out of the box.</p>
+    </div>
+    <div class="outcomes">
+      <div class="oc"><div class="verb-lbl mono">Faster</div><h3>Minutes, not quarters</h3><p>A complete governed domain from a short blueprint — ingest, transform and serve, in one action.</p></div>
+      <div class="oc"><div class="verb-lbl mono">Leaner</div><h3>No platform team</h3><p>No infra, no DevOps, no SRE. Everything runs and is managed from one console.</p></div>
+      <div class="oc"><div class="verb-lbl mono">Safer</div><h3>Governed by design</h3><p>Your guardrails — naming, PII, access, cost — enforced on every domain, automatically.</p></div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS — 3 steps -->
   <section id="how">
     <div class="stack">
-      <span class="eyebrow mono">What it covers — full lifecycle, inside Snowflake</span>
-      <h2 style="font-size:clamp(1.5rem,3.6vw,2.1rem);">Every domain: Ingest → Transform → Serve</h2>
-      <p style="max-width:36em;">A domain is a complete, governed unit with the same shape — layers,
-      owner, access policy, output ports. Write a short blueprint; DataSpace provisions and runs the
-      whole pipeline. You never touch SPCS, Snowpipe, Tasks, dbt or grants.</p>
+      <span class="eyebrow mono">How it works</span>
+      <h2 style="font-size:clamp(1.5rem,3.6vw,2.1rem);">Three steps — no SPCS, Snowpipe, dbt or grants to wire.</h2>
+      <p style="max-width:36em;">You describe the domain; DataSpace builds and governs it.</p>
     </div>
     <div class="cols">
-      <div class="col"><span class="n mono">01 </span><h3>Ingest</h3><p>Point an HTTP endpoint at a domain; events land validated in raw.</p><div class="hide mono">hides: Snowpipe, schemas</div></div>
-      <div class="col"><span class="n mono">02 </span><h3>Transform</h3><p>dbt models — generated from the blueprint — build curated marts.</p><div class="hide mono">hides: dbt, Tasks</div></div>
-      <div class="col"><span class="n mono">03 </span><h3>Serve</h3><p>Publish curated data as governed output ports.</p><div class="hide mono">hides: SPCS, RBAC</div></div>
+      <div class="col"><span class="n mono">01 </span><h3>Describe it</h3><p>Write a short blueprint (or start from a template): your tables, an owner, what to expose.</p><div class="hide mono">no SQL / DDL</div></div>
+      <div class="col"><span class="n mono">02 </span><h3>Provision it</h3><p>DataSpace stands up the domain — ingest → transform → serve — validated against your guardrails.</p><div class="hide mono">one action</div></div>
+      <div class="col"><span class="n mono">03 </span><h3>Consume it</h3><p>Apps and partners get governed APIs, Snowflake shares or views. Callers never send SQL.</p><div class="hide mono">output ports</div></div>
     </div>
   </section>
 
   <!-- FEATURES — the cool stuff -->
   <section>
     <div class="stack">
-      <span class="eyebrow mono">Highlights</span>
-      <h2 style="font-size:clamp(1.5rem,3.6vw,2.1rem);">Governed by design. Open by default.</h2>
-      <p style="max-width:36em;">Company guardrails are enforced on every domain — and a domain serves
-      its data through whatever port its consumers need.</p>
+      <span class="eyebrow mono">For the data team</span>
+      <h2 style="font-size:clamp(1.5rem,3.6vw,2.1rem);">Ports for every consumer. Guardrails for every domain.</h2>
+      <p style="max-width:36em;">Serve a domain however consumers need it — and keep it safe by default.</p>
     </div>
     <div class="outcomes">
       <div class="oc"><div class="verb-lbl mono">Ship</div><h3>Power your apps</h3><p>Curated data as a governed REST API — orders, customer 360, inventory — not a SQL client.</p></div>
