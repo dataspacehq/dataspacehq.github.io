@@ -32,7 +32,7 @@
   .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
   a{color:inherit; text-decoration:none}
   h1,h2,h3{margin:0; line-height:1.08; letter-spacing:-.022em; text-wrap:balance}
-  h1{font-size:clamp(2.4rem,5.6vw,4.1rem); font-weight:820}
+  h1{font-size:clamp(2.6rem,6vw,4.7rem); font-weight:850; letter-spacing:-.032em}
   h2{font-size:clamp(1.7rem,3.6vw,2.6rem); font-weight:780}
   h3{font-size:1.12rem; font-weight:720; letter-spacing:-.01em}
   p{margin:0; color:var(--muted)}
@@ -59,8 +59,8 @@
     border:1px solid var(--line); border-radius:999px; padding:3px 9px}
   .nav-cta{display:flex; align-items:center; gap:14px}
 
-  section{padding:72px 0; border-top:1px solid var(--line)}
-  .hero{border-top:0; padding:56px 0 60px; position:relative; overflow:hidden}
+  section{padding:88px 0; border-top:1px solid var(--line)}
+  .hero{border-top:0; padding:78px 0 82px; position:relative; overflow:hidden}
   .hero::before{content:""; position:absolute; inset:-40% 0 auto -10%; height:520px; pointer-events:none;
     background:radial-gradient(720px 360px at 78% 20%, color-mix(in srgb,var(--accent) 20%,transparent), transparent 70%),
                radial-gradient(560px 320px at 15% 0%, color-mix(in srgb,var(--accent-2) 16%,transparent), transparent 70%);}
@@ -93,8 +93,23 @@
   /* generic cards */
   .lead-2{max-width:34em; margin-top:14px}
   .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:38px}
-  .card{border:1px solid var(--line); border-radius:var(--r); padding:26px; background:var(--surface); box-shadow:var(--shadow)}
+  .card{border:1px solid var(--line); border-radius:var(--r); padding:26px; background:var(--surface); box-shadow:var(--shadow);
+    transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease}
+  .card:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--accent) 32%,var(--line))}
   .card .klab{font-size:.72rem; text-transform:uppercase; letter-spacing:.12em; font-weight:750; color:var(--accent)}
+  /* built-on strip */
+  .builton{display:flex; align-items:center; gap:28px; flex-wrap:wrap; padding:22px 0}
+  .builton .bo-lab{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:750; color:var(--muted)}
+  .builton .bo-marks{display:flex; gap:28px; flex-wrap:wrap}
+  .builton .bo-marks span{font-weight:760; letter-spacing:-.01em; color:var(--ink); opacity:.6; font-size:1.02rem}
+  /* fleet console */
+  .fleet{margin-top:34px; border:1px solid var(--console-line); border-radius:var(--r); overflow:hidden; background:var(--console); box-shadow:var(--shadow-lg); color:var(--console-ink)}
+  .fleet .fleet-bar{display:flex; align-items:center; gap:9px; padding:14px 18px; border-bottom:1px solid var(--console-line); font-size:.82rem; color:#9fb2c8}
+  .fleet .dotg{width:8px; height:8px; border-radius:50%; background:var(--signal)}
+  .fleet .fleet-row{display:grid; grid-template-columns:1.3fr 1fr .8fr .9fr; gap:12px; padding:13px 18px; border-top:1px solid var(--console-line); font-size:.9rem}
+  .fleet .fleet-row b{color:#eaf1f8; font-weight:700} .fleet .fleet-row span{color:#9fb2c8}
+  .fleet .okp{color:var(--signal); font-weight:700}
+  @media (max-width:600px){ .fleet .fleet-row{grid-template-columns:1fr auto} .fleet .fleet-row span:nth-child(2),.fleet .fleet-row span:nth-child(3){display:none} }
   .card h3{margin-top:12px} .card p{margin-top:9px; font-size:.96rem}
   .card .step{font-family:ui-monospace,Menlo,monospace; font-size:.8rem; color:var(--muted); margin-bottom:6px}
 
@@ -175,9 +190,9 @@
     <div class="hero-grid">
       <div class="stack">
         <span class="eyebrow">Snowflake Native App</span>
-        <h1>Every team ships governed data.<br><span class="grad">You keep control.</span></h1>
-        <p class="lede">DataSpace turns Snowflake into governed, self-serve data domains — ingest,
-        transform, serve — spun up in minutes. Your guardrails, enforced on every one.</p>
+        <h1>Governed, self-serve<br>data domains. <span class="grad">In minutes.</span></h1>
+        <p class="lede">Your teams stand up ingest → transform → serve on Snowflake — inside the
+        guardrails you set once. A Native App that runs in your account and manages itself.</p>
         <div class="cta-row">
           <a class="btn primary" href="#demo">Get a demo →</a>
           <a class="btn ghost" href="#how">See how it works</a>
@@ -197,14 +212,12 @@
   </section>
 </div>
 
-<!-- TRUST STRIP -->
+<!-- BUILT ON -->
 <div style="border-top:1px solid var(--line); background:color-mix(in srgb,var(--ink) 2.5%,transparent)">
-  <div class="wrap">
-    <div class="strip">
-      <div class="it"><span class="ck">✓</span><span><strong>A Snowflake Native App.</strong> Installs into your account from the Marketplace.</span></div>
-      <div class="it"><span class="ck">✓</span><span><strong>Data never leaves.</strong> Nothing is copied out of Snowflake.</span></div>
-      <div class="it"><span class="ck">✓</span><span><strong>No platform to run.</strong> No infra, no DevOps, no SRE.</span></div>
-      <div class="it"><span class="ck">✓</span><span><strong>Governed by you.</strong> One set of rules across every domain.</span></div>
+  <div class="wrap builton">
+    <span class="bo-lab">Built on Snowflake</span>
+    <div class="bo-marks">
+      <span>Native App</span><span>Snowpark Containers</span><span>dbt</span><span>Apache Iceberg</span><span>Cortex AI</span>
     </div>
   </div>
 </div>
@@ -245,8 +258,15 @@
   <!-- OUTCOMES + COMPARISON -->
   <section class="reveal">
     <span class="eyebrow">Why leaders adopt it</span>
-    <h2 style="margin-top:14px">Autonomy for teams. Control for you.</h2>
-    <p class="lead-2">Set the rules once. Every domain inherits them — and any team can move without waiting on you.</p>
+    <h2 style="margin-top:14px">Autonomy for your teams.<br>One set of rules — yours.</h2>
+    <p class="lead-2">Set the guardrails once. Every domain inherits them, and any team can move without
+    waiting on you — while you watch the whole fleet from a single console.</p>
+    <div class="fleet" aria-label="The fleet console">
+      <div class="fleet-bar mono"><span class="dotg"></span> Fleet · your account <span style="margin-left:auto">3 domains · all governed</span></div>
+      <div class="fleet-row mono"><b>storefront</b><span>sales-eng</span><span>2 ports</span><span class="okp">✓ governed</span></div>
+      <div class="fleet-row mono"><b>marketing</b><span>growth</span><span>1 port</span><span class="okp">✓ governed</span></div>
+      <div class="fleet-row mono"><b>fulfillment</b><span>ops-eng</span><span>2 ports</span><span class="okp">✓ governed</span></div>
+    </div>
     <div class="cards">
       <div class="card"><div class="klab">Faster</div><h3>Minutes, not quarters</h3><p>A complete governed domain from a blueprint, in one action — instead of a platform project.</p></div>
       <div class="card"><div class="klab">Leaner</div><h3>No platform to build</h3><p>No infra, DevOps or SRE. It runs and manages itself, from one console.</p></div>
