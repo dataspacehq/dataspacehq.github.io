@@ -122,6 +122,21 @@
   .fleet .fleet-row b{color:#eaf1f8; font-weight:700} .fleet .fleet-row span{color:#9fb2c8}
   .fleet .okp{color:var(--signal); font-weight:700}
   @media (max-width:600px){ .fleet .fleet-row{grid-template-columns:1fr auto} .fleet .fleet-row span:nth-child(2),.fleet .fleet-row span:nth-child(3){display:none} }
+  /* system-at-scale diagram (data-engineering lifecycle: ingest→transform→serve + undercurrents) */
+  .scale{margin-top:34px; border:1px solid var(--line); border-radius:var(--r); background:var(--surface); box-shadow:var(--shadow); overflow:hidden}
+  .scale-top{display:flex; gap:16px; align-items:stretch; padding:26px 26px 22px; overflow-x:auto}
+  .dmod{flex:1 0 148px; min-width:148px; border:1px solid var(--line); border-radius:12px; padding:14px; background:var(--bg)}
+  .dmod-name{font-size:.8rem; font-weight:750; color:var(--ink); margin-bottom:11px}
+  .pillars{display:grid; grid-template-columns:repeat(3,1fr); gap:6px}
+  .pillars span{writing-mode:vertical-rl; transform:rotate(180deg); text-align:center; padding:16px 3px; border-radius:7px;
+    background:color-mix(in srgb,var(--accent) 12%,transparent); color:var(--accent); font-weight:750; font-size:.68rem; letter-spacing:.02em}
+  .dmod-base{margin-top:9px; font-size:.62rem; text-align:center; color:var(--muted); border-top:1px dashed var(--line); padding-top:7px}
+  .scale .dots{align-self:center; color:var(--muted); font-weight:800; letter-spacing:2px}
+  .undercurrent{display:flex; align-items:center; gap:16px; flex-wrap:wrap; padding:16px 26px; background:var(--console); color:var(--console-ink); border-top:1px solid var(--console-line)}
+  .uc-lab{font-size:.7rem; text-transform:uppercase; letter-spacing:.12em; font-weight:750; color:#9fb2c8}
+  .uc-chips{display:flex; gap:10px; flex-wrap:wrap}
+  .uc-chips span{font-size:.78rem; font-weight:650; color:#dbe7f3; border:1px solid var(--console-line); border-radius:999px; padding:4px 12px; display:inline-flex; align-items:center; gap:7px}
+  .uc-chips span::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--signal)}
   .card h3{margin-top:12px} .card p{margin-top:9px; font-size:.96rem}
   .card .step{font-family:ui-monospace,Menlo,monospace; font-size:.8rem; color:var(--muted); margin-bottom:6px}
 
@@ -272,13 +287,20 @@
   <section class="reveal">
     <span class="eyebrow">Why leaders adopt it</span>
     <h2 style="margin-top:14px">Autonomy for your teams.<br>One set of rules — yours.</h2>
-    <p class="lead-2">Set the guardrails once. Every domain inherits them, and any team can move without
-    waiting on you — while you watch the whole fleet from a single console.</p>
-    <div class="fleet" aria-label="The fleet console">
-      <div class="fleet-bar mono"><span class="dotg"></span> Fleet · your account <span style="margin-left:auto">3 domains · all governed</span></div>
-      <div class="fleet-row mono"><b>storefront</b><span>sales-eng</span><span>2 ports</span><span class="okp">✓ governed</span></div>
-      <div class="fleet-row mono"><b>marketing</b><span>growth</span><span>1 port</span><span class="okp">✓ governed</span></div>
-      <div class="fleet-row mono"><b>fulfillment</b><span>ops-eng</span><span>2 ports</span><span class="okp">✓ governed</span></div>
+    <p class="lead-2">Set the guardrails once. Every domain has the same shape and inherits them —
+    quality, security, governance, access — so any team can move without waiting on you.</p>
+    <div class="scale" aria-label="Many governed domains on Snowflake, under one governance">
+      <div class="scale-top">
+        <div class="dmod"><div class="dmod-name mono">sales</div><div class="pillars"><span>Ingest</span><span>Transform</span><span>Serve</span></div><div class="dmod-base mono">on Snowflake</div></div>
+        <div class="dmod"><div class="dmod-name mono">marketing</div><div class="pillars"><span>Ingest</span><span>Transform</span><span>Serve</span></div><div class="dmod-base mono">on Snowflake</div></div>
+        <div class="dmod"><div class="dmod-name mono">fulfillment</div><div class="pillars"><span>Ingest</span><span>Transform</span><span>Serve</span></div><div class="dmod-base mono">on Snowflake</div></div>
+        <div class="dots">···</div>
+        <div class="dmod"><div class="dmod-name mono">domain N</div><div class="pillars"><span>Ingest</span><span>Transform</span><span>Serve</span></div><div class="dmod-base mono">on Snowflake</div></div>
+      </div>
+      <div class="undercurrent">
+        <span class="uc-lab">Undercurrents · your governance</span>
+        <div class="uc-chips"><span>Quality</span><span>Security</span><span>Governance</span><span>Access</span><span>Lineage</span></div>
+      </div>
     </div>
     <div class="cards">
       <div class="card"><div class="klab">Faster</div><h3>Minutes, not quarters</h3><p>A complete governed domain from a blueprint, in one action — instead of a platform project.</p></div>
