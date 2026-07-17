@@ -3,130 +3,156 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DataSpace — governed data mesh on Snowflake, out of the box</title>
-<meta name="description" content="Stand up complete, governed data domains on Snowflake — a Native App. No platform, no infra, no DevOps.">
+<title>DataSpace — governed, self-serve data domains on Snowflake</title>
+<meta name="description" content="Give every team a governed, self-serve data domain on Snowflake — spun up in minutes — while you keep one set of rules over all of them. A Snowflake Native App.">
 <style>
-  :root {
-    --bg: #F5F8FA; --surface: #FFFFFF; --surface-2: #FBFDFE; --ink: #0D1B2A;
-    --muted: #51677A; --line: #DBE4EC; --accent: #0E7FA6; --accent-ink: #0A5D7C;
-    --accent-soft: #E4F1F6; --signal: #16875A; --grid: rgba(14,127,166,0.05);
-    --shadow: 0 1px 2px rgba(13,27,42,.04), 0 8px 30px rgba(13,27,42,.06); --maxw: 1080px;
+  :root{
+    --bg:#FBFCFD; --surface:#FFFFFF; --ink:#0B1220; --muted:#5B6B7C; --line:#E7ECF1;
+    --accent:#0E7FA6; --accent-2:#3F3DBB; --signal:#16875A; --danger:#C0392B;
+    --console:#0B1524; --console-line:#22344B; --console-ink:#DDE7F1;
+    --shadow:0 1px 2px rgba(11,18,32,.04), 0 12px 40px rgba(11,18,32,.07);
+    --shadow-lg:0 30px 80px rgba(11,18,32,.14);
+    --r:14px; --maxw:1120px;
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0A1622; --surface: #0F1E2E; --surface-2: #0C1926; --ink: #E7EFF6;
-      --muted: #8AA0B4; --line: #1D3040; --accent: #38B6D9; --accent-ink: #7FD3E8;
-      --accent-soft: #102F3C; --signal: #35C88A; --grid: rgba(56,182,217,0.06);
-      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 40px rgba(0,0,0,.35);
-    }
+  @media (prefers-color-scheme:dark){
+    :root{ --bg:#080E18; --surface:#0E1826; --ink:#EAF1F8; --muted:#93A4B7; --line:#1C2A3B;
+      --accent:#45C0E5; --accent-2:#8B87F5; --signal:#35C88A; --danger:#F07167;
+      --console:#060C16; --console-line:#1A2A40; --console-ink:#DDE7F1;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 44px rgba(0,0,0,.5); --shadow-lg:0 30px 90px rgba(0,0,0,.6); }
   }
-  :root[data-theme="light"] { color-scheme: light; }
-  :root[data-theme="dark"] {
-    color-scheme: dark;
-    --bg: #0A1622; --surface: #0F1E2E; --surface-2: #0C1926; --ink: #E7EFF6;
-    --muted: #8AA0B4; --line: #1D3040; --accent: #38B6D9; --accent-ink: #7FD3E8;
-    --accent-soft: #102F3C; --signal: #35C88A; --grid: rgba(56,182,217,0.06);
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 40px rgba(0,0,0,.35);
-  }
+  :root[data-theme="light"]{ color-scheme:light; }
+  :root[data-theme="dark"]{ color-scheme:dark; --bg:#080E18; --surface:#0E1826; --ink:#EAF1F8; --muted:#93A4B7; --line:#1C2A3B; --accent:#45C0E5; --accent-2:#8B87F5; --signal:#35C88A; --danger:#F07167; --console:#060C16; --console-line:#1A2A40; --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 44px rgba(0,0,0,.5); --shadow-lg:0 30px 90px rgba(0,0,0,.6); }
 
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0; color: var(--ink); background-color: var(--bg);
-    background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-    background-size: 28px 28px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.6; font-size: 17px; -webkit-font-smoothing: antialiased;
-  }
-  .mono { font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace; }
-  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
-  a { color: var(--accent-ink); }
-  h1, h2, h3 { text-wrap: balance; line-height: 1.12; margin: 0; }
-  p { margin: 0; color: var(--muted); }
-  strong { color: var(--ink); font-weight: 650; }
-  .eyebrow { font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent-ink); font-weight: 650; }
-  .stack { display: flex; flex-direction: column; gap: 16px; }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{margin:0; background:var(--bg); color:var(--ink); font-size:17px; line-height:1.6;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  .mono{font-family:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+  a{color:inherit; text-decoration:none}
+  h1,h2,h3{margin:0; line-height:1.08; letter-spacing:-.022em; text-wrap:balance}
+  h1{font-size:clamp(2.4rem,5.6vw,4.1rem); font-weight:820}
+  h2{font-size:clamp(1.7rem,3.6vw,2.6rem); font-weight:780}
+  h3{font-size:1.12rem; font-weight:720; letter-spacing:-.01em}
+  p{margin:0; color:var(--muted)}
+  strong{color:var(--ink); font-weight:660}
+  .accent{color:var(--accent)}
+  .eyebrow{font-size:.74rem; letter-spacing:.16em; text-transform:uppercase; font-weight:700; color:var(--accent)}
+  .grad{background:linear-gradient(100deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+
+  /* buttons */
+  .btn{display:inline-flex; align-items:center; gap:8px; font-weight:680; font-size:1rem; cursor:pointer;
+    border:0; border-radius:11px; padding:13px 20px; background:var(--ink); color:var(--bg);
+    transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease; box-shadow:var(--shadow)}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.primary{background:linear-gradient(100deg,var(--accent),var(--accent-2)); color:#fff}
+  .btn.ghost{background:transparent; color:var(--ink); border:1px solid var(--line); box-shadow:none}
 
   /* nav */
-  header.nav { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(10px);
-    background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom: 1px solid var(--line); }
-  .nav-in { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
-  .wordmark { display: flex; align-items: baseline; gap: 7px; font-weight: 800; letter-spacing: -.01em; }
-  .wordmark .sep { color: var(--muted); font-weight: 400; } .wordmark .sf { color: var(--accent-ink); }
-  .btn { display: inline-flex; align-items: center; gap: 8px; border: 0; cursor: pointer;
-    background: var(--accent); color: #fff; font-weight: 650; font-size: .95rem;
-    padding: 11px 18px; border-radius: 10px; text-decoration: none; transition: transform .12s ease, filter .12s ease; }
-  .btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
-  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
-  :root[data-theme="dark"] .btn, @media (prefers-color-scheme: dark) {}
+  header.nav{position:sticky; top:0; z-index:40; backdrop-filter:blur(12px);
+    background:color-mix(in srgb,var(--bg) 80%,transparent); border-bottom:1px solid var(--line)}
+  .nav-in{display:flex; align-items:center; justify-content:space-between; padding:15px 0}
+  .brand{display:flex; align-items:center; gap:10px; font-weight:820; letter-spacing:-.02em; font-size:1.12rem}
+  .brand .mark{width:26px; height:26px; border-radius:8px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); display:inline-block; box-shadow:var(--shadow)}
+  .pill{font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--muted);
+    border:1px solid var(--line); border-radius:999px; padding:3px 9px}
+  .nav-cta{display:flex; align-items:center; gap:14px}
 
-  section { padding: 68px 0; border-top: 1px solid var(--line); }
-  .hero { border-top: 0; padding-top: 72px; }
-  .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 44px; align-items: center; }
-  h1 { font-size: clamp(2.3rem, 5.5vw, 3.9rem); letter-spacing: -.025em; font-weight: 800; }
-  .lede { font-size: 1.2rem; max-width: 30em; }
-  .accent { color: var(--accent); }
-  .trust { font-size: .86rem; color: var(--muted); display: flex; align-items: center; gap: 8px; margin-top: 4px; }
-  .trust .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--signal); }
-  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+  section{padding:72px 0; border-top:1px solid var(--line)}
+  .hero{border-top:0; padding:56px 0 60px; position:relative; overflow:hidden}
+  .hero::before{content:""; position:absolute; inset:-40% 0 auto -10%; height:520px; pointer-events:none;
+    background:radial-gradient(720px 360px at 78% 20%, color-mix(in srgb,var(--accent) 20%,transparent), transparent 70%),
+               radial-gradient(560px 320px at 15% 0%, color-mix(in srgb,var(--accent-2) 16%,transparent), transparent 70%);}
+  .hero-grid{position:relative; display:grid; grid-template-columns:1.02fr .98fr; gap:52px; align-items:center}
+  .hero .stack{display:flex; flex-direction:column; gap:22px; align-items:flex-start}
+  .lede{font-size:1.2rem; max-width:32em; color:var(--muted)}
+  .cta-row{display:flex; gap:12px; flex-wrap:wrap}
+  .microtrust{display:flex; gap:16px; flex-wrap:wrap; font-size:.84rem; color:var(--muted); margin-top:2px}
+  .microtrust span{display:inline-flex; align-items:center; gap:7px}
+  .microtrust .d{width:6px;height:6px;border-radius:50%;background:var(--signal)}
 
-  /* route chip */
-  .route-card { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
-  .route-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 15px 18px; border-bottom: 1px solid var(--line); background: var(--surface-2); font-size: .95rem; }
-  .verb { background: var(--accent); color: #fff; padding: 3px 9px; border-radius: 6px; font-weight: 700; font-size: .8rem; }
-  .path { color: var(--ink); font-weight: 600; } .arrow { color: var(--muted); }
-  .status { display: inline-flex; align-items: center; gap: 7px; margin-left: auto; color: var(--signal); font-weight: 700; font-size: .82rem; }
-  .status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); }
-  .route-body { padding: 15px 18px; font-size: .84rem; color: var(--muted); overflow-x: auto; }
-  .route-body pre { margin: 0; } .k { color: var(--accent-ink); }
+  /* console */
+  .console{border-radius:16px; background:var(--console); border:1px solid var(--console-line);
+    box-shadow:var(--shadow-lg); overflow:hidden; color:var(--console-ink)}
+  .console .bar{display:flex; align-items:center; gap:7px; padding:13px 16px; border-bottom:1px solid var(--console-line)}
+  .console .bar i{width:11px; height:11px; border-radius:50%; background:#33475f; display:inline-block}
+  .console .bar .t{margin-left:9px; font-size:.74rem; color:#7d92aa; letter-spacing:.04em}
+  .console .body{padding:18px 18px 22px; font-size:.92rem; line-height:1.85; min-height:300px}
+  .console .ln{white-space:pre-wrap; word-break:break-word}
+  .console .p{color:var(--accent)} .console .p::before{content:"$ "}
+  .console .ok{color:var(--signal)} .console .arrow{color:#6b83a0}
+  .console .cur{display:inline-block; width:8px; height:1.05em; vertical-align:-2px; background:var(--accent); animation:blink 1s steps(2) infinite; margin-left:1px}
+  @keyframes blink{50%{opacity:0}}
 
-  .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 26px; }
-  .oc { border: 1px solid var(--line); border-radius: 12px; padding: 20px; background: var(--surface); box-shadow: var(--shadow); }
-  .oc .verb-lbl { font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: var(--accent-ink); font-weight: 700; }
-  .oc h3 { font-size: 1.08rem; margin-top: 9px; } .oc p { margin-top: 7px; font-size: .92rem; }
+  /* trust strip */
+  .strip{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; padding:26px 0}
+  .strip .it{display:flex; gap:11px; align-items:flex-start; font-size:.95rem}
+  .strip .ck{color:var(--signal); font-weight:800; flex:none}
 
-  .cols { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 26px; }
-  .col { border: 1px solid var(--line); border-radius: 12px; padding: 20px; background: var(--surface); }
-  .col .n { color: var(--accent); font-weight: 700; } .col h3 { display: inline; font-size: 1.05rem; }
-  .col p { margin-top: 8px; font-size: .9rem; } .col .hide { margin-top: 12px; font-size: .76rem; color: var(--accent-ink); }
+  /* generic cards */
+  .lead-2{max-width:34em; margin-top:14px}
+  .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:38px}
+  .card{border:1px solid var(--line); border-radius:var(--r); padding:26px; background:var(--surface); box-shadow:var(--shadow)}
+  .card .klab{font-size:.72rem; text-transform:uppercase; letter-spacing:.12em; font-weight:750; color:var(--accent)}
+  .card h3{margin-top:12px} .card p{margin-top:9px; font-size:.96rem}
+  .card .step{font-family:ui-monospace,Menlo,monospace; font-size:.8rem; color:var(--muted); margin-bottom:6px}
 
-  .safe { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px 26px; margin-top: 24px; }
-  .safe div { display: flex; gap: 11px; align-items: baseline; font-size: .98rem; }
-  .safe .ck { color: var(--signal); font-weight: 800; }
+  /* problem */
+  .prob{display:grid; grid-template-columns:1.1fr 1fr; gap:46px; align-items:start}
+  .prob ul{list-style:none; margin:26px 0 0; padding:0; display:flex; flex-direction:column; gap:16px}
+  .prob li{display:grid; grid-template-columns:auto 1fr; gap:14px; font-size:1.02rem}
+  .prob li .x{color:var(--danger); font-weight:800}
 
-  .terminal { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); background: var(--surface-2); margin-top: 24px; }
-  .term-head { display: flex; gap: 7px; padding: 12px 15px; border-bottom: 1px solid var(--line); align-items: center; }
-  .term-head .b { width: 11px; height: 11px; border-radius: 50%; background: var(--line); }
-  .term-head .lbl { margin-left: 8px; font-size: .74rem; color: var(--muted); }
-  .term-body { padding: 15px; font-size: .82rem; line-height: 1.8; overflow-x: auto; }
-  .term-body .cmd::before { content: "$ "; color: var(--accent); } .term-body .cmd { color: var(--ink); font-weight: 600; }
-  .term-body .out { color: var(--muted); } .term-body .ok { color: var(--signal); font-weight: 700; } .term-body .cmt { color: var(--accent-ink); }
+  /* comparison */
+  .cmp{margin-top:34px; border:1px solid var(--line); border-radius:var(--r); overflow:hidden; background:var(--surface); box-shadow:var(--shadow)}
+  .cmp .row{display:grid; grid-template-columns:1.1fr 1fr 1fr; border-top:1px solid var(--line)}
+  .cmp .row:first-child{border-top:0}
+  .cmp .row>div{padding:14px 18px; font-size:.95rem}
+  .cmp .h{background:color-mix(in srgb,var(--ink) 4%,transparent); font-weight:700; font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
+  .cmp .k{color:var(--muted)} .cmp .diy{color:var(--muted); text-decoration:line-through; text-decoration-color:color-mix(in srgb,var(--muted) 50%,transparent)}
+  .cmp .us{font-weight:680} .cmp .us b{color:var(--signal)}
 
-  /* form */
-  .form-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
-  form { display: flex; flex-direction: column; gap: 14px; }
-  label { font-size: .82rem; font-weight: 650; color: var(--ink); display: flex; flex-direction: column; gap: 6px; }
-  input, select, textarea {
-    font: inherit; font-size: .98rem; color: var(--ink); background: var(--surface);
-    border: 1px solid var(--line); border-radius: 10px; padding: 11px 13px; width: 100%;
-  }
-  input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
-  textarea { min-height: 84px; resize: vertical; }
-  .form-msg { font-size: .9rem; padding: 12px 14px; border-radius: 10px; display: none; }
-  .form-msg.ok { display: block; background: color-mix(in srgb, var(--signal) 14%, transparent); color: var(--signal); border: 1px solid color-mix(in srgb, var(--signal) 35%, transparent); }
-  .form-msg.err { display: block; background: color-mix(in srgb, #d9534f 14%, transparent); color: #d9534f; border: 1px solid color-mix(in srgb, #d9534f 35%, transparent); }
-  .btn.full { justify-content: center; width: 100%; padding: 13px; font-size: 1rem; }
-  .fine { font-size: .78rem; color: var(--muted); }
+  /* who */
+  .who-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:34px}
 
-  footer { padding: 34px 0 56px; border-top: 1px solid var(--line); }
-  footer .line { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px; }
+  /* faq */
+  .faq{margin-top:34px; border-top:1px solid var(--line)}
+  details{border-bottom:1px solid var(--line)}
+  summary{cursor:pointer; list-style:none; padding:20px 4px; font-weight:680; font-size:1.06rem; display:flex; justify-content:space-between; gap:16px; align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+"; color:var(--accent); font-weight:700; font-size:1.3rem; transition:transform .2s}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{padding:0 4px 22px; max-width:60em}
 
-  @keyframes pulse { 0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--signal) 60%,transparent);} 70%{box-shadow:0 0 0 7px transparent;} 100%{box-shadow:0 0 0 0 transparent;} }
-  .status .dot { animation: pulse 2.2s infinite; }
-  @media (prefers-reduced-motion: reduce) { .status .dot { animation: none; } html { scroll-behavior: auto; } }
-  @media (max-width: 820px) {
-    .hero-grid, .form-wrap { grid-template-columns: 1fr; }
-    .outcomes, .cols { grid-template-columns: 1fr; } .safe { grid-template-columns: 1fr; }
+  /* cta */
+  .cta-band{background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 12%,var(--surface)),color-mix(in srgb,var(--accent-2) 12%,var(--surface)));
+    border-radius:22px; padding:44px; border:1px solid var(--line); box-shadow:var(--shadow); margin-top:8px}
+  .cta-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start}
+  .scarcity{display:inline-flex; align-items:center; gap:8px; font-size:.82rem; font-weight:700; color:var(--accent);
+    border:1px solid color-mix(in srgb,var(--accent) 40%,transparent); border-radius:999px; padding:5px 12px}
+  form{display:flex; flex-direction:column; gap:13px; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:22px; box-shadow:var(--shadow)}
+  label{font-size:.8rem; font-weight:680; display:flex; flex-direction:column; gap:6px; color:var(--ink)}
+  input,select,textarea{font:inherit; font-size:.98rem; color:var(--ink); background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:11px 13px; width:100%}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  textarea{min-height:76px; resize:vertical}
+  .fine{font-size:.78rem; color:var(--muted); font-weight:400}
+  .form-msg{display:none; font-size:.9rem; padding:11px 13px; border-radius:10px}
+  .form-msg.ok{display:block; background:color-mix(in srgb,var(--signal) 14%,transparent); color:var(--signal)}
+  .form-msg.err{display:block; background:color-mix(in srgb,var(--danger) 14%,transparent); color:var(--danger)}
+
+  footer{padding:40px 0 60px; border-top:1px solid var(--line)}
+  .foot{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; align-items:center; color:var(--muted); font-size:.9rem}
+
+  .reveal{opacity:0; transform:translateY(16px)}
+  .reveal.in{opacity:1; transform:none; transition:opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1)}
+  @media (prefers-reduced-motion:reduce){ .reveal{opacity:1; transform:none} .cur{animation:none} }
+  @media (max-width:900px){
+    .hero-grid,.prob,.cta-grid{grid-template-columns:1fr; gap:34px}
+    .cards,.who-grid{grid-template-columns:1fr}
+    .strip{grid-template-columns:1fr 1fr}
+    .cmp .row{grid-template-columns:1fr} .cmp .h{display:none}
+    .cmp .row>div{border-top:1px solid var(--line)} .cmp .row>div:first-child{border-top:0; font-weight:700; color:var(--ink)}
   }
 </style>
 </head>
@@ -134,144 +160,150 @@
 
 <header class="nav">
   <div class="wrap nav-in">
-    <div class="wordmark mono">DataSpace<span class="sep">/</span><span class="sf">for Snowflake</span></div>
-    <a class="btn" href="#demo">Get a demo</a>
+    <a class="brand" href="#"><span class="mark"></span>DataSpace <span class="pill">for Snowflake</span></a>
+    <div class="nav-cta">
+      <a class="fine" href="#how" style="color:var(--muted)">How it works</a>
+      <a class="btn primary" href="#demo">Get a demo</a>
+    </div>
   </div>
 </header>
 
 <div class="wrap">
 
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-grid">
       <div class="stack">
-        <span class="eyebrow mono">Snowflake Native App</span>
-        <h1>Governed data domains,<br>in <span class="accent">minutes.</span></h1>
-        <p class="lede">Stand up ingest → transform → serve on Snowflake — without a data-platform
-        team. DataSpace runs in your account and manages itself.</p>
+        <span class="eyebrow">Snowflake Native App</span>
+        <h1>Every team ships governed data.<br><span class="grad">You keep control.</span></h1>
+        <p class="lede">DataSpace turns Snowflake into governed, self-serve data domains — ingest,
+        transform, serve — spun up in minutes. Your guardrails, enforced on every one.</p>
         <div class="cta-row">
-          <a class="btn" href="#demo">Get a demo →</a>
-          <a class="btn ghost" href="#how">How it works</a>
+          <a class="btn primary" href="#demo">Get a demo →</a>
+          <a class="btn ghost" href="#how">See how it works</a>
         </div>
-        <div class="trust"><span class="dot"></span> Runs in your Snowflake account · your data never leaves.</div>
-      </div>
-      <div class="route-card" aria-label="Your data mesh, governed">
-        <div class="route-head mono">
-          <span class="verb">MESH</span><span class="path">your account</span>
-          <span class="status"><span class="dot"></span>all governed</span>
-        </div>
-        <div class="route-body mono">
-<pre><span style="color:var(--signal)">●</span> storefront    ingest → serve · 2 APIs
-<span style="color:var(--signal)">●</span> marketing     ingest → serve · 1 API
-<span style="color:var(--signal)">●</span> fulfillment   ingest → serve · 2 APIs
-
-one governance · one console · minutes each</pre>
+        <div class="microtrust">
+          <span><span class="d"></span> Runs in your account</span>
+          <span><span class="d"></span> Your data never leaves</span>
+          <span><span class="d"></span> No infra to run</span>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- TRUST BAND -->
-  <section style="padding:34px 0;">
-    <div class="safe" style="grid-template-columns:repeat(3,1fr);margin-top:0;">
-      <div><span class="ck">✓</span><span><strong>Snowflake Native App.</strong> Installs into your account.</span></div>
-      <div><span class="ck">✓</span><span><strong>Your data never leaves.</strong> Nothing is copied out.</span></div>
-      <div><span class="ck">✓</span><span><strong>No infra, no DevOps.</strong> It runs itself.</span></div>
-    </div>
-  </section>
-
-  <!-- BENEFITS -->
-  <section>
-    <div class="stack">
-      <span class="eyebrow mono">Why teams use it</span>
-      <h2 style="font-size:clamp(1.5rem,3.6vw,2.1rem);">Skip the data-platform project.</h2>
-      <p style="max-width:36em;">As you scale on Snowflake, every team builds data differently and the
-      central team becomes the bottleneck. DataSpace makes every domain the same — governed, out of the box.</p>
-    </div>
-    <div class="outcomes">
-      <div class="oc"><div class="verb-lbl mono">Faster</div><h3>Minutes, not quarters</h3><p>A complete governed domain from a short blueprint — ingest, transform and serve, in one action.</p></div>
-      <div class="oc"><div class="verb-lbl mono">Leaner</div><h3>No platform team</h3><p>No infra, no DevOps, no SRE. Everything runs and is managed from one console.</p></div>
-      <div class="oc"><div class="verb-lbl mono">Safer</div><h3>Governed by design</h3><p>Your guardrails — naming, PII, access, cost — enforced on every domain, automatically.</p></div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS — 3 steps -->
-  <section id="how">
-    <div class="stack">
-      <span class="eyebrow mono">How it works</span>
-      <h2 style="font-size:clamp(1.5rem,3.6vw,2.1rem);">Three steps — no SPCS, Snowpipe, dbt or grants to wire.</h2>
-      <p style="max-width:36em;">You describe the domain; DataSpace builds and governs it.</p>
-    </div>
-    <div class="cols">
-      <div class="col"><span class="n mono">01 </span><h3>Describe it</h3><p>Write a short blueprint (or start from a template): your tables, an owner, what to expose.</p><div class="hide mono">no SQL / DDL</div></div>
-      <div class="col"><span class="n mono">02 </span><h3>Provision it</h3><p>DataSpace stands up the domain — ingest → transform → serve — validated against your guardrails.</p><div class="hide mono">one action</div></div>
-      <div class="col"><span class="n mono">03 </span><h3>Consume it</h3><p>Apps and partners get governed APIs, Snowflake shares or views. Callers never send SQL.</p><div class="hide mono">output ports</div></div>
-    </div>
-  </section>
-
-  <!-- FEATURES — the cool stuff -->
-  <section>
-    <div class="stack">
-      <span class="eyebrow mono">For the data team</span>
-      <h2 style="font-size:clamp(1.5rem,3.6vw,2.1rem);">Ports for every consumer. Guardrails for every domain.</h2>
-      <p style="max-width:36em;">Serve a domain however consumers need it — and keep it safe by default.</p>
-    </div>
-    <div class="outcomes">
-      <div class="oc"><div class="verb-lbl mono">Ship</div><h3>Power your apps</h3><p>Curated data as a governed REST API — orders, customer 360, inventory — not a SQL client.</p></div>
-      <div class="oc"><div class="verb-lbl mono">Share</div><h3>Enable partners</h3><p>Governed, per-consumer endpoints or a Snowflake share — partners pull exactly what they’re allowed to.</p></div>
-      <div class="oc"><div class="verb-lbl mono">Sell</div><h3>Monetize a domain</h3><p>Offer — or charge — customers for governed access to a domain, via an API or a Snowflake share.</p></div>
-    </div>
-    <div class="safe">
-      <div><span class="ck">✓</span><span><strong>Callers never send SQL.</strong> Routes map to trusted objects.</span></div>
-      <div><span class="ck">✓</span><span><strong>Allow-listed filters only.</strong> Everything else is rejected.</span></div>
-      <div><span class="ck">✓</span><span><strong>Enforced row limits</strong> on every query.</span></div>
-      <div><span class="ck">✓</span><span><strong>Guardrails enforced</strong> — naming, PII, access, cost — on every domain.</span></div>
-    </div>
-    <p style="margin-top:22px;font-size:.9rem;color:var(--muted);">On the roadmap: open <strong>Iceberg</strong> output ports, and governing data in an external lakehouse — <strong>Databricks, Glue</strong> — through Snowflake, without moving it.</p>
-  </section>
-
-  <section>
-    <div class="stack">
-      <span class="eyebrow mono">Proof</span>
-      <h2 style="font-size:clamp(1.5rem,3.6vw,2.1rem);">A governed data domain, live in minutes.</h2>
-      <p>The same serving code runs in the demo and on Snowflake. Publish a table, add another
-      without a restart, and out-of-policy requests are rejected.</p>
-    </div>
-    <div class="terminal">
-      <div class="term-head"><span class="b"></span><span class="b"></span><span class="b"></span><span class="lbl mono">DataSpace demo — full cycle</span></div>
-      <div class="term-body mono">
-<div class="cmd">provision storefront  <span class="cmt"># from a blueprint</span></div>
-<div class="out"><span class="ok">✓</span> governed domain — raw, ingest, ports, transform</div>
-<div class="cmd">provision marketing_db  <span class="cmt"># breaks the rules</span></div>
-<div class="out">✗ rejected — 5 guardrail violations</div>
-<div class="cmd">curl '.../orders?currency=USD'</div>
-<div class="out"><span class="ok">200 OK</span> — governed, no SQL from callers</div>
+      <div class="console" aria-label="Provisioning a governed data domain">
+        <div class="bar"><i></i><i></i><i></i><span class="t mono">dataspace · your account</span></div>
+        <div class="body mono" id="console"></div>
       </div>
     </div>
   </section>
+</div>
 
-  <section id="demo">
-    <div class="form-wrap">
-      <div class="stack">
-        <span class="eyebrow mono">Become a design partner</span>
-        <h2 style="font-size:clamp(1.5rem,3.6vw,2.1rem);">See the full cycle live.</h2>
-        <p>A 20-minute walkthrough of a governed domain — ingest, transform, serve — then we set you
-        up as a design partner to run it on your own Snowflake.</p>
-        <div class="trust"><span class="dot"></span> We reply within one business day.</div>
+<!-- TRUST STRIP -->
+<div style="border-top:1px solid var(--line); background:color-mix(in srgb,var(--ink) 2.5%,transparent)">
+  <div class="wrap">
+    <div class="strip">
+      <div class="it"><span class="ck">✓</span><span><strong>A Snowflake Native App.</strong> Installs into your account from the Marketplace.</span></div>
+      <div class="it"><span class="ck">✓</span><span><strong>Data never leaves.</strong> Nothing is copied out of Snowflake.</span></div>
+      <div class="it"><span class="ck">✓</span><span><strong>No platform to run.</strong> No infra, no DevOps, no SRE.</span></div>
+      <div class="it"><span class="ck">✓</span><span><strong>Governed by you.</strong> One set of rules across every domain.</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PROBLEM -->
+  <section class="reveal">
+    <div class="prob">
+      <div>
+        <span class="eyebrow">The problem</span>
+        <h2 style="margin-top:14px">Scaling on Snowflake, data turns to sprawl.</h2>
+        <p class="lead-2">Every team builds their own way. You either become the bottleneck for every
+        request — or governance quietly falls apart. Data mesh promised a fix; in practice it's wikis
+        and tribal knowledge.</p>
       </div>
-      <div class="route-card" style="padding:22px;">
+      <ul>
+        <li><span class="x">✗</span><span>No two domains look alike — naming, layers, access, PII, all divergent.</span></li>
+        <li><span class="x">✗</span><span>Your team gates every new dataset, pipeline and grant.</span></li>
+        <li><span class="x">✗</span><span>Every new domain is a multi-week project wired from scratch.</span></li>
+        <li><span class="x">✗</span><span>Nobody can safely navigate another team's data.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="reveal">
+    <span class="eyebrow">How it works</span>
+    <h2 style="margin-top:14px">Three steps. No SPCS, Snowpipe, dbt or grants to wire.</h2>
+    <p class="lead-2">You describe the domain; DataSpace builds it and keeps it governed.</p>
+    <div class="cards">
+      <div class="card"><div class="step mono">01 — describe</div><div class="klab">Blueprint</div><h3>Describe the domain</h3><p>A short blueprint — or a template: your tables, an owner, what to expose. No SQL or DDL.</p></div>
+      <div class="card"><div class="step mono">02 — provision</div><div class="klab">One action</div><h3>DataSpace provisions it</h3><p>Ingest → transform → serve stood up in minutes, validated against your company guardrails.</p></div>
+      <div class="card"><div class="step mono">03 — consume</div><div class="klab">Output ports</div><h3>Teams consume it</h3><p>Governed APIs, Snowflake shares or views. Callers never send SQL; PII and access are enforced.</p></div>
+    </div>
+  </section>
+
+  <!-- OUTCOMES + COMPARISON -->
+  <section class="reveal">
+    <span class="eyebrow">Why leaders adopt it</span>
+    <h2 style="margin-top:14px">Autonomy for teams. Control for you.</h2>
+    <p class="lead-2">Set the rules once. Every domain inherits them — and any team can move without waiting on you.</p>
+    <div class="cards">
+      <div class="card"><div class="klab">Faster</div><h3>Minutes, not quarters</h3><p>A complete governed domain from a blueprint, in one action — instead of a platform project.</p></div>
+      <div class="card"><div class="klab">Leaner</div><h3>No platform to build</h3><p>No infra, DevOps or SRE. It runs and manages itself, from one console.</p></div>
+      <div class="card"><div class="klab">Safer</div><h3>Governed by design</h3><p>Naming, PII, access and cost guardrails enforced on every domain, automatically.</p></div>
+    </div>
+
+    <div class="cmp">
+      <div class="row"><div class="h"></div><div class="h">Doing it yourself</div><div class="h">With DataSpace</div></div>
+      <div class="row"><div>A new governed domain</div><div class="diy">A quarter</div><div class="us"><b>Minutes</b></div></div>
+      <div class="row"><div>Who builds it</div><div class="diy">A platform engineer</div><div class="us">An analyst / domain owner</div></div>
+      <div class="row"><div>Governance</div><div class="diy">Manual reviews &amp; a wiki</div><div class="us"><b>Enforced on every domain</b></div></div>
+      <div class="row"><div>The central team</div><div class="diy">The bottleneck</div><div class="us">Sets the rails, watches the fleet</div></div>
+      <div class="row"><div>Infra &amp; ops</div><div class="diy">Hire &amp; run it</div><div class="us"><b>None</b></div></div>
+    </div>
+  </section>
+
+  <!-- WHO -->
+  <section class="reveal">
+    <span class="eyebrow">Who it's for</span>
+    <h2 style="margin-top:14px">Built for teams scaling on Snowflake.</h2>
+    <div class="who-grid">
+      <div class="card"><h3>Data &amp; platform leaders</h3><p>You want consistency and governance across teams — without being the bottleneck for every request. Set guardrails once; watch the whole fleet from one console.</p></div>
+      <div class="card"><h3>Domain &amp; analytics teams</h3><p>You want a complete, governed data domain in minutes and full autonomy inside it — without learning SPCS, Snowpipe, dbt and RBAC.</p></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="reveal">
+    <span class="eyebrow">Questions</span>
+    <h2 style="margin-top:14px">The things people ask first.</h2>
+    <div class="faq">
+      <details><summary>Isn't this just an API in front of Snowflake?</summary><p>No. An API is one of several output ports. DataSpace is a factory for complete, governed data <em>domains</em> — with a lifecycle (ingest → transform → serve), enforced company guardrails, and a fleet console across all of them. The endpoint is the easy part; the governance and consistency are the product.</p></details>
+      <details><summary>Does my data leave Snowflake?</summary><p>Never. DataSpace is a Native App that runs entirely inside your Snowflake account. Nothing is copied to us or anywhere else. You pay Snowflake for compute directly; we're a software layer on top.</p></details>
+      <details><summary>Do we still need Snowpipe, dbt, SPCS, RBAC?</summary><p>DataSpace uses them under the hood — you just don't wire them. Transforms are dbt (generated from your blueprint), serving runs on Snowpark Container Services, governance maps to Snowflake roles and policies. Best practices, by default.</p></details>
+      <details><summary>What about data that lives in Databricks or another lakehouse?</summary><p>On the roadmap: govern and serve data in an external Iceberg catalog (Databricks, Glue) through Snowflake — without moving it. If that's your setup, tell us — we're picking design partners for exactly this.</p></details>
+      <details><summary>Is it production-ready today?</summary><p>We're in early access and onboarding a small group of design partners now — hands-on, shaping the roadmap with us. If you're scaling on Snowflake and feeling the sprawl, this is the moment to get in.</p></details>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="demo" class="reveal">
+    <div class="cta-band">
+      <div class="cta-grid">
+        <div class="stack" style="display:flex;flex-direction:column;gap:16px;align-items:flex-start">
+          <span class="scarcity">● Taking a handful of design partners</span>
+          <h2>See it on your data.</h2>
+          <p style="max-width:30em">A 20-minute walkthrough — we provision a governed domain live, then set you
+          up as a design partner to run it on your own Snowflake. No install required to watch.</p>
+          <div class="microtrust"><span><span class="d"></span> We reply within one business day</span></div>
+        </div>
         <form id="lead-form" novalidate>
           <div class="form-msg" id="form-msg" role="status" aria-live="polite"></div>
           <input type="hidden" name="_subject" value="DataSpace — design-partner request">
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-          <label>Name
-            <input type="text" name="name" placeholder="Jane Doe" autocomplete="name">
-          </label>
-          <label>Work email
-            <input type="email" name="email" required placeholder="you@company.com" autocomplete="email">
-          </label>
-          <label>Company
-            <input type="text" name="company" placeholder="Acme Inc." autocomplete="organization">
-          </label>
+          <label>Name<input type="text" name="name" placeholder="Jane Doe" autocomplete="name"></label>
+          <label>Work email<input type="email" name="email" required placeholder="you@company.com" autocomplete="email"></label>
+          <label>Company<input type="text" name="company" placeholder="Acme Inc." autocomplete="organization"></label>
           <label>Where are you today?
             <select name="context">
               <option value="">Choose one…</option>
@@ -281,68 +313,88 @@ one governance · one console · minutes each</pre>
               <option>Just exploring</option>
             </select>
           </label>
-          <label>What’s the pain? <span class="fine">(optional)</span>
+          <label>What's the pain? <span class="fine">(optional)</span>
             <textarea name="message" placeholder="e.g. every team builds data differently; governance is a bottleneck"></textarea>
           </label>
-          <button class="btn full" type="submit" id="submit-btn">Request early access</button>
-          <p class="fine">We’ll only use this to talk to you about the design-partner program.</p>
+          <button class="btn primary" style="width:100%;justify-content:center" type="submit" id="submit-btn">Request a demo</button>
+          <p class="fine">We'll only use this to talk to you about the design-partner program.</p>
         </form>
       </div>
     </div>
   </section>
-
 </div>
 
 <footer>
-  <div class="wrap line">
-    <span><strong>DataSpace for Snowflake</strong> — the data-platform team, as a Marketplace app.</span>
-    <span class="mono" style="color:var(--muted);">DataSpace HQ · <a href="mailto:dmitrii.raev@gmail.com">dmitrii.raev@gmail.com</a></span>
+  <div class="wrap foot">
+    <span><strong style="color:var(--ink)">DataSpace</strong> — governed, self-serve data domains on Snowflake.</span>
+    <span class="mono">DataSpace HQ · <a class="accent" href="mailto:dmitrii.raev@gmail.com">dmitrii.raev@gmail.com</a></span>
   </div>
 </footer>
 
 <script>
-  // Lead capture. Posts to FORM_ENDPOINT if set, else the Vercel /api/lead
-  // function; if neither is reachable (e.g. static GitHub Pages with nothing
-  // configured) it falls back to a prefilled mailto.
-  //
-  // For GitHub Pages (static): create a free form at https://formspree.io and
-  // paste its endpoint here, e.g. "https://formspree.io/f/abcdwxyz".
-  const FORM_ENDPOINT = "https://formspree.io/f/mwvglkre";
-  const LEAD_EMAIL = "dmitrii.raev@gmail.com";
-  const form = document.getElementById('lead-form');
-  const msg = document.getElementById('form-msg');
-  const btn = document.getElementById('submit-btn');
-
-  function show(kind, text) { msg.className = 'form-msg ' + kind; msg.textContent = text; }
-  function mailtoFallback(data) {
-    const body = `Name: ${data.name || '-'}\nEmail: ${data.email}\nCompany: ${data.company || '-'}\nContext: ${data.context || '-'}\nPain: ${data.message || '-'}`;
-    window.location.href = `mailto:${LEAD_EMAIL}?subject=${encodeURIComponent('DataSpace — design-partner request')}&body=${encodeURIComponent(body)}`;
-  }
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(form).entries());
-    if (!data.email || !/.+@.+\..+/.test(data.email)) { show('err', 'Please enter a valid work email.'); return; }
-    btn.disabled = true; btn.textContent = 'Sending…';
-    try {
-      const r = await fetch(FORM_ENDPOINT || '/api/lead', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json', 'accept': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      if (!r.ok) throw new Error('bad status');
-      form.reset();
-      show('ok', "Thanks — we'll be in touch within one business day.");
-      btn.textContent = 'Request early access';
-    } catch (err) {
-      // No backend reachable → open the user's mail client as a fallback.
-      show('ok', 'Opening your email client to send the request…');
-      mailtoFallback(data);
-      btn.textContent = 'Request early access';
-    } finally {
-      btn.disabled = false;
+  // ---- animated provisioning console ----
+  (function(){
+    const el = document.getElementById('console');
+    if(!el) return;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const seq = [
+      {k:'p',   t:'dataspace provision storefront'},
+      {k:'arrow', t:'→ raw · staging · marts created'},
+      {k:'arrow', t:'→ guardrails inherited — PII tagged · access: deny'},
+      {k:'arrow', t:'→ ports live — /orders  /products'},
+      {k:'ok',  t:'✓ governed domain ready · 2m 11s'},
+      {k:'sp',  t:''},
+      {k:'p',   t:"curl …/orders?tier=enterprise"},
+      {k:'ok',  t:'200 OK — [ { "order_id": "ord-0042", … } ] · no SQL from callers'},
+    ];
+    function line(cls, text){ const d=document.createElement('div'); d.className='ln '+(cls||''); d.textContent=text; el.appendChild(d); return d; }
+    function renderStatic(){ el.innerHTML=''; seq.forEach(s=> s.k==='sp'?line('',' '):line(s.k==='p'?'p':(s.k==='ok'?'ok':'arrow'), s.t)); }
+    if(reduce){ renderStatic(); return; }
+    let timers=[];
+    function clearAll(){ timers.forEach(clearTimeout); timers=[]; el.innerHTML=''; }
+    function typeCmd(text, done){
+      const d=line('p',''); const cur=document.createElement('span'); cur.className='cur'; d.appendChild(cur);
+      let i=0; (function tick(){ if(i<text.length){ cur.insertAdjacentText('beforebegin', text[i++]); timers.push(setTimeout(tick, 34)); } else { cur.remove(); done&&done(); } })();
     }
-  });
+    function run(){
+      clearAll(); let delay=0;
+      seq.forEach((s)=>{
+        if(s.k==='p'){ timers.push(setTimeout(()=>typeCmd(s.t), delay)); delay += 34*s.t.length + 380; }
+        else if(s.k==='sp'){ timers.push(setTimeout(()=>line('',' '), delay)); delay += 120; }
+        else { timers.push(setTimeout(()=>line(s.k==='ok'?'ok':'arrow', s.t), delay)); delay += 620; }
+      });
+      timers.push(setTimeout(run, delay + 2600));
+    }
+    run();
+  })();
+
+  // ---- scroll reveal ----
+  (function(){
+    if(!('IntersectionObserver' in window)) { document.querySelectorAll('.reveal').forEach(e=>e.classList.add('in')); return; }
+    const io=new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
+  })();
+
+  // ---- lead capture ----
+  (function(){
+    const FORM_ENDPOINT = "https://formspree.io/f/mwvglkre";
+    const LEAD_EMAIL = "dmitrii.raev@gmail.com";
+    const form=document.getElementById('lead-form'), msg=document.getElementById('form-msg'), btn=document.getElementById('submit-btn');
+    const show=(k,t)=>{ msg.className='form-msg '+k; msg.textContent=t; };
+    function mailto(d){ const b=`Name: ${d.name||'-'}\nEmail: ${d.email}\nCompany: ${d.company||'-'}\nContext: ${d.context||'-'}\nPain: ${d.message||'-'}`;
+      location.href=`mailto:${LEAD_EMAIL}?subject=${encodeURIComponent('DataSpace — design-partner request')}&body=${encodeURIComponent(b)}`; }
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const d=Object.fromEntries(new FormData(form).entries());
+      if(!d.email||!/.+@.+\..+/.test(d.email)){ show('err','Please enter a valid work email.'); return; }
+      btn.disabled=true; btn.textContent='Sending…';
+      try{
+        const r=await fetch(FORM_ENDPOINT,{method:'POST',headers:{'content-type':'application/json','accept':'application/json'},body:JSON.stringify(d)});
+        if(!r.ok) throw new Error('bad'); form.reset(); show('ok',"Thanks — we'll be in touch within one business day.");
+      }catch(_){ show('ok','Opening your email client…'); mailto(d); }
+      finally{ btn.disabled=false; btn.textContent='Request a demo'; }
+    });
+  })();
 </script>
 </body>
 </html>
