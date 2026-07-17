@@ -374,40 +374,41 @@
 </footer>
 
 <script>
-  // ---- animated provisioning console ----
+  // ---- animated provisioning console (renders content first, then animates) ----
   (function(){
-    const el = document.getElementById('console');
+    var el = document.getElementById('console');
     if(!el) return;
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const seq = [
-      {k:'p',   t:'dataspace provision storefront'},
-      {k:'arrow', t:'→ raw · staging · marts created'},
-      {k:'arrow', t:'→ guardrails inherited — PII tagged · access: deny'},
-      {k:'arrow', t:'→ ports live — /orders  /products'},
-      {k:'ok',  t:'✓ governed domain ready · 2m 11s'},
-      {k:'sp',  t:''},
-      {k:'p',   t:"curl …/orders?tier=enterprise"},
-      {k:'ok',  t:'200 OK — [ { "order_id": "ord-0042", … } ] · no SQL from callers'},
+    var seq = [
+      {c:'p',    t:'dataspace provision storefront'},
+      {c:'arrow',t:'→ raw · staging · marts created'},
+      {c:'arrow',t:'→ guardrails inherited — PII tagged · access: deny'},
+      {c:'arrow',t:'→ ports live — /orders  /products'},
+      {c:'ok',   t:'✓ governed domain ready'},
+      {c:'sp',   t:''},
+      {c:'p',    t:'curl …/orders?tier=enterprise'},
+      {c:'ok',   t:'200 OK — [ { "order_id":"ord-000001", … } ] · no SQL from callers'}
     ];
-    function line(cls, text){ const d=document.createElement('div'); d.className='ln '+(cls||''); d.textContent=text; el.appendChild(d); return d; }
-    function renderStatic(){ el.innerHTML=''; seq.forEach(s=> s.k==='sp'?line('',' '):line(s.k==='p'?'p':(s.k==='ok'?'ok':'arrow'), s.t)); }
-    if(reduce){ renderStatic(); return; }
-    let timers=[];
-    function clearAll(){ timers.forEach(clearTimeout); timers=[]; el.innerHTML=''; }
-    function typeCmd(text, done){
-      const d=line('p',''); const cur=document.createElement('span'); cur.className='cur'; d.appendChild(cur);
-      let i=0; (function tick(){ if(i<text.length){ cur.insertAdjacentText('beforebegin', text[i++]); timers.push(setTimeout(tick, 34)); } else { cur.remove(); done&&done(); } })();
+    function add(cls, txt){ var d=document.createElement('div'); d.className='ln '+cls; d.textContent=txt; el.appendChild(d); return d; }
+    function renderAll(){ el.textContent=''; for(var i=0;i<seq.length;i++){ var s=seq[i]; add(s.c==='sp'?'':s.c, s.t||' '); } }
+    renderAll(); // always visible, even if the animation can't run
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce) return;
+    var timers=[];
+    function reset(){ for(var i=0;i<timers.length;i++) clearTimeout(timers[i]); timers=[]; el.textContent=''; }
+    function typeLine(txt){
+      var d=add('p',''), cur=document.createElement('span'); cur.className='cur'; d.appendChild(cur);
+      var i=0; (function step(){ if(i<txt.length){ cur.insertAdjacentText('beforebegin', txt.charAt(i++)); timers.push(setTimeout(step,32)); } else { cur.remove(); } })();
     }
-    function run(){
-      clearAll(); let delay=0;
-      seq.forEach((s)=>{
-        if(s.k==='p'){ timers.push(setTimeout(()=>typeCmd(s.t), delay)); delay += 34*s.t.length + 380; }
-        else if(s.k==='sp'){ timers.push(setTimeout(()=>line('',' '), delay)); delay += 120; }
-        else { timers.push(setTimeout(()=>line(s.k==='ok'?'ok':'arrow', s.t), delay)); delay += 620; }
+    function loop(){
+      reset(); var delay=0;
+      seq.forEach(function(s){
+        if(s.c==='p'){ timers.push(setTimeout(function(){ typeLine(s.t); }, delay)); delay += 32*s.t.length + 420; }
+        else if(s.c==='sp'){ timers.push(setTimeout(function(){ add('',' '); }, delay)); delay += 140; }
+        else { timers.push(setTimeout(function(){ add(s.c, s.t); }, delay)); delay += 640; }
       });
-      timers.push(setTimeout(run, delay + 2600));
+      timers.push(setTimeout(loop, delay + 2800));
     }
-    run();
+    timers.push(setTimeout(loop, 900));
   })();
 
   // ---- scroll reveal ----
