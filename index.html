@@ -80,11 +80,12 @@
   .nav-cta{display:flex; align-items:center; gap:14px}
 
   section{padding:88px 0; border-top:1px solid var(--line)}
-  .hero{border-top:0; padding:72px 0 60px; position:relative; overflow:hidden}
+  .eyebrow + h2{margin-top:14px}
+  .hero{border-top:0; padding:72px 0 44px; position:relative; overflow:hidden}
   .hero::before{content:""; position:absolute; inset:-40% 0 auto -10%; height:520px; pointer-events:none;
     background:radial-gradient(720px 360px at 78% 20%, color-mix(in srgb,var(--accent) 20%,transparent), transparent 70%),
                radial-gradient(560px 320px at 15% 0%, color-mix(in srgb,var(--accent-2) 16%,transparent), transparent 70%);}
-  .hero-grid{position:relative; display:grid; grid-template-columns:1.18fr .82fr; gap:48px; align-items:center}
+  .hero-grid{position:relative; display:grid; grid-template-columns:1.18fr .82fr; gap:48px; align-items:start}
   .hero .stack{display:flex; flex-direction:column; gap:22px; align-items:flex-start}
   .lede{font-size:1.2rem; max-width:32em; color:var(--muted)}
   .cta-row{display:flex; gap:12px; flex-wrap:wrap}
@@ -117,11 +118,10 @@
     transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease}
   .card:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--accent) 32%,var(--line))}
   .card .klab{font-size:.72rem; text-transform:uppercase; letter-spacing:.12em; font-weight:750; color:var(--accent)}
-  /* built-on strip */
-  .builton{display:flex; align-items:center; justify-content:space-between; gap:20px 28px; flex-wrap:wrap; padding:22px 0}
-  .builton .bo-lab{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:750; color:var(--muted)}
-  .builton .bo-marks{display:flex; gap:28px; flex-wrap:wrap}
-  .builton .bo-marks span{font-weight:760; letter-spacing:-.01em; color:var(--ink); opacity:.6; font-size:1.02rem}
+  /* built-on — quiet trust line under the hero, not a band */
+  .builton{display:flex; align-items:baseline; gap:6px 10px; flex-wrap:wrap; margin-top:40px; max-width:56ch}
+  .builton .bo-lab{font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700; color:var(--muted)}
+  .builton .bo-marks{font-size:.86rem; color:var(--muted)}
   /* fleet console */
   .fleet{margin-top:34px; border:1px solid var(--console-line); border-radius:var(--r); overflow:hidden; background:var(--console); box-shadow:var(--shadow-lg); color:var(--console-ink)}
   .fleet .fleet-bar{display:flex; align-items:center; gap:9px; padding:14px 18px; border-bottom:1px solid var(--console-line); font-size:.82rem; color:#9fb2c8}
@@ -176,8 +176,8 @@
   details p{padding:0 4px 22px; max-width:60em}
 
   /* cta */
-  .cta-band{background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 12%,var(--surface)),color-mix(in srgb,var(--accent-2) 12%,var(--surface)));
-    border-radius:22px; padding:44px; border:1px solid var(--line); box-shadow:var(--shadow); margin-top:8px}
+  .cta-band{background:color-mix(in srgb,var(--accent) 6%,var(--surface));
+    border-radius:22px; padding:44px; border:1px solid color-mix(in srgb,var(--accent) 22%,var(--line)); box-shadow:var(--shadow); margin-top:8px}
   .cta-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start}
   .scarcity{display:inline-flex; align-items:center; gap:8px; font-size:.82rem; font-weight:700; color:var(--accent);
     border:1px solid color-mix(in srgb,var(--accent) 40%,transparent); border-radius:999px; padding:5px 12px}
@@ -244,20 +244,12 @@
         <div class="body mono" id="console"></div>
       </div>
     </div>
-  </section>
-</div>
 
-<!-- BUILT ON -->
-<div style="border-top:1px solid var(--line); background:color-mix(in srgb,var(--ink) 2.5%,transparent)">
-  <div class="wrap builton">
-    <span class="bo-lab">Built on Snowflake</span>
-    <div class="bo-marks">
-      <span>Native App</span><span>Snowpark Containers</span><span>dbt</span><span>Apache Iceberg</span><span>Cortex AI</span>
+    <div class="builton">
+      <span class="bo-lab">Built on</span>
+      <span class="bo-marks">Snowflake Native App · Snowpark Containers · dbt · Apache Iceberg · Cortex AI</span>
     </div>
-  </div>
-</div>
-
-<div class="wrap">
+  </section>
 
   <!-- PROBLEM -->
   <section class="reveal">
@@ -367,7 +359,7 @@
           <label>What's the pain? <span class="fine">(optional)</span>
             <textarea name="message" placeholder="e.g. every team builds data differently; governance is a bottleneck"></textarea>
           </label>
-          <button class="btn primary" style="width:100%;justify-content:center" type="submit" id="submit-btn">Request a demo</button>
+          <button class="btn primary" style="width:100%;justify-content:center" type="submit" id="submit-btn">Get a demo</button>
           <p class="fine">We'll only use this to talk to you about the design-partner program.</p>
         </form>
       </div>
@@ -444,7 +436,7 @@
         const r=await fetch(FORM_ENDPOINT,{method:'POST',headers:{'content-type':'application/json','accept':'application/json'},body:JSON.stringify(d)});
         if(!r.ok) throw new Error('bad'); form.reset(); show('ok',"Thanks — we'll be in touch within one business day.");
       }catch(_){ show('ok','Opening your email client…'); mailto(d); }
-      finally{ btn.disabled=false; btn.textContent='Request a demo'; }
+      finally{ btn.disabled=false; btn.textContent='Get a demo'; }
     });
   })();
 </script>
