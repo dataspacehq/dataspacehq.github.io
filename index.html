@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DataSpace — governed, self-serve data domains on Snowflake</title>
+<title>DataSpaceHQ — governed, self-serve data domains on Snowflake</title>
 <meta name="description" content="Give every team a governed, self-serve data domain on Snowflake — spun up in minutes — while you keep one set of rules over all of them. A Snowflake Native App.">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="DataSpace">
+<meta property="og:site_name" content="DataSpaceHQ">
 <meta property="og:title" content="Governed, self-serve data domains on Snowflake — in minutes">
 <meta property="og:description" content="Your teams stand up ingest → transform → serve on Snowflake, inside the guardrails you set once. A Snowflake Native App.">
 <meta property="og:url" content="https://dataspacehq.com/">
@@ -209,7 +209,7 @@
 
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="#"><span class="mark"></span>DataSpace <span class="pill">for Snowflake</span></a>
+    <a class="brand" href="#"><span class="mark"></span>DataSpaceHQ <span class="pill">for Snowflake</span></a>
     <div class="nav-cta">
       <a class="fine" href="#how" style="color:var(--muted)">How it works</a>
       <a class="btn primary" href="#demo">Get a demo</a>
@@ -281,11 +281,11 @@
   <section id="how" class="reveal">
     <span class="eyebrow">How it works</span>
     <h2 style="margin-top:14px">Three steps. That's it.</h2>
-    <p class="lead-2">You describe the domain; DataSpace builds and governs it — no Snowpipe, dbt,
+    <p class="lead-2">You describe the domain; DataSpaceHQ builds and governs it — no Snowpipe, dbt,
     containers or grants to wire yourself.</p>
     <div class="cards">
       <div class="card"><div class="step mono">01 — describe</div><div class="klab">Blueprint</div><h3>Describe the domain</h3><p>A short blueprint — or a template: your tables, an owner, what to expose. No SQL or DDL.</p></div>
-      <div class="card"><div class="step mono">02 — provision</div><div class="klab">One action</div><h3>DataSpace provisions it</h3><p>Ingest → transform → serve stood up in minutes, validated against your company guardrails.</p></div>
+      <div class="card"><div class="step mono">02 — provision</div><div class="klab">One action</div><h3>DataSpaceHQ provisions it</h3><p>Ingest → transform → serve stood up in minutes, validated against your company guardrails.</p></div>
       <div class="card"><div class="step mono">03 — consume</div><div class="klab">Output ports</div><h3>Teams consume it</h3><p>Governed APIs, Snowflake shares or views. Callers never send SQL; PII and access are enforced.</p></div>
     </div>
   </section>
@@ -303,7 +303,7 @@
     </div>
 
     <div class="cmp">
-      <div class="row"><div class="h"></div><div class="h">Doing it yourself</div><div class="h">With DataSpace</div></div>
+      <div class="row"><div class="h"></div><div class="h">Doing it yourself</div><div class="h">With DataSpaceHQ</div></div>
       <div class="row"><div>A new governed domain</div><div class="diy">A quarter</div><div class="us"><b>Minutes</b></div></div>
       <div class="row"><div>Who builds it</div><div class="diy">A platform engineer</div><div class="us">An analyst / domain owner</div></div>
       <div class="row"><div>Governance</div><div class="diy">Manual reviews &amp; a wiki</div><div class="us"><b>Enforced on every domain</b></div></div>
@@ -327,9 +327,9 @@
     <span class="eyebrow">Questions</span>
     <h2 style="margin-top:14px">The things people ask first.</h2>
     <div class="faq">
-      <details><summary>Isn't this just an API in front of Snowflake?</summary><p>No. An API is one of several output ports. DataSpace is a factory for complete, governed data <em>domains</em> — with a lifecycle (ingest → transform → serve), enforced company guardrails, and a fleet console across all of them. The endpoint is the easy part; the governance and consistency are the product.</p></details>
-      <details><summary>Does my data leave Snowflake?</summary><p>Never. DataSpace is a Native App that runs entirely inside your Snowflake account. Nothing is copied to us or anywhere else. You pay Snowflake for compute directly; we're a software layer on top.</p></details>
-      <details><summary>Do we still need Snowpipe, dbt, SPCS, RBAC?</summary><p>DataSpace uses them under the hood — you just don't wire them. Transforms are dbt (generated from your blueprint), serving runs on Snowpark Container Services, governance maps to Snowflake roles and policies. Best practices, by default.</p></details>
+      <details><summary>Isn't this just an API in front of Snowflake?</summary><p>No. An API is one of several output ports. DataSpaceHQ is a factory for complete, governed data <em>domains</em> — with a lifecycle (ingest → transform → serve), enforced company guardrails, and a fleet console across all of them. The endpoint is the easy part; the governance and consistency are the product.</p></details>
+      <details><summary>Does my data leave Snowflake?</summary><p>Never. DataSpaceHQ is a Native App that runs entirely inside your Snowflake account. Nothing is copied to us or anywhere else. You pay Snowflake for compute directly; we're a software layer on top.</p></details>
+      <details><summary>Do we still need Snowpipe, dbt, SPCS, RBAC?</summary><p>DataSpaceHQ uses them under the hood — you just don't wire them. Transforms are dbt (generated from your blueprint), serving runs on Snowpark Container Services, governance maps to Snowflake roles and policies. Best practices, by default.</p></details>
       <details><summary>What about data that lives in Databricks or another lakehouse?</summary><p>On the roadmap: govern and serve data in an external Iceberg catalog (Databricks, Glue) through Snowflake — without moving it. If that's your setup, tell us — we're picking design partners for exactly this.</p></details>
       <details><summary>Is it production-ready today?</summary><p>We're in early access and onboarding a small group of design partners now — hands-on, shaping the roadmap with us. If you're scaling on Snowflake and feeling the sprawl, this is the moment to get in.</p></details>
     </div>
@@ -342,13 +342,14 @@
         <div class="stack" style="display:flex;flex-direction:column;gap:16px;align-items:flex-start">
           <span class="scarcity">● Taking a handful of design partners</span>
           <h2>See it on your data.</h2>
-          <p style="max-width:30em">A 20-minute walkthrough — we provision a governed domain live, then set you
+          <p style="max-width:30em">A 25-minute walkthrough — we provision a governed domain live, then set you
           up as a design partner to run it on your own Snowflake. No install required to watch.</p>
+          <a class="btn ghost" href="https://cal.com/dataspacehq/walkthrough" target="_blank" rel="noopener">Book a walkthrough →</a>
           <div class="microtrust"><span><span class="d"></span> We reply within one business day</span></div>
         </div>
         <form id="lead-form" novalidate>
           <div class="form-msg" id="form-msg" role="status" aria-live="polite"></div>
-          <input type="hidden" name="_subject" value="DataSpace — design-partner request">
+          <input type="hidden" name="_subject" value="DataSpaceHQ — design-partner request">
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
           <label>Name<input type="text" name="name" placeholder="Jane Doe" autocomplete="name"></label>
           <label>Work email<input type="email" name="email" required placeholder="you@company.com" autocomplete="email"></label>
@@ -375,8 +376,8 @@
 
 <footer>
   <div class="wrap foot">
-    <span><strong style="color:var(--ink)">DataSpace</strong> — governed, self-serve data domains on Snowflake.</span>
-    <span class="mono">DataSpace HQ · <a class="accent" href="mailto:dmitrii.raev@gmail.com">dmitrii.raev@gmail.com</a></span>
+    <span><strong style="color:var(--ink)">DataSpaceHQ</strong> — governed, self-serve data domains on Snowflake.</span>
+    <span class="mono">DataSpaceHQ · <a class="accent" href="mailto:hello@dataspacehq.com">hello@dataspacehq.com</a></span>
   </div>
 </footer>
 
@@ -427,12 +428,12 @@
 
   // ---- lead capture ----
   (function(){
-    const FORM_ENDPOINT = "https://formspree.io/f/mwvglkre";
-    const LEAD_EMAIL = "dmitrii.raev@gmail.com";
+    const FORM_ENDPOINT = "https://formspree.io/f/meaqnlkp";
+    const LEAD_EMAIL = "hello@dataspacehq.com";
     const form=document.getElementById('lead-form'), msg=document.getElementById('form-msg'), btn=document.getElementById('submit-btn');
     const show=(k,t)=>{ msg.className='form-msg '+k; msg.textContent=t; };
     function mailto(d){ const b=`Name: ${d.name||'-'}\nEmail: ${d.email}\nCompany: ${d.company||'-'}\nContext: ${d.context||'-'}\nPain: ${d.message||'-'}`;
-      location.href=`mailto:${LEAD_EMAIL}?subject=${encodeURIComponent('DataSpace — design-partner request')}&body=${encodeURIComponent(b)}`; }
+      location.href=`mailto:${LEAD_EMAIL}?subject=${encodeURIComponent('DataSpaceHQ — design-partner request')}&body=${encodeURIComponent(b)}`; }
     form.addEventListener('submit', async (e)=>{
       e.preventDefault();
       const d=Object.fromEntries(new FormData(form).entries());
