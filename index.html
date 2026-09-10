@@ -163,6 +163,13 @@
   .cmp .k{color:var(--muted)} .cmp .diy{color:var(--muted); text-decoration:line-through; text-decoration-color:color-mix(in srgb,var(--muted) 50%,transparent)}
   .cmp .us{font-weight:680} .cmp .us b{color:var(--signal)}
 
+  /* mid-page cta */
+  .midcta{margin-top:44px; padding:26px 28px; border:1px solid color-mix(in srgb,var(--accent) 22%,var(--line));
+    border-radius:var(--r); background:color-mix(in srgb,var(--accent) 5%,var(--surface));
+    display:flex; align-items:center; justify-content:space-between; gap:18px 32px; flex-wrap:wrap}
+  .midcta p{color:var(--ink); font-size:1.06rem; font-weight:640; max-width:36ch; margin:0}
+  .midcta .cta-row{flex:none}
+
   /* who */
   .who-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:34px}
 
@@ -302,6 +309,14 @@
       <div class="row"><div>Governance</div><div class="diy">Manual reviews &amp; a wiki</div><div class="us"><b>Enforced on every domain</b></div></div>
       <div class="row"><div>The central team</div><div class="diy">The bottleneck</div><div class="us">Sets the rails, watches the fleet</div></div>
       <div class="row"><div>Infra &amp; ops</div><div class="diy">Hire &amp; run it</div><div class="us"><b>None</b></div></div>
+    </div>
+
+    <div class="midcta">
+      <p>Feeling the sprawl on Snowflake? See a governed domain built live — on your data.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="#demo">Get a demo →</a>
+        <a class="btn ghost" href="https://cal.com/dataspacehq/walkthrough" target="_blank" rel="noopener">Book a walkthrough →</a>
+      </div>
     </div>
   </section>
 
