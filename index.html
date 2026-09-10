@@ -429,9 +429,14 @@
 
   // ---- scroll reveal ----
   (function(){
-    if(!('IntersectionObserver' in window)) { document.querySelectorAll('.reveal').forEach(e=>e.classList.add('in')); return; }
-    const io=new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12});
-    document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
+    const all=document.querySelectorAll('.reveal');
+    const showAll=()=>all.forEach(e=>e.classList.add('in'));
+    if(!('IntersectionObserver' in window)){ showAll(); return; }
+    const io=new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:0, rootMargin:'0px 0px -8% 0px'});
+    all.forEach(e=>io.observe(e));
+    // safety net: never leave content hidden (fast scroll, anchor jump, slow paint)
+    setTimeout(showAll, 2500);
+    addEventListener('hashchange', showAll);
   })();
 
   // ---- lead capture ----
