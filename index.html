@@ -84,7 +84,7 @@
   .hero::before{content:""; position:absolute; inset:-40% 0 auto -10%; height:520px; pointer-events:none;
     background:radial-gradient(720px 360px at 78% 20%, color-mix(in srgb,var(--accent) 20%,transparent), transparent 70%),
                radial-gradient(560px 320px at 15% 0%, color-mix(in srgb,var(--accent-2) 16%,transparent), transparent 70%);}
-  .hero-grid{position:relative; display:grid; grid-template-columns:1.02fr .98fr; gap:52px; align-items:center}
+  .hero-grid{position:relative; display:grid; grid-template-columns:1.18fr .82fr; gap:48px; align-items:center}
   .hero .stack{display:flex; flex-direction:column; gap:22px; align-items:flex-start}
   .lede{font-size:1.2rem; max-width:32em; color:var(--muted)}
   .cta-row{display:flex; gap:12px; flex-wrap:wrap}
@@ -225,7 +225,7 @@
     <div class="hero-grid">
       <div class="stack">
         <span class="eyebrow">Snowflake Native App</span>
-        <h1>Governed, self-serve<br>data domains. <span class="grad">In minutes.</span></h1>
+        <h1><span style="white-space:nowrap">Governed, self-serve</span><br>data domains. <span class="grad">In&nbsp;minutes.</span></h1>
         <p class="lede">Your teams stand up ingest → transform → serve on Snowflake — inside the
         guardrails you set once. A Native App that runs in your account and manages itself.</p>
         <div class="cta-row">
