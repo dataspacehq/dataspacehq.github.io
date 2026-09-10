@@ -17,6 +17,12 @@
 <meta name="twitter:title" content="Governed, self-serve data domains on Snowflake — in minutes">
 <meta name="twitter:description" content="Your teams ship governed data domains on Snowflake — inside the guardrails you set once.">
 <meta name="twitter:image" content="https://dataspacehq.com/og.png">
+<link rel="canonical" href="https://dataspacehq.com/">
+<meta name="theme-color" content="#080E18">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230E7FA6'/%3E%3Crect x='9' y='9' width='14' height='14' rx='3.5' fill='%230B1220'/%3E%3C/svg%3E">
+<link rel="mask-icon" href="/favicon.svg" color="#0E7FA6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -67,14 +73,15 @@
   .btn:hover{transform:translateY(-2px)}
   .btn.primary{background:var(--ink); color:var(--bg)}
   .btn.ghost{background:transparent; color:var(--ink); border:1px solid var(--line); box-shadow:none}
+  a:focus-visible,.btn:focus-visible,summary:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
 
   /* nav */
   header.nav{position:sticky; top:0; z-index:40; backdrop-filter:blur(12px);
     background:color-mix(in srgb,var(--bg) 80%,transparent); border-bottom:1px solid var(--line)}
   .nav-in{display:flex; align-items:center; justify-content:space-between; padding:15px 0}
   .brand{display:flex; align-items:center; gap:10px; font-weight:820; letter-spacing:-.02em; font-size:1.12rem}
-  .brand .mark{position:relative; width:24px; height:24px; border-radius:7px; background:var(--ink); display:inline-block}
-  .brand .mark::after{content:""; position:absolute; inset:7px; border-radius:2px; background:var(--accent)}
+  .brand .mark{position:relative; width:24px; height:24px; border-radius:7px; background:var(--accent); display:inline-block}
+  .brand .mark::after{content:""; position:absolute; inset:7px; border-radius:3px; background:var(--bg)}
   .pill{font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--muted);
     border:1px solid var(--line); border-radius:999px; padding:3px 9px}
   .nav-cta{display:flex; align-items:center; gap:14px}
@@ -385,7 +392,7 @@
 <footer>
   <div class="wrap foot">
     <span><strong style="color:var(--ink)">DataSpaceHQ</strong> — governed, self-serve data domains on Snowflake.</span>
-    <span class="mono">DataSpaceHQ · <a class="accent" href="mailto:hello@dataspacehq.com">hello@dataspacehq.com</a></span>
+    <span class="mono">© 2026 DataSpaceHQ · <a class="accent" href="mailto:hello@dataspacehq.com">hello@dataspacehq.com</a></span>
   </div>
 </footer>
 
