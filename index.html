@@ -348,7 +348,7 @@
       <details><summary>Does my data leave Snowflake?</summary><p>Never. DataSpaceHQ is a Native App that runs entirely inside your Snowflake account. Nothing is copied to us or anywhere else. You pay Snowflake for compute directly; we're a software layer on top.</p></details>
       <details><summary>Do we still need Snowpipe, dbt, SPCS, RBAC?</summary><p>DataSpaceHQ uses them under the hood — you just don't wire them. Transforms are dbt (generated from your blueprint), serving runs on Snowpark Container Services, governance maps to Snowflake roles and policies. Best practices, by default.</p></details>
       <details><summary>What about data that lives in Databricks or another lakehouse?</summary><p>On the roadmap: govern and serve data in an external Iceberg catalog (Databricks, Glue) through Snowflake — without moving it. If that's your setup, tell us — we're picking design partners for exactly this.</p></details>
-      <details><summary>Is it production-ready today?</summary><p>We're in early access and onboarding a small group of design partners now — hands-on, shaping the roadmap with us. If you're scaling on Snowflake and feeling the sprawl, this is the moment to get in.</p></details>
+      <details><summary>Is it production-ready today?</summary><p>The core mechanics run today — install the app, provision a domain, get a governed, masked, cost-capped output port — on a real Snowflake account, not a slide. It's still early: a small group of design partners, hands-on, shaping the roadmap with us. If you're scaling on Snowflake and feeling the sprawl, this is the moment to get in.</p></details>
     </div>
   </section>
 
