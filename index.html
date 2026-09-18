@@ -283,6 +283,13 @@
     .cmp .row{grid-template-columns:1fr} .cmp .h{display:none}
     .cmp .row>div{border-top:1px solid var(--line)} .cmp .row>div:first-child{border-top:0; font-weight:700; color:var(--ink)}
   }
+  /* nav: below ~640px, brand + pill + "How it works" + CTA no longer fit
+     one row and each wraps its own text mid-word (found live, 500px width).
+     Drop the two decorative/secondary items; logo + primary CTA is enough. */
+  @media (max-width:640px){
+    .nav .pill{display:none}
+    .nav-cta a.fine{display:none}
+  }
 </style>
 </head>
 <body>
