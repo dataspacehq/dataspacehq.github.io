@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DataSpaceHQ — self-serve data domains, governed by design</title>
-<meta name="description" content="Provision a complete, governed Snowflake data domain in minutes — for every builder, human or AI. A Snowflake Native App that runs entirely inside your account.">
+<title>DataSpaceHQ — Governed Self-Serve Data Domains on Snowflake</title>
+<meta name="description" content="Provision a governed Snowflake data domain in minutes — for every builder, human or AI. A Snowflake Native App that runs entirely inside your account.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DataSpaceHQ">
 <meta property="og:title" content="Self-serve data domains. Governed by design.">
@@ -26,6 +26,71 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "DataSpaceHQ",
+  "url": "https://dataspacehq.com/",
+  "logo": "https://dataspacehq.com/logo-300.png",
+  "email": "hello@dataspacehq.com",
+  "sameAs": ["https://www.linkedin.com/company/dataspacehq"]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "DataSpaceHQ",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Snowflake",
+  "description": "A Snowflake Native App that provisions governed, self-serve data domains — ingest, transform, serve — inside your own Snowflake account.",
+  "url": "https://dataspacehq.com/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Isn't this just an API in front of Snowflake?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. An API is one of several output ports. DataSpaceHQ is a factory for complete, governed data domains — with a lifecycle (ingest, transform, serve), enforced company guardrails, and a fleet console across all of them. The endpoint is the easy part; the governance and consistency are the product." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does my data leave Snowflake?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Never. DataSpaceHQ is a Native App that runs entirely inside your Snowflake account. Nothing is copied to us or anywhere else. You pay Snowflake for compute directly; we're a software layer on top." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do we still need Snowpipe, dbt, SPCS, RBAC?",
+      "acceptedAnswer": { "@type": "Answer", "text": "DataSpaceHQ uses them under the hood — you just don't wire them. Transforms are dbt (generated from your blueprint), serving runs on Snowpark Container Services, governance maps to Snowflake roles and policies. Best practices, by default." }
+    },
+    {
+      "@type": "Question",
+      "name": "What about data that lives in Databricks or another lakehouse?",
+      "acceptedAnswer": { "@type": "Answer", "text": "On the roadmap: govern and serve data in an external Iceberg catalog (Databricks, Glue) through Snowflake, without moving it. If that's your setup, tell us — we're picking design partners for exactly this." }
+    },
+    {
+      "@type": "Question",
+      "name": "We already use dbt contracts, or looked at Gable.",
+      "acceptedAnswer": { "@type": "Answer", "text": "dbt contracts only cover models built in dbt. Gable requires instrumenting your producer's codebase. DataSpaceHQ's contracts reach adopted tables too, including data that existed years before DataSpaceHQ did, in a database it didn't build." }
+    },
+    {
+      "@type": "Question",
+      "name": "What does it cost?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Pricing scales with how many domains you run. We're not publishing tiers while we're still shaping the product with design partners — book a walkthrough and we'll talk through what fits your setup." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it production-ready today?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The core mechanics run today — install the app, provision a domain, get PII tagged and enforced on what it can write to, an exact fix-it script for what it can't — on a real Snowflake account, not a slide. It's still early: a small group of design partners, hands-on, shaping the roadmap with us." }
+    }
+  ]
+}
+</script>
 <style>
   :root{
     --bg:#FBFCFD; --surface:#FFFFFF; --ink:#0B1220; --muted:#5B6B7C; --line:#E7ECF1;
@@ -268,7 +333,7 @@
   </section>
 
   <!-- PROBLEM -->
-  <section class="reveal">
+  <section id="problem" class="reveal">
     <div class="prob">
       <div>
         <span class="eyebrow">The problem</span>
@@ -299,7 +364,7 @@
   </section>
 
   <!-- GOVERNS WHAT YOU ALREADY HAVE -->
-  <section class="reveal">
+  <section id="adopt" class="reveal">
     <span class="eyebrow">Not just new domains</span>
     <h2 style="margin-top:14px">Your data didn't wait for a clean slate. Neither do we.</h2>
     <p class="lead-2">Most of what needs governing already exists — in a database DataSpaceHQ didn't
@@ -325,7 +390,7 @@
   </section>
 
   <!-- READY FOR THE AI ERA -->
-  <section class="reveal">
+  <section id="ai-era" class="reveal">
     <span class="eyebrow">Why now</span>
     <h2 style="margin-top:14px">Your AI agent will build fast. Make sure it builds safely.</h2>
     <p class="lead-2">Snowflake's own CoCo — and Claude Code, and whatever comes after them — writes SQL,
@@ -350,7 +415,7 @@
   </section>
 
   <!-- OUTCOMES + COMPARISON -->
-  <section class="reveal">
+  <section id="outcomes" class="reveal">
     <span class="eyebrow">Why leaders adopt it</span>
     <h2 style="margin-top:14px">Autonomy for your teams.<br>One set of rules — yours.</h2>
     <p class="lead-2">Set the guardrails once. Every domain has the same shape and inherits them —
@@ -380,7 +445,7 @@
   </section>
 
   <!-- WHO -->
-  <section class="reveal">
+  <section id="who" class="reveal">
     <span class="eyebrow">Who it's for</span>
     <h2 style="margin-top:14px">Built for teams scaling on Snowflake.</h2>
     <div class="who-grid">
@@ -390,7 +455,7 @@
   </section>
 
   <!-- FAQ -->
-  <section class="reveal">
+  <section id="faq" class="reveal">
     <span class="eyebrow">Questions</span>
     <h2 style="margin-top:14px">The things people ask first.</h2>
     <div class="faq">
