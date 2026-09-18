@@ -485,6 +485,9 @@
           <p class="fine" style="margin:-4px 0 2px">Not ready to grab a slot? Tell us about your setup instead.</p>
           <div class="form-msg" id="form-msg" role="status" aria-live="polite"></div>
           <input type="hidden" name="_subject" value="DataSpaceHQ — design-partner request">
+          <input type="hidden" name="utm_source" id="utm_source">
+          <input type="hidden" name="utm_medium" id="utm_medium">
+          <input type="hidden" name="utm_campaign" id="utm_campaign">
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
           <label>Name<input type="text" name="name" placeholder="Jane Doe" autocomplete="name"></label>
           <label>Work email<input type="email" name="email" required placeholder="you@company.com" autocomplete="email"></label>
@@ -518,6 +521,31 @@
 </footer>
 
 <script>
+  // ---- conference attribution: capture UTM params once, attach them to both
+  // real conversions (the walkthrough link + the lead form) — see
+  // core/docs/marketing/16-analytics-plan.md. No third-party analytics, no
+  // cookie — sessionStorage only, cleared when the tab closes.
+  (function(){
+    var KEYS = ['utm_source', 'utm_medium', 'utm_campaign'];
+    var params = new URLSearchParams(location.search);
+    var utm = {};
+    KEYS.forEach(function(k){
+      var v = params.get(k) || sessionStorage.getItem(k);
+      if(v){ utm[k] = v; try{ sessionStorage.setItem(k, v); }catch(_){} }
+    });
+    if(!Object.keys(utm).length) return;
+
+    // Hidden form fields — Formspree includes them automatically, no other JS change needed.
+    KEYS.forEach(function(k){ var el = document.getElementById(k); if(el && utm[k]) el.value = utm[k]; });
+
+    // Every "Book a walkthrough" link (there are two) — append as query params.
+    document.querySelectorAll('a[href^="https://cal.com/dataspacehq/walkthrough"]').forEach(function(a){
+      var url = new URL(a.href);
+      KEYS.forEach(function(k){ if(utm[k]) url.searchParams.set(k, utm[k]); });
+      a.href = url.toString();
+    });
+  })();
+
   // ---- animated provisioning console (renders content first, then animates) ----
   (function(){
     var el = document.getElementById('console');
@@ -577,7 +605,8 @@
     const LEAD_EMAIL = "hello@dataspacehq.com";
     const form=document.getElementById('lead-form'), msg=document.getElementById('form-msg'), btn=document.getElementById('submit-btn');
     const show=(k,t)=>{ msg.className='form-msg '+k; msg.textContent=t; };
-    function mailto(d){ const b=`Name: ${d.name||'-'}\nEmail: ${d.email}\nCompany: ${d.company||'-'}\nContext: ${d.context||'-'}\nPain: ${d.message||'-'}`;
+    function mailto(d){ const src=[d.utm_source,d.utm_medium,d.utm_campaign].filter(Boolean).join('/');
+      const b=`Name: ${d.name||'-'}\nEmail: ${d.email}\nCompany: ${d.company||'-'}\nContext: ${d.context||'-'}\nPain: ${d.message||'-'}${src?`\nSource: ${src}`:''}`;
       location.href=`mailto:${LEAD_EMAIL}?subject=${encodeURIComponent('DataSpaceHQ — design-partner request')}&body=${encodeURIComponent(b)}`; }
     form.addEventListener('submit', async (e)=>{
       e.preventDefault();
@@ -586,7 +615,15 @@
       btn.disabled=true; btn.textContent='Sending…';
       try{
         const r=await fetch(FORM_ENDPOINT,{method:'POST',headers:{'content-type':'application/json','accept':'application/json'},body:JSON.stringify(d)});
-        if(!r.ok) throw new Error('bad'); form.reset(); show('ok',"Thanks — we'll be in touch within one business day.");
+        if(!r.ok) throw new Error('bad');
+        form.reset();
+        // form.reset() clears the hidden utm_* fields too — restore them from
+        // sessionStorage so a second submission in the same visit stays attributed.
+        ['utm_source','utm_medium','utm_campaign'].forEach(function(k){
+          var el=document.getElementById(k), v=sessionStorage.getItem(k);
+          if(el && v) el.value=v;
+        });
+        show('ok',"Thanks — we'll be in touch within one business day.");
       }catch(_){ show('ok','Opening your email client…'); mailto(d); }
       finally{ btn.disabled=false; btn.textContent='Get a demo'; }
     });
