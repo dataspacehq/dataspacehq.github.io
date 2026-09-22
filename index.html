@@ -86,7 +86,7 @@
     {
       "@type": "Question",
       "name": "Is it production-ready today?",
-      "acceptedAnswer": { "@type": "Answer", "text": "The core mechanics run today — install the app, provision a domain, get PII tagged and enforced on what it can write to, an exact fix-it script for what it can't — on a real Snowflake account, not a slide. It's still early: a small group of design partners, hands-on, shaping the roadmap with us." }
+      "acceptedAnswer": { "@type": "Answer", "text": "The core mechanics run today — install the app, provision a domain, get a governed, masked, cost-capped output port, on a real Snowflake account, not a slide. It's still early: a small group of design partners, hands-on, shaping the roadmap with us." }
     }
   ]
 }
@@ -430,14 +430,14 @@
     <div class="cards">
       <div class="card"><div class="klab">Faster</div><h3>Minutes, not quarters</h3><p>A complete governed domain from a blueprint, in one action — instead of a platform project.</p></div>
       <div class="card"><div class="klab">Leaner</div><h3>No platform to build</h3><p>No infra, DevOps or SRE. It runs and manages itself, from one console.</p></div>
-      <div class="card"><div class="klab">Safer</div><h3>Governed by design</h3><p>Naming and PII tagging enforced on every domain, automatically — full masking and cost caps wherever the platform allows it, exact fix-it SQL where it doesn't.</p></div>
+      <div class="card"><div class="klab">Safer</div><h3>Governed by design</h3><p>Naming, PII tagging, masking and cost caps enforced on every domain, automatically — one manual step only for a table adopted from another database.</p></div>
     </div>
 
     <div class="cmp">
       <div class="row"><div class="h"></div><div class="h">Doing it yourself</div><div class="h">With DataSpaceHQ</div></div>
       <div class="row"><div>A new governed domain</div><div class="diy">A quarter</div><div class="us"><b>Minutes</b></div></div>
       <div class="row"><div>Who builds it</div><div class="diy">A platform engineer</div><div class="us">An analyst / domain owner</div></div>
-      <div class="row"><div>Governance</div><div class="diy">Manual reviews &amp; a wiki</div><div class="us"><b>PII tagged &amp; enforced</b> where the platform allows it</div></div>
+      <div class="row"><div>Governance</div><div class="diy">Manual reviews &amp; a wiki</div><div class="us"><b>PII tagged &amp; masked, enforced</b> on every domain</div></div>
       <div class="row"><div>The central team</div><div class="diy">The bottleneck</div><div class="us">Sets the rails, watches the fleet</div></div>
       <div class="row"><div>Infra &amp; ops</div><div class="diy">Hire &amp; run it</div><div class="us"><b>None</b></div></div>
     </div>
@@ -472,7 +472,7 @@
       <details><summary>What about data that lives in Databricks or another lakehouse?</summary><p>On the roadmap: govern and serve data in an external Iceberg catalog (Databricks, Glue) through Snowflake — without moving it. If that's your setup, tell us — we're picking design partners for exactly this.</p></details>
       <details><summary>We already use dbt contracts, or looked at Gable.</summary><p>dbt contracts only cover models built in dbt. Gable requires instrumenting your producer's codebase. DataSpaceHQ's contracts reach adopted tables too — including data that existed years before DataSpaceHQ did, in a database it didn't build.</p></details>
       <details><summary>What does it cost?</summary><p>Pricing scales with how many domains you run. We're not publishing tiers while we're still shaping the product with design partners — book a walkthrough and we'll talk through what fits your setup.</p></details>
-      <details><summary>Is it production-ready today?</summary><p>The core mechanics run today — install the app, provision a domain, get PII tagged and enforced on what it can write to, an exact fix-it script for what it can't — on a real Snowflake account, not a slide. It's still early: a small group of design partners, hands-on, shaping the roadmap with us. If you're scaling on Snowflake and feeling the sprawl, this is the moment to get in.</p></details>
+      <details><summary>Is it production-ready today?</summary><p>The core mechanics run today — install the app, provision a domain, get a governed, masked, cost-capped output port, on a real Snowflake account, not a slide. It's still early: a small group of design partners, hands-on, shaping the roadmap with us. If you're scaling on Snowflake and feeling the sprawl, this is the moment to get in.</p></details>
     </div>
   </section>
 
