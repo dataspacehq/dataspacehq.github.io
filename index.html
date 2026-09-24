@@ -65,8 +65,8 @@
     },
     {
       "@type": "Question",
-      "name": "Do we still need Snowpipe, dbt, SPCS, RBAC?",
-      "acceptedAnswer": { "@type": "Answer", "text": "DataSpaceHQ uses them under the hood — you just don't wire them. Transforms are dbt (generated from your blueprint), serving runs on Snowpark Container Services, governance maps to Snowflake roles and policies. Best practices, by default." }
+      "name": "Do we still need Snowpipe, SPCS, RBAC?",
+      "acceptedAnswer": { "@type": "Answer", "text": "DataSpaceHQ uses them under the hood — you just don't wire them. Ingest lands through Snowpipe, the transform is generated for you and runs natively in Snowflake, serving runs on Snowpark Container Services, and governance maps to real Snowflake tags, masking policies and roles. Best practices, by default. If you already run dbt yourself, it keeps working alongside — we're not asking you to move it." }
     },
     {
       "@type": "Question",
@@ -123,6 +123,12 @@
   h1,h2,h3{margin:0; line-height:1.08; letter-spacing:-.022em; text-wrap:balance;
     font-family:"Geist","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif}
   h1{font-size:clamp(2.2rem,4.2vw,3.6rem); font-weight:800; letter-spacing:-.03em; line-height:1.05}
+  /* "Self-serve data domains." on one line is ~440px at the 2.2rem floor —
+     wider than a 375px phone's content box, so an unconditional nowrap here
+     pushed the whole page into horizontal scroll. Hold the line only where
+     there's actually room for it. */
+  .nw{white-space:nowrap}
+  @media (max-width:560px){ .nw{white-space:normal} }
   h2{font-size:clamp(1.7rem,3.6vw,2.6rem); font-weight:780}
   h3{font-size:1.12rem; font-weight:720; letter-spacing:-.01em}
   p{margin:0; color:var(--muted)}
@@ -157,7 +163,13 @@
   .hero::before{content:""; position:absolute; inset:-40% 0 auto -10%; height:520px; pointer-events:none;
     background:radial-gradient(720px 360px at 78% 20%, color-mix(in srgb,var(--accent) 20%,transparent), transparent 70%),
                radial-gradient(560px 320px at 15% 0%, color-mix(in srgb,var(--accent-2) 16%,transparent), transparent 70%);}
-  .hero-grid{position:relative; display:grid; grid-template-columns:1.18fr .82fr; gap:48px; align-items:start}
+  /* The fr ratio here is advisory, not real: the h1's nowrap headline sets a
+     min-content floor on column 1 (~650px at the top of the clamp), so the
+     console only ever gets the remainder. Measured live — asking for .96fr
+     still yielded 338px. minmax(0,…) stops the text column from claiming more
+     than the floor it genuinely needs, which is what actually widens the
+     console. Don't "fix" this back to plain fr units. */
+  .hero-grid{position:relative; display:grid; grid-template-columns:minmax(0,auto) minmax(380px,1fr); gap:40px; align-items:start}
   .hero .stack{display:flex; flex-direction:column; gap:22px; align-items:flex-start}
   .lede{font-size:1.2rem; max-width:32em; color:var(--muted)}
   .cta-row{display:flex; gap:12px; flex-wrap:wrap}
@@ -171,17 +183,34 @@
   .console .bar{display:flex; align-items:center; gap:7px; padding:13px 16px; border-bottom:1px solid var(--console-line)}
   .console .bar i{width:11px; height:11px; border-radius:50%; background:#33475f; display:inline-block}
   .console .bar .t{margin-left:9px; font-size:.74rem; color:#7d92aa; letter-spacing:.04em}
-  .console .body{padding:18px 18px 22px; font-size:.92rem; line-height:1.85; min-height:300px; max-height:340px; overflow-y:auto}
+  /* The hero console types its content in on a loop, so its height used to be
+     driven by however many lines existed at that instant — between min-height
+     300 and max-height 340 it grew, shrank on reset, and every long line that
+     wrapped in the narrow column moved it again. The whole hero visibly jumped
+     on every cycle. Fixed height reserves the space once: content animates
+     inside a box that never changes size. Keep this a hard height, not a range. */
+  /* Height is sized to hold the whole sequence, so the last lines are never
+     clipped and the box never resizes mid-animation. */
+  .console .body{padding:18px 18px 22px; font-size:.88rem; line-height:1.8; height:424px; overflow-y:auto}
+  @media (max-width:900px){ .console .body{height:360px} }
+  /* The two static consoles further down (contract, AGENTS.md) size to content. */
+  .console .body.fit{height:auto}
   .console .ln{white-space:pre-wrap; word-break:break-word}
   .console .p{color:var(--accent)} .console .p::before{content:"$ "}
   .console .ok{color:var(--signal)} .console .arrow{color:#6b83a0}
   .console .cur{display:inline-block; width:8px; height:1.05em; vertical-align:-2px; background:var(--accent); animation:blink 1s steps(2) infinite; margin-left:1px}
   @keyframes blink{50%{opacity:0}}
 
-  /* trust strip */
-  .strip{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; padding:26px 0}
-  .strip .it{display:flex; gap:11px; align-items:flex-start; font-size:.95rem}
-  .strip .ck{color:var(--signal); font-weight:800; flex:none}
+  /* Three-up supporting facts — replaces the wall-of-text paragraphs that used
+     to carry this content. Each fact is one bold claim + one line of substance,
+     which is the scannable shape the rest of the page already uses. */
+  .factrow{display:grid; grid-template-columns:repeat(3,1fr); gap:14px 26px; margin:26px 0 34px}
+  /* Section consoles used to sit flush against the block above them. */
+  section .factrow + .console, section .lead-2 + .console{margin-top:30px}
+  .fact{display:flex; flex-direction:column; gap:5px; padding-left:15px; border-left:2px solid color-mix(in srgb,var(--accent) 45%,transparent)}
+  .fact b{color:var(--ink); font-weight:680; font-size:.97rem}
+  .fact span{color:var(--muted); font-size:.92rem; line-height:1.55}
+  @media (max-width:820px){ .factrow{grid-template-columns:1fr; gap:16px} }
 
   /* generic cards */
   .lead-2{max-width:34em; margin-top:14px}
@@ -240,7 +269,11 @@
     border-radius:var(--r); background:color-mix(in srgb,var(--accent) 5%,var(--surface));
     display:flex; align-items:center; justify-content:space-between; gap:18px 32px; flex-wrap:wrap}
   .midcta p{color:var(--ink); font-size:1.06rem; font-weight:640; max-width:36ch; margin:0}
-  .midcta .cta-row{flex:none}
+  /* `flex:none` kept the two buttons on one line even when the line was only
+     342px wide — 371px of buttons pushed the whole page into horizontal scroll
+     on a 390px phone. Found measuring the real mobile viewport. Let it shrink
+     and let the buttons wrap. */
+  .midcta .cta-row{flex:0 1 auto; min-width:0}
 
   /* who */
   .who-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:34px}
@@ -279,7 +312,6 @@
   @media (max-width:900px){
     .hero-grid,.prob,.cta-grid{grid-template-columns:1fr; gap:34px}
     .cards,.who-grid{grid-template-columns:1fr}
-    .strip{grid-template-columns:1fr 1fr}
     .cmp .row{grid-template-columns:1fr} .cmp .h{display:none}
     .cmp .row>div{border-top:1px solid var(--line)} .cmp .row>div:first-child{border-top:0; font-weight:700; color:var(--ink)}
   }
@@ -311,7 +343,7 @@
     <div class="hero-grid">
       <div class="stack">
         <span class="eyebrow">Snowflake Native App</span>
-        <h1><span style="white-space:nowrap">Self-serve data domains.</span><br>Governed <span class="grad">by&nbsp;design.</span></h1>
+        <h1><span class="nw">Self-serve data domains.</span><br>Governed <span class="grad">by&nbsp;design.</span></h1>
         <p class="lede">Your teams stand up ingest → transform → serve on Snowflake — inside the
         guardrails you set once, whether a person or an AI agent is building.</p>
         <div class="cta-row">
@@ -323,6 +355,10 @@
           <span><span class="d"></span> Your data never leaves</span>
           <span><span class="d"></span> No infra to run</span>
         </div>
+        <!-- Lives inside the left column on purpose: the console is taller than
+             the headline stack, and pulling this up fills what was otherwise a
+             ~140px hole under the CTA row. -->
+        <p class="fine" style="margin-top:6px; max-width:52ch"><strong style="color:var(--ink)">Not staged.</strong> This exact sequence — provision, guardrails, a served endpoint — runs today as a real Snowflake Native App, on two separate real accounts, including one it was installed into cold and governed data it never created.</p>
       </div>
 
       <div class="console" aria-label="Provisioning a governed data domain">
@@ -331,11 +367,9 @@
       </div>
     </div>
 
-    <p class="fine" style="margin-top:14px; max-width:56ch"><strong style="color:var(--ink)">Not staged.</strong> This exact sequence — provision, guardrails, a served endpoint — runs today as a real Snowflake Native App, on a real account.</p>
-
     <div class="builton">
       <span class="bo-lab">Built on</span>
-      <span class="bo-marks">Snowflake Native App · Snowpark Containers · dbt · Apache Iceberg · Cortex AI</span>
+      <span class="bo-marks">Snowflake Native App · Snowpark Containers · Snowpipe · Apache Iceberg · Horizon tags &amp; policies</span>
     </div>
   </section>
 
@@ -374,23 +408,26 @@
   <section id="adopt" class="reveal">
     <span class="eyebrow">Not just new domains</span>
     <h2 style="margin-top:14px">Your data didn't wait for a clean slate. Neither do we.</h2>
-    <p class="lead-2">Most of what needs governing already exists — in a database DataSpaceHQ didn't
-    create, built by someone who left, named by three different conventions. Adopt any existing table
-    into a governed domain without moving or duplicating it — even across databases. Every adopted table
-    gets schema-drift detection (catch a silent rename before it costs you a quarter of bad reports) and
-    a real, open, portable data contract — <a class="accent" href="https://bitol.io" target="_blank" rel="noopener">ODCS</a>,
-    not a format you're locked into — generated automatically from what's actually there.</p>
+    <p class="lead-2" style="max-width:40em">Most of what needs governing already exists — in a database
+    DataSpaceHQ didn't create, built by someone who left, named three different ways. Point at it and it
+    becomes a governed domain, without moving or duplicating a single row.</p>
+    <div class="factrow">
+      <div class="fact"><b>Even across databases</b><span>Adopt a table that lives somewhere else entirely — read and governed in place.</span></div>
+      <div class="fact"><b>Drift caught early</b><span>A silent column rename surfaces as a finding, not as a quarter of wrong reports.</span></div>
+      <div class="fact"><b>A contract, automatically</b><span>Open-standard <a class="accent" href="https://bitol.io" target="_blank" rel="noopener">ODCS</a> — validated against the spec's own schema — generated from what's actually there.</span></div>
+    </div>
     <div class="console" aria-label="A generated ODCS data contract">
       <div class="bar"><i></i><i></i><i></i><span class="t mono">legacy_customers.orders.contract.yaml</span></div>
-      <div class="body mono" style="min-height:0">
+      <div class="body mono fit">
         <div class="ln">apiVersion: v3.0.0</div>
         <div class="ln">kind: DataContract</div>
         <div class="ln">name: legacy_customers</div>
         <div class="ln">schema:</div>
         <div class="ln">&nbsp;&nbsp;- name: orders</div>
         <div class="ln">&nbsp;&nbsp;&nbsp;&nbsp;physicalName: LEGACY_DB.PUBLIC.ORDERS</div>
-        <div class="ln">&nbsp;&nbsp;&nbsp;&nbsp;columns:</div>
+        <div class="ln">&nbsp;&nbsp;&nbsp;&nbsp;properties:</div>
         <div class="ln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: customer_email</div>
+        <div class="ln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logicalType: string</div>
         <div class="ln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;classification: <span class="ok">restricted</span></div>
       </div>
     </div>
@@ -401,14 +438,14 @@
     <span class="eyebrow">Why now</span>
     <h2 style="margin-top:14px">Your AI agent will build fast. Make sure it builds safely.</h2>
     <p class="lead-2">Snowflake's own CoCo — and Claude Code, and whatever comes after them — writes SQL,
-    dbt models and pipelines from plain English in seconds. By design, an agent respects whatever
-    governance already exists in your account; it doesn't create any. DataSpaceHQ is what it reads
-    first: tagged PII, domain boundaries, and a generated <code>AGENTS.md</code> at your repo root, in
-    the exact format these agents already look for. The faster building gets, the more this matters —
-    not less.</p>
+    dbt models and pipelines from plain English in seconds. By design, an agent enforces whatever
+    governance already exists in your account. It doesn't create any.</p>
+    <p class="lead-2" style="margin-top:14px">DataSpaceHQ is what it reads first: tagged PII, domain
+    boundaries, and a generated <code>AGENTS.md</code> at your repo root, in the exact format these
+    agents already look for. The faster building gets, the more this matters — not less.</p>
     <div class="console" aria-label="A generated AGENTS.md file">
       <div class="bar"><i></i><i></i><i></i><span class="t mono">AGENTS.md</span></div>
-      <div class="body mono" style="min-height:0">
+      <div class="body mono fit">
         <div class="ln"># storefront — governed by DataSpaceHQ</div>
         <div class="ln">&nbsp;</div>
         <div class="ln">## orders</div>
@@ -428,9 +465,9 @@
     <p class="lead-2">Set the guardrails once. Every domain has the same shape and inherits them —
     quality, security, governance, access — so any team can move without waiting on you.</p>
     <div class="cards">
-      <div class="card"><div class="klab">Faster</div><h3>Minutes, not quarters</h3><p>A complete governed domain from a blueprint, in one action — instead of a platform project.</p></div>
-      <div class="card"><div class="klab">Leaner</div><h3>No platform to build</h3><p>No infra, DevOps or SRE. It runs and manages itself, from one console.</p></div>
-      <div class="card"><div class="klab">Safer</div><h3>Governed by design</h3><p>Naming, PII tagging, masking and cost caps enforced on every domain, automatically — one manual step only for a table adopted from another database.</p></div>
+      <div class="card"><div class="klab">Faster</div><h3>Minutes, not quarters</h3><p>A complete governed domain from a blueprint, in one action — instead of a platform project that gets repeated for every team.</p></div>
+      <div class="card"><div class="klab">Leaner</div><h3>No platform to build</h3><p>No infra, DevOps or SRE, and nothing of ours running in your account. It manages itself, from one console.</p></div>
+      <div class="card"><div class="klab">Safer</div><h3>Governed by design</h3><p>Naming, PII tagging, masking and cost caps enforced automatically — then Snowflake's own classifier re-checks the data for PII nobody declared.</p></div>
     </div>
 
     <div class="cmp">
@@ -438,6 +475,8 @@
       <div class="row"><div>A new governed domain</div><div class="diy">A quarter</div><div class="us"><b>Minutes</b></div></div>
       <div class="row"><div>Who builds it</div><div class="diy">A platform engineer</div><div class="us">An analyst / domain owner</div></div>
       <div class="row"><div>Governance</div><div class="diy">Manual reviews &amp; a wiki</div><div class="us"><b>PII tagged &amp; masked, enforced</b> on every domain</div></div>
+      <div class="row"><div>PII nobody tagged</div><div class="diy">Found in an audit, or a breach</div><div class="us"><b>Flagged automatically</b> from the real data</div></div>
+      <div class="row"><div>Who can touch what</div><div class="diy">Trust &amp; a naming convention</div><div class="us">Domain owners scoped to <b>their own domains</b></div></div>
       <div class="row"><div>The central team</div><div class="diy">The bottleneck</div><div class="us">Sets the rails, watches the fleet</div></div>
       <div class="row"><div>Infra &amp; ops</div><div class="diy">Hire &amp; run it</div><div class="us"><b>None</b></div></div>
     </div>
@@ -468,7 +507,7 @@
     <div class="faq">
       <details><summary>Isn't this just an API in front of Snowflake?</summary><p>No. An API is one of several output ports. DataSpaceHQ is a factory for complete, governed data <em>domains</em> — with a lifecycle (ingest → transform → serve), enforced company guardrails, and a fleet console across all of them. The endpoint is the easy part; the governance and consistency are the product.</p></details>
       <details><summary>Does my data leave Snowflake?</summary><p>Never. DataSpaceHQ is a Native App that runs entirely inside your Snowflake account. Nothing is copied to us or anywhere else. You pay Snowflake for compute directly; we're a software layer on top.</p></details>
-      <details><summary>Do we still need Snowpipe, dbt, SPCS, RBAC?</summary><p>DataSpaceHQ uses them under the hood — you just don't wire them. Transforms are dbt (generated from your blueprint), serving runs on Snowpark Container Services, governance maps to Snowflake roles and policies. Best practices, by default.</p></details>
+      <details><summary>Do we still need Snowpipe, SPCS, RBAC?</summary><p>DataSpaceHQ uses them under the hood — you just don't wire them. Ingest lands through Snowpipe, the transform is generated for you and runs natively in Snowflake, serving runs on Snowpark Container Services, and governance maps to real Snowflake tags, masking policies and roles. Best practices, by default. If you already run dbt yourself, it keeps working alongside — we're not asking you to move it.</p></details>
       <details><summary>What about data that lives in Databricks or another lakehouse?</summary><p>On the roadmap: govern and serve data in an external Iceberg catalog (Databricks, Glue) through Snowflake — without moving it. If that's your setup, tell us — we're picking design partners for exactly this.</p></details>
       <details><summary>We already use dbt contracts, or looked at Gable.</summary><p>dbt contracts only cover models built in dbt. Gable requires instrumenting your producer's codebase. DataSpaceHQ's contracts reach adopted tables too — including data that existed years before DataSpaceHQ did, in a database it didn't build.</p></details>
       <details><summary>What does it cost?</summary><p>Pricing scales with how many domains you run. We're not publishing tiers while we're still shaping the product with design partners — book a walkthrough and we'll talk through what fits your setup.</p></details>
@@ -557,19 +596,23 @@
   (function(){
     var el = document.getElementById('console');
     if(!el) return;
+    // Keep every line short enough to fit the console on one line at the
+    // hero's desktop width — a wrapped line changes the content height and
+    // was visibly moving the box mid-animation (see the .console .body note).
     var seq = [
       {c:'p',    t:'dataspace provision storefront'},
       {c:'arrow',t:'→ raw · staging · marts created'},
-      {c:'arrow',t:'→ guardrails inherited — PII tagged · access: deny'},
+      {c:'arrow',t:'→ guardrails inherited · PII tagged'},
       {c:'arrow',t:'→ ports live — /orders  /products'},
       {c:'ok',   t:'✓ governed domain ready'},
       {c:'sp',   t:''},
       {c:'p',    t:'curl …/orders?tier=enterprise'},
-      {c:'ok',   t:'200 OK — [ { "order_id":"ord-000001", … } ] · no SQL from callers'},
+      {c:'ok',   t:'200 OK — [ { "order_id":"ord-01", … } ]'},
+      {c:'arrow',t:'→ no SQL from callers'},
       {c:'sp',   t:''},
       {c:'p',    t:'dataspace adopt legacy_customers.orders'},
-      {c:'arrow',t:'→ schema captured · drift-checked · contract generated'},
-      {c:'ok',   t:'✓ governed — even data we didn\'t create'}
+      {c:'arrow',t:'→ drift-checked · contract generated'},
+      {c:'ok',   t:'✓ governed — data we didn\'t create'}
     ];
     function add(cls, txt){ var d=document.createElement('div'); d.className='ln '+cls; d.textContent=txt; el.appendChild(d); el.scrollTop=el.scrollHeight; return d; }
     function renderAll(){ el.textContent=''; for(var i=0;i<seq.length;i++){ var s=seq[i]; add(s.c==='sp'?'':s.c, s.t||' '); } }
