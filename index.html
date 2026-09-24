@@ -312,11 +312,11 @@
      wide and it broke across four lines. */
   .f-card{display:flex; flex-direction:column; gap:14px; align-items:flex-start; padding:22px;
     border:1px solid var(--line); border-radius:var(--r); background:var(--surface); box-shadow:var(--shadow)}
-  .f-photo{width:62px; height:62px; border-radius:50%; flex:none; display:flex; align-items:center;
-    justify-content:center; font-weight:750; font-size:1.06rem; letter-spacing:.02em;
+  .f-photo{position:relative; width:66px; height:66px; border-radius:50%; flex:none; display:flex;
+    align-items:center; justify-content:center; font-weight:750; font-size:1.06rem; letter-spacing:.02em;
     color:var(--accent); background:color-mix(in srgb,var(--accent) 13%,transparent);
-    border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
-    background-size:cover; background-position:center; overflow:hidden}
+    border:1px solid color-mix(in srgb,var(--accent) 30%,transparent); overflow:hidden}
+  .f-photo img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%}
   .f-name{font-weight:700; color:var(--ink); font-size:1.04rem}
   .f-role{font-size:.84rem; color:var(--muted); margin-top:4px; line-height:1.45}
   .f-body p{font-size:1rem; max-width:44em}
@@ -570,18 +570,25 @@
     <h2 style="margin-top:14px">You'd be working with me, directly.</h2>
     <div class="founder">
       <div class="f-card">
-        <!-- Drop a square headshot in as /founder.jpg and this picks it up.
-             Until then the monogram stands in — better than a stock photo. -->
-        <div class="f-photo" aria-hidden="true">DR</div>
+        <!-- Save a square headshot as /founder.jpg and it replaces the monogram
+             automatically — the img sits on top and the initials show through
+             only if the file is missing (onerror hides it). No markup change
+             needed when the photo lands. -->
+        <div class="f-photo" aria-hidden="true">DR<img src="/founder.jpg" alt=""
+          onerror="this.remove()" loading="lazy"></div>
         <div>
           <div class="f-name">Dmitrii Raev</div>
-          <div class="f-role">Founder, DataSpaceHQ · Previously Head of Data Products Engineering, AUTODOC</div>
+          <div class="f-role">Founder, DataSpaceHQ · Previously Head of Data Products Engineering
+          at AUTODOC, where he led the Snowflake adoption</div>
         </div>
       </div>
       <div class="f-body">
-        <p>I spent years running data products engineering for around 50 people — data engineering,
-        data products, platform — and hit this same wall from the inside, repeatedly. DataSpaceHQ is
-        the version where the rules come first instead of arriving later as a review.</p>
+        <p>Seventeen years in software and data engineering, the last five running a 50+ engineer
+        organisation across data engineering, data products and platform. I also led the business
+        case that moved that company onto Snowflake — the commercial assessment, the executive
+        presentation, and then living with what we built afterwards.</p>
+        <p style="margin-top:12px">So I've been on your side of this decision. DataSpaceHQ is the
+        version where the rules come first instead of arriving later as a review.</p>
         <p style="margin-top:12px"><strong>There's no sales team here.</strong> The walkthrough is
         me, the person who answers your email is me, and if something's missing for your setup,
         I'm the one who builds it. That's the real reason to do this now rather than in a year —
