@@ -26,6 +26,34 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Google Analytics 4.
+     ⚠️ REPLACE G-XXXXXXXXXX below with the real Measurement ID from
+     analytics.google.com → Admin → Data Streams → Web. Until that's done this
+     loads nothing useful.
+
+     Note, recorded deliberately: this sets first-party cookies, which under
+     GDPR/ePrivacy normally requires prior consent for EU visitors — and this
+     site targets DACH. Shipped without a consent banner as an explicit
+     founder decision (2026-09-24), knowing the trade-off.
+
+     To switch to cookieless mode later (keeps the GA4 dashboard, drops the
+     cookies and the consent question), uncomment the consent block below.
+     One change, no other edits needed. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+
+  // --- cookieless switch: uncomment these three lines to run GA4 without
+  //     cookies (no consent banner needed, reduced fidelity) ---
+  // gtag('consent', 'default', {
+  //   ad_storage: 'denied', ad_user_data: 'denied',
+  //   ad_personalization: 'denied', analytics_storage: 'denied' });
+
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -278,6 +306,25 @@
   /* who */
   .who-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:34px}
 
+  /* founder */
+  .founder{display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr); gap:38px; margin-top:32px; align-items:start}
+  /* Photo above the text, not beside it: side-by-side left the role line ~180px
+     wide and it broke across four lines. */
+  .f-card{display:flex; flex-direction:column; gap:14px; align-items:flex-start; padding:22px;
+    border:1px solid var(--line); border-radius:var(--r); background:var(--surface); box-shadow:var(--shadow)}
+  .f-photo{width:62px; height:62px; border-radius:50%; flex:none; display:flex; align-items:center;
+    justify-content:center; font-weight:750; font-size:1.06rem; letter-spacing:.02em;
+    color:var(--accent); background:color-mix(in srgb,var(--accent) 13%,transparent);
+    border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
+    background-size:cover; background-position:center; overflow:hidden}
+  .f-name{font-weight:700; color:var(--ink); font-size:1.04rem}
+  .f-role{font-size:.84rem; color:var(--muted); margin-top:4px; line-height:1.45}
+  .f-body p{font-size:1rem; max-width:44em}
+  @media (max-width:820px){
+    .founder{grid-template-columns:1fr; gap:22px}
+    .f-card{padding:16px}
+  }
+
   /* faq */
   .faq{margin-top:34px; border-top:1px solid var(--line)}
   details{border-bottom:1px solid var(--line)}
@@ -515,15 +562,49 @@
     </div>
   </section>
 
+  <!-- WHO'S BUILDING IT — a design partner is choosing a person, not just software.
+       Until this existed the site was entirely anonymous, which is a strange thing
+       to ask someone to commit to. Photo slot is marked below. -->
+  <section id="founder" class="reveal">
+    <span class="eyebrow">Who's building it</span>
+    <h2 style="margin-top:14px">You'd be working with me, directly.</h2>
+    <div class="founder">
+      <div class="f-card">
+        <!-- Drop a square headshot in as /founder.jpg and this picks it up.
+             Until then the monogram stands in — better than a stock photo. -->
+        <div class="f-photo" aria-hidden="true">DR</div>
+        <div>
+          <div class="f-name">Dmitrii Raev</div>
+          <div class="f-role">Founder, DataSpaceHQ · Previously Head of Data Products Engineering, AUTODOC</div>
+        </div>
+      </div>
+      <div class="f-body">
+        <p>At AUTODOC I ran data products engineering for around 50 people across data engineering,
+        data products and platform. Every time a team needed a new dataset the same thing happened:
+        either I was in the way approving it, or they built it their own way and the conventions
+        ended up in a Confluence page nobody opened.</p>
+        <p style="margin-top:12px">You can't fix that with more review. Review happens after the
+        thing already exists, and it only works on the days someone has time. DataSpaceHQ is the
+        version where the rules come first.</p>
+        <p style="margin-top:12px"><strong>There's no sales team here.</strong> The walkthrough is
+        me, the person who answers your email is me, and if something's missing for your setup,
+        I'm the one who builds it. That's the whole reason to do this now rather than in a year.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section id="demo" class="reveal">
     <div class="cta-band">
       <div class="cta-grid">
         <div class="stack" style="display:flex;flex-direction:column;gap:16px;align-items:flex-start">
-          <span class="scarcity">● Taking a handful of design partners</span>
+          <span class="scarcity">● Taking a small number of design partners</span>
           <h2>See it on your data.</h2>
-          <p style="max-width:30em">A 25-minute walkthrough — we provision a governed domain live, then set you
-          up as a design partner to run it on your own Snowflake. No install required to watch.</p>
+          <p style="max-width:32em">A 25-minute walkthrough — I provision a governed domain live, on a
+          real Snowflake account. No install required to watch, and no obligation after.</p>
+          <p style="max-width:32em; margin-top:-4px">If it fits, we talk about a design partnership:
+          you run it on your own Snowflake, I shape the roadmap around what you actually hit. Free
+          while we're at this stage.</p>
           <a class="btn primary" href="https://cal.com/dataspacehq/walkthrough" target="_blank" rel="noopener">Book a walkthrough →</a>
           <div class="microtrust"><span><span class="d"></span> Pick a time yourself — no waiting on a reply</span></div>
         </div>
@@ -589,6 +670,21 @@
       var url = new URL(a.href);
       KEYS.forEach(function(k){ if(utm[k]) url.searchParams.set(k, utm[k]); });
       a.href = url.toString();
+    });
+  })();
+
+  // ---- GA4 conversion events. Pageviews on their own say nothing useful;
+  // these are the only two actions on the page that actually mean something.
+  // Mark both as key events in GA4 → Admin → Events once data arrives.
+  (function(){
+    if(typeof gtag !== 'function') return;
+    document.querySelectorAll('a[href^="https://cal.com/dataspacehq/walkthrough"]').forEach(function(a){
+      a.addEventListener('click', function(){
+        // Which of the two buttons — mid-page or the final CTA — did the work.
+        gtag('event', 'book_walkthrough_click', {
+          location: a.closest('#demo') ? 'final_cta' : 'mid_page'
+        });
+      });
     });
   })();
 
@@ -673,6 +769,7 @@
           var el=document.getElementById(k), v=sessionStorage.getItem(k);
           if(el && v) el.value=v;
         });
+        if(typeof gtag === 'function') gtag('event', 'lead_form_submit', { context: d.context || 'unspecified' });
         show('ok',"Thanks — we'll be in touch within one business day.");
       }catch(_){ show('ok','Opening your email client…'); mailto(d); }
       finally{ btn.disabled=false; btn.textContent='Get a demo'; }
