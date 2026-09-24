@@ -27,32 +27,31 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-<!-- Google Analytics 4.
-     ⚠️ REPLACE G-XXXXXXXXXX below with the real Measurement ID from
-     analytics.google.com → Admin → Data Streams → Web. Until that's done this
-     loads nothing useful.
+<!-- Google Analytics 4 — property G-GN1M1ZCTQ0.
+     Conversion events are wired at the bottom of this file, not here:
+     book_walkthrough_click (tagged mid_page vs final_cta) and
+     lead_form_submit. Mark both as key events in GA4 once data arrives.
 
-     Note, recorded deliberately: this sets first-party cookies, which under
-     GDPR/ePrivacy normally requires prior consent for EU visitors — and this
-     site targets DACH. Shipped without a consent banner as an explicit
-     founder decision (2026-09-24), knowing the trade-off.
+     Recorded deliberately: this sets first-party cookies, which under
+     GDPR/ePrivacy normally requires prior consent from EU visitors — and
+     this site targets DACH. Shipped without a consent banner as an explicit
+     founder decision (2026-09-24), with the trade-off understood.
 
-     To switch to cookieless mode later (keeps the GA4 dashboard, drops the
-     cookies and the consent question), uncomment the consent block below.
-     One change, no other edits needed. -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+     To switch to cookieless later (keeps the GA4 property and the traffic
+     numbers, drops the cookies and the consent question, loses cross-session
+     identity), uncomment the consent block below. Nothing else changes. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GN1M1ZCTQ0"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
 
-  // --- cookieless switch: uncomment these three lines to run GA4 without
-  //     cookies (no consent banner needed, reduced fidelity) ---
+  // --- cookieless switch: uncomment to run GA4 without cookies ---
   // gtag('consent', 'default', {
   //   ad_storage: 'denied', ad_user_data: 'denied',
   //   ad_personalization: 'denied', analytics_storage: 'denied' });
 
   gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
+  gtag('config', 'G-GN1M1ZCTQ0', { anonymize_ip: true });
 </script>
 <script type="application/ld+json">
 {
