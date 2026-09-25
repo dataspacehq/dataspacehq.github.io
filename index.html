@@ -93,7 +93,7 @@
     {
       "@type": "Question",
       "name": "Do we still need to wire SPCS, tasks and RBAC ourselves?",
-      "acceptedAnswer": { "@type": "Answer", "text": "DataSpaceHQ uses them under the hood — you just don't wire them. Ingest is an HTTP endpoint per mart that validates each event against the domain's schema and lands it in the raw layer, the transform is generated for you and runs natively in Snowflake, serving runs on Snowpark Container Services, and governance maps to real Snowflake tags, masking policies and roles. Best practices, by default. If you already run dbt yourself, it keeps working alongside — we're not asking you to move it." }
+      "acceptedAnswer": { "@type": "Answer", "text": "DataSpaceHQ uses them under the hood — you just don't wire them. Ingest is an HTTP endpoint per mart that validates each event against the domain's schema and lands it in the raw layer — a batch large enough to be worth it is staged and bulk-COPYed rather than inserted row by row, the transform is generated for you and runs natively in Snowflake, serving runs on Snowpark Container Services, and governance maps to real Snowflake tags, masking policies and roles. Best practices, by default. If you already run dbt yourself, it keeps working alongside — we're not asking you to move it." }
     },
     {
       "@type": "Question",
@@ -449,7 +449,7 @@
     <div class="cards">
       <div class="card"><div class="step mono">01 — describe or adopt</div><div class="klab">Blueprint</div><h3>Describe it, or adopt it</h3><p>A short blueprint for a new domain — or point at a table you already have, even in another database. No SQL or DDL.</p></div>
       <div class="card"><div class="step mono">02 — provision</div><div class="klab">One action</div><h3>DataSpaceHQ provisions it</h3><p>Ingest → transform → serve stood up in minutes, validated against your company guardrails.</p></div>
-      <div class="card"><div class="step mono">03 — consume</div><div class="klab">Output ports</div><h3>Teams consume it</h3><p>A governed HTTP API per output port. Callers never send SQL — only a route and filters you allow; PII and access are enforced.</p></div>
+      <div class="card"><div class="step mono">03 — consume</div><div class="klab">Output ports</div><h3>Teams consume it</h3><p>A governed HTTP API, or a Snowflake view for SQL consumers. Callers never send SQL — only a route and filters you allow; PII and access are enforced either way.</p></div>
     </div>
   </section>
 
@@ -461,7 +461,7 @@
     DataSpaceHQ didn't create, built by someone who left, named three different ways. Point at it and it
     becomes a governed domain, without moving or duplicating a single row.</p>
     <div class="factrow">
-      <div class="fact"><b>Even across databases</b><span>Adopt a table that lives somewhere else entirely — read, contracted and drift-checked in place. Tagging its PII is one line of SQL we hand you: Snowflake won't let an app write to a table outside its own database.</span></div>
+      <div class="fact"><b>Even across databases</b><span>Adopt a table that lives somewhere else entirely — read, contracted, drift-checked and its PII tagged and masked, in place. Nothing moves.</span></div>
       <div class="fact"><b>Drift caught early</b><span>A silent column rename surfaces as a finding, not as a quarter of wrong reports.</span></div>
       <div class="fact"><b>A contract, automatically</b><span>Open-standard <a class="accent" href="https://bitol.io" target="_blank" rel="noopener">ODCS</a> — validated against the spec's own schema — generated from what's actually there.</span></div>
     </div>
@@ -556,7 +556,7 @@
     <div class="faq">
       <details><summary>Isn't this just an API in front of Snowflake?</summary><p>No. An API is one of several output ports. DataSpaceHQ is a factory for complete, governed data <em>domains</em> — with a lifecycle (ingest → transform → serve), enforced company guardrails, and a fleet console across all of them. The endpoint is the easy part; the governance and consistency are the product.</p></details>
       <details><summary>Does my data leave Snowflake?</summary><p>Never. DataSpaceHQ is a Native App that runs entirely inside your Snowflake account. Nothing is copied to us or anywhere else. You pay Snowflake for compute directly; we're a software layer on top.</p></details>
-      <details><summary>Do we still need to wire SPCS, tasks and RBAC ourselves?</summary><p>DataSpaceHQ uses them under the hood — you just don't wire them. Ingest is an HTTP endpoint per mart that validates each event against the domain's schema and lands it in the raw layer, the transform is generated for you and runs natively in Snowflake, serving runs on Snowpark Container Services, and governance maps to real Snowflake tags, masking policies and roles. Best practices, by default. If you already run dbt yourself, it keeps working alongside — we're not asking you to move it.</p></details>
+      <details><summary>Do we still need to wire SPCS, tasks and RBAC ourselves?</summary><p>DataSpaceHQ uses them under the hood — you just don't wire them. Ingest is an HTTP endpoint per mart that validates each event against the domain's schema and lands it in the raw layer — a batch large enough to be worth it is staged and bulk-COPYed rather than inserted row by row, the transform is generated for you and runs natively in Snowflake, serving runs on Snowpark Container Services, and governance maps to real Snowflake tags, masking policies and roles. Best practices, by default. If you already run dbt yourself, it keeps working alongside — we're not asking you to move it.</p></details>
       <details><summary>What about data that lives in Databricks or another lakehouse?</summary><p>On the roadmap: govern and serve data in an external Iceberg catalog (Databricks, Glue) through Snowflake — without moving it. If that's your setup, tell us — we're picking design partners for exactly this.</p></details>
       <details><summary>We already use dbt contracts, or looked at Gable.</summary><p>dbt contracts only cover models built in dbt. Gable requires instrumenting your producer's codebase. DataSpaceHQ's contracts reach adopted tables too — including data that existed years before DataSpaceHQ did, in a database it didn't build.</p></details>
       <details><summary>What does it cost?</summary><p>Pricing scales with how many domains you run. We're not publishing tiers while we're still shaping the product with design partners — book a walkthrough and we'll talk through what fits your setup.</p></details>
