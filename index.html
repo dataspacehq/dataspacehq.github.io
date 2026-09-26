@@ -86,7 +86,7 @@
     {
       "@type": "Question",
       "name": "Isn't this just an API in front of Snowflake?",
-      "acceptedAnswer": { "@type": "Answer", "text": "No. The endpoint is the easy part. DataSpaceHQ builds the whole governed domain — where raw data lands, the curated tables, who owns it, what is personal, what it costs — and enforces your rules across every one of them from a single console. An API is just one way to read the result." }
+      "acceptedAnswer": { "@type": "Answer", "text": "No. The endpoint is the easy part. DataSpaceHQ builds the whole governed domain — where raw data lands, the curated tables, who owns it, what is personal, what it costs — and enforces your rules across every one of them from one page inside Snowsight. An API is just one way to read the result." }
     },
     {
       "@type": "Question",
@@ -495,10 +495,11 @@
 
   <section id="console-shot" class="reveal" style="padding-top:0">
     <span class="eyebrow">What you'd be looking at</span>
-    <h2 style="margin-top:14px">One console, every domain.</h2>
-    <p class="lead-2">The rules in force across the top, every domain and its state beneath, and
-    the contract, the rules file and the lineage a click away. It runs inside Snowsight — there is
-    no second tool to log into.</p>
+    <h2 style="margin-top:14px">It's a page in Snowsight. Not another tool.</h2>
+    <p class="lead-2">Your rules across the top, every domain and its state beneath, and the
+    contract, the rules file and the lineage a click away. Your team opens it where they already
+    work — nothing new to log into, no account to provision for anyone, and nothing of ours
+    running anywhere.</p>
     <figure style="margin:30px 0 0">
       <img src="/console.png" alt="The DataSpaceHQ console: company rules across the top, three
       governed domains with their owner, status, storage, warehouse and layers, and a detail view
@@ -586,7 +587,7 @@
     <span class="eyebrow">Questions</span>
     <h2 style="margin-top:14px">The things people ask first.</h2>
     <div class="faq">
-      <details><summary>Isn't this just an API in front of Snowflake?</summary><p>No. The endpoint is the easy part. DataSpaceHQ builds the whole governed <em>domain</em> — where raw data lands, the curated tables, who owns it, what's personal, what it costs — and enforces your rules across every one of them from a single console. An API is just one way to read the result.</p></details>
+      <details><summary>Isn't this just an API in front of Snowflake?</summary><p>No. The endpoint is the easy part. DataSpaceHQ builds the whole governed <em>domain</em> — where raw data lands, the curated tables, who owns it, what's personal, what it costs — and enforces your rules across every one of them from one page inside Snowsight. An API is just one way to read the result.</p></details>
       <details><summary>Does my data leave Snowflake?</summary><p>Never. DataSpaceHQ is a Native App that runs entirely inside your Snowflake account. Nothing is copied to us or anywhere else. You pay Snowflake for compute directly; we're a software layer on top.</p></details>
       <details><summary>Do we still have to wire up containers, tasks and roles ourselves?</summary><p>No — DataSpaceHQ uses them, you don't wire them. Ingest validates each event and lands it in your raw layer; the transform is generated and runs natively in Snowflake; serving runs on Snowpark Container Services; governance maps to real Snowflake tags, masking policies and roles. Standard Snowflake underneath, set up properly by default. If you already run dbt, it keeps working alongside — we're not asking you to move it.</p></details>
       <details><summary>What about data that lives in Databricks or another lakehouse?</summary><p>On the roadmap: govern and serve data in an external Iceberg catalog (Databricks, Glue) through Snowflake — without moving it. If that's your setup, tell us — we're picking design partners for exactly this.</p></details>
