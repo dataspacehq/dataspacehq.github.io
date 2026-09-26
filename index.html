@@ -182,7 +182,6 @@
   .nav-cta .btn:hover{transform:none; border-color:var(--accent); color:var(--accent)}
   a:focus-visible,.btn:focus-visible,summary:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
 
-
   /* shape diagram — the one idea the page was spending 80 words to describe:
      three teams, three different shapes, vs three identical governed ones.
      Two SVGs rather than one so they stack (and stay legible) on a phone
@@ -233,7 +232,7 @@
      that it is *not* a command-line tool. */
   .hero-shot{margin:44px 0 0}
   .hero-shot .shot-lead{font-size:1.15rem; font-weight:700; color:var(--ink); margin:0 0 16px}
-  .hero-shot figcaption{margin-top:13px; max-width:78ch}
+  
   /* Centred because the product shot below runs the full container width; a
      left-aligned column left ~400px of dead space beside the headline. */
   .hero .stack{display:flex; flex-direction:column; gap:22px; align-items:center; text-align:center}
@@ -264,9 +263,9 @@
   /* The two static consoles further down (contract, AGENTS.md) size to content. */
   .console .body.fit{height:auto}
   .console .ln{white-space:pre-wrap; word-break:break-word}
-  .console .p{color:var(--accent)} .console .p::before{content:"$ "}
+   .console .p::before{content:"$ "}
   .console .ok{color:var(--signal)} .console .arrow{color:#6b83a0}
-  .console .cur{display:inline-block; width:8px; height:1.05em; vertical-align:-2px; background:var(--accent); animation:blink 1s steps(2) infinite; margin-left:1px}
+  
   @keyframes blink{50%{opacity:0}}
 
   /* Three-up supporting facts — replaces the wall-of-text paragraphs that used
@@ -312,28 +311,22 @@
     padding:4px 11px; background:var(--surface); white-space:nowrap}
 
   /* fleet console */
-  .fleet{margin-top:34px; border:1px solid var(--console-line); border-radius:var(--r); overflow:hidden; background:var(--console); box-shadow:var(--shadow-lg); color:var(--console-ink)}
-  .fleet .fleet-bar{display:flex; align-items:center; gap:9px; padding:14px 18px; border-bottom:1px solid var(--console-line); font-size:.82rem; color:#9fb2c8}
-  .fleet .dotg{width:8px; height:8px; border-radius:50%; background:var(--signal)}
-  .fleet .fleet-row{display:grid; grid-template-columns:1.3fr 1fr .8fr .9fr; gap:12px; padding:13px 18px; border-top:1px solid var(--console-line); font-size:.9rem}
-  .fleet .fleet-row b{color:#eaf1f8; font-weight:700} .fleet .fleet-row span{color:#9fb2c8}
-  .fleet .okp{color:var(--signal); font-weight:700}
-  @media (max-width:600px){ .fleet .fleet-row{grid-template-columns:1fr auto} .fleet .fleet-row span:nth-child(2),.fleet .fleet-row span:nth-child(3){display:none} }
+
+  
+  
+   .fleet .fleet-row span{color:#9fb2c8}
+  
+  @media (max-width:600px){  .fleet .fleet-row span:nth-child(2),.fleet .fleet-row span:nth-child(3){display:none} }
   /* system-at-scale diagram (data-engineering lifecycle: ingest→transform→serve + undercurrents) */
-  .scale{margin-top:34px; border:1px solid var(--line); border-radius:var(--r); background:var(--surface); box-shadow:var(--shadow); overflow:hidden}
-  .scale-top{display:flex; gap:16px; align-items:stretch; padding:26px 26px 22px; overflow-x:auto}
-  .dmod{flex:1 0 148px; min-width:148px; border:1px solid var(--line); border-radius:12px; padding:14px; background:var(--bg)}
-  .dmod-name{font-size:.8rem; font-weight:750; color:var(--ink); margin-bottom:11px}
-  .pillars{display:grid; grid-template-columns:repeat(3,1fr); gap:6px}
-  .pillars span{writing-mode:vertical-rl; transform:rotate(180deg); text-align:center; padding:16px 3px; border-radius:7px;
-    background:color-mix(in srgb,var(--accent) 12%,transparent); color:var(--accent); font-weight:750; font-size:.68rem; letter-spacing:.02em}
-  .dmod-base{margin-top:9px; font-size:.62rem; text-align:center; color:var(--muted); border-top:1px dashed var(--line); padding-top:7px}
-  .scale .dots{align-self:center; color:var(--muted); font-weight:800; letter-spacing:2px}
-  .undercurrent{display:flex; align-items:center; gap:16px; flex-wrap:wrap; padding:16px 26px; background:var(--console); color:var(--console-ink); border-top:1px solid var(--console-line)}
-  .uc-lab{font-size:.7rem; text-transform:uppercase; letter-spacing:.12em; font-weight:750; color:#9fb2c8}
-  .uc-chips{display:flex; gap:10px; flex-wrap:wrap}
-  .uc-chips span{font-size:.78rem; font-weight:650; color:#dbe7f3; border:1px solid var(--console-line); border-radius:999px; padding:4px 12px; display:inline-flex; align-items:center; gap:7px}
-  .uc-chips span::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--signal)}
+
+  
+
+  
+
+  
+
+  
+  
   .card h3{margin-top:12px} .card p{margin-top:9px; font-size:.96rem}
   .card .step{font-family:ui-monospace,Menlo,monospace; font-size:.8rem; color:var(--muted); margin-bottom:6px}
 
@@ -355,7 +348,7 @@
   .cmp .row:first-child{border-top:0}
   .cmp .row>div{padding:14px 18px; font-size:.95rem}
   .cmp .h{background:color-mix(in srgb,var(--ink) 4%,transparent); font-weight:700; font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
-  .cmp .k{color:var(--muted)} .cmp .diy{color:var(--muted); text-decoration:line-through; text-decoration-color:color-mix(in srgb,var(--muted) 50%,transparent)}
+   .cmp .diy{color:var(--muted); text-decoration:line-through; text-decoration-color:color-mix(in srgb,var(--muted) 50%,transparent)}
   .cmp .us{font-weight:680} .cmp .us b{color:var(--signal)}
 
   /* mid-page cta */
