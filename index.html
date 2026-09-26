@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DataSpaceHQ — Governed Self-Serve Data Domains on Snowflake</title>
 <link rel="preload" as="image" href="/console.png" fetchpriority="high">
-<meta name="description" content="A renamed column can break a dashboard for three months. DataSpaceHQ gives every team on Snowflake the same governed shape — inside rules you set once. Runs as a Native App in your own account.">
+<meta name="description" content="A renamed column can break a dashboard for three months. DataSpaceHQ gives every team on Snowflake the same shape — ingest, transform, serve — inside rules you write once. Runs as a Native App in your own account.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DataSpaceHQ">
 <meta property="og:title" content="Governed data domains on Snowflake — DataSpaceHQ">
-<meta property="og:description" content="A renamed column can break a dashboard for three months. DataSpaceHQ gives every team on Snowflake the same governed shape — inside rules you set once. Runs as a Native App in your own account.">
+<meta property="og:description" content="A renamed column can break a dashboard for three months. DataSpaceHQ gives every team on Snowflake the same shape — ingest, transform, serve — inside rules you write once. Runs as a Native App in your own account.">
 <meta property="og:url" content="https://dataspacehq.com/">
 <meta property="og:image" content="https://dataspacehq.com/og.png">
 <meta property="og:image:width" content="1200">
@@ -17,7 +17,7 @@
   <meta property="og:image:alt" content="DataSpaceHQ — a renamed column broke it. Nothing was watching.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Governed data domains on Snowflake — DataSpaceHQ">
-<meta name="twitter:description" content="A renamed column can break a dashboard for three months. DataSpaceHQ gives every team on Snowflake the same governed shape — inside rules you set once. Runs as a Native App in your own account.">
+<meta name="twitter:description" content="A renamed column can break a dashboard for three months. DataSpaceHQ gives every team on Snowflake the same shape — ingest, transform, serve — inside rules you write once. Runs as a Native App in your own account.">
 <meta name="twitter:image" content="https://dataspacehq.com/og.png">
 <link rel="canonical" href="https://dataspacehq.com/">
 <meta name="theme-color" content="#080E18">
@@ -213,6 +213,15 @@
   .pill{font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--muted);
     border:1px solid var(--line); border-radius:999px; padding:3px 9px}
   .nav-cta{display:flex; align-items:center; gap:14px}
+  .skip{position:absolute; left:-9999px; top:8px; z-index:60; background:var(--surface);
+    color:var(--ink); border:1px solid var(--line); border-radius:8px; padding:9px 14px; font-size:.9rem}
+  .skip:focus{left:16px}
+  .nav-links{display:flex; align-items:center; gap:26px}
+  .nav-links a{font-size:.88rem; color:var(--muted); white-space:nowrap}
+  .nav-links a:hover{color:var(--ink)}
+  /* Below this the section links wrap under the brand; the CTA is the one
+     thing that has to survive at any width. */
+  @media (max-width:900px){ .nav-links{display:none} }
 
   section{padding:88px 0; border-top:1px solid var(--line)}
   .eyebrow + h2{margin-top:14px}
@@ -280,7 +289,10 @@
   /* Three-up supporting facts — replaces the wall-of-text paragraphs that used
      to carry this content. Each fact is one bold claim + one line of substance,
      which is the scannable shape the rest of the page already uses. */
-  .factrow{display:grid; grid-template-columns:repeat(3,1fr); gap:14px 26px; margin:26px 0 34px}
+  /* align-items:start, or the grid stretches every item to the tallest and a
+     three-line column's accent rule runs on for another three lines of nothing. */
+  .factrow{display:grid; grid-template-columns:repeat(3,1fr); gap:14px 26px; margin:26px 0 34px;
+    align-items:start}
   /* Section consoles used to sit flush against the block above them. */
   section .factrow + .console, section .lead-2 + .console{margin-top:30px}
   .fact{display:flex; flex-direction:column; gap:5px; padding-left:15px; border-left:2px solid color-mix(in srgb,var(--accent) 45%,transparent)}
@@ -311,7 +323,7 @@
   .fp-h{font-size:1.02rem; font-weight:700; color:var(--ink); margin:0 0 4px}
   .fp-s{font-size:.88rem; color:var(--muted); margin:0 0 22px; max-width:62ch}
   .fp-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:18px 26px}
-  .fp-g h4{margin:0 0 9px; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
+  .fp-g h3{margin:0 0 9px; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
     font-weight:700; color:var(--muted); display:flex; align-items:center; gap:7px}
   .fp-g h4::before{content:""; width:7px; height:7px; border-radius:2px; background:var(--accent);
     flex:0 0 auto}
@@ -417,17 +429,22 @@
      Drop the two decorative/secondary items; logo + primary CTA is enough. */
   @media (max-width:640px){
     .nav .pill{display:none}
-    .nav-cta a.fine{display:none}
   }
 </style>
 </head>
 <body>
 
+<a class="skip" href="#how">Skip to content</a>
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="#"><span class="mark"></span>DataSpaceHQ <span class="pill">for Snowflake</span></a>
+    <a class="brand" href="/"><span class="mark"></span>DataSpaceHQ <span class="pill">for Snowflake</span></a>
+    <nav class="nav-links" aria-label="Page sections">
+      <a href="#how">How it works</a>
+      <a href="#adopt">Existing data</a>
+      <a href="#ai-era">Why now</a>
+      <a href="#faq">FAQ</a>
+    </nav>
     <div class="nav-cta">
-      <a class="fine" href="#how" style="color:var(--muted)">How it works</a>
       <a class="btn primary" href="#demo">Get a demo</a>
     </div>
   </div>
@@ -467,16 +484,16 @@
     </figure>
 
     <div class="fp reveal">
-      <p class="fp-h">One install wires these together.</p>
+      <h2 class="fp-h">One install wires these together.</h2>
       <p class="fp-s">Snowflake's own objects, created and kept in sync for you.</p>
       <div class="fp-grid">
-        <div class="fp-g"><h4>Core platform</h4><ul><li>schemas</li><li>tables</li><li>views</li><li>virtual warehouses</li></ul></div>
-        <div class="fp-g"><h4>Horizon governance</h4><ul><li>tags</li><li>data classification</li><li>masking policies</li><li>tag-based masking</li><li>access history</li></ul></div>
-        <div class="fp-g"><h4>Apps & development</h4><ul><li>Native App Framework</li><li>Streamlit in Snowflake</li><li>Container Services</li><li>compute pools</li></ul></div>
-        <div class="fp-g"><h4>Data engineering</h4><ul><li>tasks</li><li>stored procedures</li></ul></div>
-        <div class="fp-g"><h4>Analytics</h4><ul><li>Semantic Views</li><li>Snowsight</li></ul></div>
-        <div class="fp-g"><h4>Open ecosystem</h4><ul><li>Iceberg tables</li></ul></div>
-        <div class="fp-g"><h4>Monitoring</h4><ul><li>ACCOUNT_USAGE metering</li></ul></div>
+        <div class="fp-g"><h3>Core platform</h3><ul><li>schemas</li><li>tables</li><li>views</li><li>virtual warehouses</li></ul></div>
+        <div class="fp-g"><h3>Horizon governance</h3><ul><li>tags</li><li>data classification</li><li>masking policies</li><li>tag-based masking</li><li>access history</li></ul></div>
+        <div class="fp-g"><h3>Apps & development</h3><ul><li>Native App Framework</li><li>Streamlit in Snowflake</li><li>Container Services</li><li>compute pools</li></ul></div>
+        <div class="fp-g"><h3>Data engineering</h3><ul><li>tasks</li><li>stored procedures</li></ul></div>
+        <div class="fp-g"><h3>Analytics</h3><ul><li>Semantic Views</li><li>Snowsight</li></ul></div>
+        <div class="fp-g"><h3>Open ecosystem</h3><ul><li>Iceberg tables</li></ul></div>
+        <div class="fp-g"><h3>Monitoring</h3><ul><li>ACCOUNT_USAGE metering</li></ul></div>
       </div>
     </div>
   </section>
@@ -559,7 +576,7 @@
 
   <!-- GOVERNS WHAT YOU ALREADY HAVE -->
   <section id="adopt" class="reveal">
-    <span class="eyebrow">Not just new domains</span>
+    <span class="eyebrow">Your existing data</span>
     <h2 style="margin-top:14px">Your data didn't wait for a clean slate. Neither do we.</h2>
     <p class="lead-2" style="max-width:40em">Most of what needs governing already exists — built by
     someone who left, named three different ways. Point at it; not a row moves.</p>
@@ -604,7 +621,7 @@
     </div>
 
     <div class="midcta">
-      <p>Recognise any of this on your own Snowflake? See a governed domain built live, on your data.</p>
+      <p>Recognise any of this on your own Snowflake?</p>
       <div class="cta-row">
         <a class="btn primary" href="https://cal.com/dataspacehq/walkthrough" target="_blank" rel="noopener">Book a walkthrough →</a>
         <a class="btn ghost" href="#demo">Get a demo →</a>
