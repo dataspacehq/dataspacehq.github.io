@@ -287,7 +287,11 @@
   .card{border:1px solid var(--line); border-radius:var(--r); padding:26px; background:var(--surface); box-shadow:var(--shadow);
     transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease}
   .card:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--accent) 32%,var(--line))}
-  .card .klab{font-size:.72rem; text-transform:uppercase; letter-spacing:.12em; font-weight:750; color:var(--accent)}
+  /* Each card shows the same domain at its own stage, in the same shapes the
+     problem diagram uses, so the three read as one sequence rather than three
+     pictures. The klab line ("A form", "Output ports") went with them — the
+     drawing says it. */
+  .card svg{width:100%; height:auto; display:block; margin:14px 0 4px}
   /* built-on — quiet trust line under the hero, not a band */
   /* footprint — replaces a one-line "Built on" string nobody read. Every chip
      is a Snowflake object this app actually creates or reads; the list was
@@ -334,6 +338,12 @@
   .card .step{font-family:ui-monospace,Menlo,monospace; font-size:.8rem; color:var(--muted); margin-bottom:6px}
 
   /* problem */
+  /* argument left, the artifact that proves it right. The console block is
+     taller than the prose, so it sets the row height and the text sits to it. */
+  .split{display:grid; grid-template-columns:1fr 1.05fr; gap:42px; align-items:start; margin-top:26px}
+  @media (max-width:900px){ .split{grid-template-columns:1fr; gap:26px} }
+  .split .lead-2{margin-top:0}
+  .split .lead-2 + .lead-2{margin-top:16px}
   .prob{display:grid; grid-template-columns:1.1fr 1fr; gap:46px; align-items:start}
   .prob ul{list-style:none; margin:26px 0 0; padding:0; display:flex; flex-direction:column; gap:16px}
   .prob li{display:grid; grid-template-columns:auto 1fr; gap:14px; font-size:1.02rem}
@@ -530,18 +540,17 @@
     <p class="lead-2">Cortex Code, Claude Code, whatever comes next — they enforce the governance
     that already exists in your account. <strong style="color:var(--ink)">They don't add any.</strong></p>
 
-    <div class="cmp" style="margin-top:30px">
-      <div class="row"><div class="h"></div><div class="h">Pointed at a bare schema</div><div class="h">Pointed at a governed domain</div></div>
-      <div class="row"><div>What it can read</div><div class="diy">Every column in the clear</div><div class="us"><b>Personal columns masked</b> by policy, whoever is asking</div></div>
-      <div class="row"><div>Where it should write</div><div class="diy">Nothing says</div><div class="us">Raw, staging, curated — <b>named the same in every domain</b></div></div>
-      <div class="row"><div>What it reads first</div><div class="diy">Your table names</div><div class="us"><b>AGENTS.md</b> — owner, personal columns, what not to touch</div></div>
-      <div class="row"><div>Who owns what it builds</div><div class="diy">Whoever ran the prompt</div><div class="us">The domain it was pointed at, <b>under that domain's rules</b></div></div>
-    </div>
-
-    <p class="lead-2" style="margin-top:26px">We're not an AI product. We're the rules an AI reads
+    <div class="split">
+      <div>
+        <p class="lead-2">Point one at a bare schema and it reads every column
+    in the clear, writes wherever it lands, and infers your layout from table names. Point the same
+    agent at a governed domain and it meets masked columns whoever is asking, a layout that is
+    identical in every domain, and one file it reads before anything else.</p>
+        <p class="lead-2" style="margin-top:26px">We're not an AI product. We're the rules an AI reads
     first — and they're generated from the tags actually on your tables, so they can't quietly
     describe a different account than the one they govern.</p>
-    <div class="console" aria-label="A generated AGENTS.md file">
+      </div>
+      <div class="console" aria-label="A generated AGENTS.md file">
       <div class="bar"><i></i><i></i><i></i><span class="t mono">AGENTS.md</span></div>
       <div class="body mono fit">
         <div class="ln"># storefront — governed by DataSpaceHQ</div>
@@ -555,6 +564,7 @@
         <div class="ln">- Don't write directly into a *_RAW schema</div>
         <div class="ln">- Any new personal column must be tagged before it ships</div>
       </div>
+      </div>
     </div>
   </section>
 
@@ -565,9 +575,9 @@
     <p class="lead-2">You say what the domain should contain. DataSpaceHQ builds it and enforces
     your rules — no containers, tasks or grants to wire yourself.</p>
     <div class="cards">
-      <div class="card"><div class="step mono">01 — define or adopt</div><div class="klab">A form</div><h3>Say what you need</h3><p>Fill in the tables and columns for a new domain — or point at one you already have, even in another database. No SQL to write.</p></div>
-      <div class="card"><div class="step mono">02 — create</div><div class="klab">One action</div><h3>DataSpaceHQ builds it</h3><p>Ingest → transform → serve, standing in minutes. Your rules are checked first: if one fails, nothing is created at all.</p></div>
-      <div class="card"><div class="step mono">03 — consume</div><div class="klab">Output ports</div><h3>Other teams use it</h3><p>A governed HTTP endpoint, or a Snowflake view for SQL users. Callers sign in, send no SQL of their own, and see personal columns masked unless your rules say otherwise.</p></div>
+      <div class="card"><div class="step mono">01 — define or adopt</div><svg viewBox="0 0 300 140" role="img" aria-label="A form: domain named storefront, tables orders and customers, and the column customer_email flagged as personal."><rect class="dg-box" x="0" y="0" width="300" height="34" rx="8"/><text class="dg-name" x="12" y="22.0" text-anchor="start">storefront</text><text class="dg-team" x="286" y="21" text-anchor="end">domain</text><rect class="dg-box" x="0" y="44" width="142" height="30" rx="8"/><text class="dg-name" x="71.0" y="64.0" text-anchor="middle">orders</text><rect class="dg-box" x="158" y="44" width="142" height="30" rx="8"/><text class="dg-name" x="229.0" y="64.0" text-anchor="middle">customers</text><rect class="dg-box" x="0" y="84" width="300" height="30" rx="8"/><text class="dg-name" x="12" y="104.0" text-anchor="start">customer_email</text><circle cx="276" cy="99" r="5" fill="var(--danger)"/><text class="dg-team" x="0" y="133" fill="var(--danger)">marked personal before the table exists</text></svg><h3>Say what you need</h3><p>Fill in the tables and columns for a new domain — or point at one you already have, even in another database. No SQL to write.</p></div>
+      <div class="card"><div class="step mono">02 — create</div><svg viewBox="0 0 300 140" role="img" aria-label="Raw, staging and marts built inside your rules, which are checked before anything is created."><text class="dg-rules-t" x="0" y="12">YOUR RULES</text><rect class="dg-rules" x="0" y="20" width="300" height="58" rx="12"/><rect class="dg-gov" x="10" y="33" width="84" height="32" rx="8"/><text class="dg-name" x="52.0" y="54.0" text-anchor="middle">raw</text><path d="M98 49 L102 49" stroke="var(--muted)" stroke-width="1.5" opacity=".6"/><path d="M101 45.5 l6 3.5 l-6 3.5z" fill="var(--muted)" opacity=".6"/><rect class="dg-gov" x="108" y="33" width="84" height="32" rx="8"/><text class="dg-name" x="150.0" y="54.0" text-anchor="middle">staging</text><path d="M196 49 L200 49" stroke="var(--muted)" stroke-width="1.5" opacity=".6"/><path d="M199 45.5 l6 3.5 l-6 3.5z" fill="var(--muted)" opacity=".6"/><rect class="dg-gov" x="206" y="33" width="84" height="32" rx="8"/><text class="dg-name" x="248.0" y="54.0" text-anchor="middle">marts</text><text class="dg-team" x="0" y="133">rules checked before anything is created</text></svg><h3>DataSpaceHQ builds it</h3><p>Ingest → transform → serve, standing in minutes. Your rules are checked first: if one fails, nothing is created at all.</p></div>
+      <div class="card"><div class="step mono">03 — consume</div><svg viewBox="0 0 300 140" role="img" aria-label="The marts layer served two ways: a governed HTTP endpoint and a Snowflake view, with personal columns masked on both."><rect class="dg-gov" x="0" y="40" width="82" height="34" rx="8"/><text class="dg-name" x="41.0" y="62.0" text-anchor="middle">marts</text><path d="M86 30 L122 30" stroke="var(--muted)" stroke-width="1.5" opacity=".6"/><path d="M121 26.5 l6 3.5 l-6 3.5z" fill="var(--muted)" opacity=".6"/><path d="M86 84 L122 84" stroke="var(--muted)" stroke-width="1.5" opacity=".6"/><path d="M121 80.5 l6 3.5 l-6 3.5z" fill="var(--muted)" opacity=".6"/><rect class="dg-box" x="128" y="14" width="172" height="32" rx="8"/><text class="dg-name" x="214.0" y="35.0" text-anchor="middle">HTTP endpoint</text><rect class="dg-box" x="128" y="68" width="172" height="32" rx="8"/><text class="dg-name" x="214.0" y="89.0" text-anchor="middle">Snowflake view</text><circle cx="6" cy="129" r="5" fill="var(--signal)"/><text class="dg-team" x="20" y="133">masked on both — whoever is asking</text></svg><h3>Other teams use it</h3><p>A governed HTTP endpoint, or a Snowflake view for SQL users. Callers sign in, send no SQL of their own, and see personal columns masked unless your rules say otherwise.</p></div>
     </div>
   </section>
 
