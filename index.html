@@ -429,9 +429,9 @@
       <div>
         <span class="eyebrow">The problem</span>
         <h2 style="margin-top:14px">A renamed column can break a dashboard for three months before anyone notices.</h2>
-        <p class="lead-2">It doesn't take a bad actor — just a routine change nothing was watching. Every
-        team builds their domain a little differently, and nothing enforces the rules; it just documents
-        them. Data mesh promised a fix; in practice it's wikis and tribal knowledge.</p>
+        <p class="lead-2">It doesn't take a bad actor — just a routine change nothing was watching.
+        Every team builds differently, and the rules live in a wiki that documents them instead of
+        enforcing them.</p>
       </div>
       <ul>
         <li><span class="x">✗</span><span>No two domains look alike — naming, layers, access, personal data, all different.</span></li>
@@ -445,14 +445,20 @@
   <section id="ai-era" class="reveal">
     <span class="eyebrow">Why now</span>
     <h2 style="margin-top:14px">An agent will build against your data this year.<br>It follows the rules it can find.</h2>
-    <p class="lead-2">Snowflake's own Cortex Code, Claude Code, whatever comes next — they write SQL and
-    pipelines from a sentence. They enforce the governance that already exists in your account. They
-    don't create any. Point one at a schema with no boundaries and no tagged columns and it will build
-    into the mess faster than your team ever could.</p>
-    <p class="lead-2" style="margin-top:14px">We're not an AI product. We're the rules an AI reads
-    first — tagged personal columns, domain boundaries, and an <code>AGENTS.md</code> in your
-    repository, in the format these tools already look for. It's generated from the tags actually on
-    your tables, so it can't quietly describe a different account than the one it governs.</p>
+    <p class="lead-2">Cortex Code, Claude Code, whatever comes next — they enforce the governance
+    that already exists in your account. <strong style="color:var(--ink)">They don't create any.</strong></p>
+
+    <div class="cmp" style="margin-top:30px">
+      <div class="row"><div class="h"></div><div class="h">Pointed at a bare schema</div><div class="h">Pointed at a governed domain</div></div>
+      <div class="row"><div>What it can read</div><div class="diy">Every column in the clear</div><div class="us"><b>Personal columns masked</b> by policy, whoever is asking</div></div>
+      <div class="row"><div>Where it should write</div><div class="diy">Nothing says</div><div class="us">Raw, staging, curated — <b>named the same in every domain</b></div></div>
+      <div class="row"><div>What it reads first</div><div class="diy">Your table names</div><div class="us"><b>AGENTS.md</b> — owner, personal columns, what not to touch</div></div>
+      <div class="row"><div>Who owns the result</div><div class="diy">Whoever ran the prompt</div><div class="us">The domain's owner, <b>scoped to their own</b></div></div>
+    </div>
+
+    <p class="lead-2" style="margin-top:26px">We're not an AI product. We're the rules an AI reads
+    first — and they're generated from the tags actually on your tables, so they can't quietly
+    describe a different account than the one they govern.</p>
     <div class="console" aria-label="A generated AGENTS.md file">
       <div class="bar"><i></i><i></i><i></i><span class="t mono">AGENTS.md</span></div>
       <div class="body mono fit">
@@ -487,9 +493,8 @@
   <section id="adopt" class="reveal">
     <span class="eyebrow">Not just new domains</span>
     <h2 style="margin-top:14px">Your data didn't wait for a clean slate. Neither do we.</h2>
-    <p class="lead-2" style="max-width:40em">Most of what needs governing already exists — in a database
-    DataSpaceHQ didn't create, built by someone who left, named three different ways. Point at it and it
-    becomes a governed domain, without moving or duplicating a single row.</p>
+    <p class="lead-2" style="max-width:40em">Most of what needs governing already exists — built by
+    someone who left, named three different ways. Point at it; not a row moves.</p>
     <div class="factrow">
       <div class="fact"><b>Even across databases</b><span>Adopt a table that lives somewhere else entirely — read, contracted and drift-checked in place. Tagging its personal columns takes one line your admin runs once; we hand you the exact statement. Nothing moves.</span></div>
       <div class="fact"><b>Drift caught early</b><span>A silent column rename surfaces as a finding, not as a quarter of wrong reports.</span></div>
@@ -516,13 +521,8 @@
   <section id="outcomes" class="reveal">
     <span class="eyebrow">Why leaders adopt it</span>
     <h2 style="margin-top:14px">Autonomy for your teams.<br>One set of rules — yours.</h2>
-    <p class="lead-2">Write the rules once. Every domain comes out the same shape and inherits them — quality,
-    access, personal data, cost — so any team can move without waiting on you.</p>
-    <div class="cards">
-      <div class="card"><div class="klab">Faster</div><h3>Minutes, not quarters</h3><p>A complete governed domain in one action — instead of a platform project repeated for every team.</p></div>
-      <div class="card"><div class="klab">Leaner</div><h3>No platform to build</h3><p>No infra, DevOps or SRE, and nothing of ours running in your account. It manages itself, from one console.</p></div>
-      <div class="card"><div class="klab">Safer</div><h3>Governed by design</h3><p>Naming, personal-data tagging and masking, and a monthly credit budget per domain — all enforced for you. Then Snowflake's own classifier re-reads the data and flags personal columns nobody declared.</p></div>
-    </div>
+    <p class="lead-2">Write the rules once. Every domain comes out the same shape and inherits them,
+    so any team can move without waiting on you.</p>
 
     <div class="cmp">
       <div class="row"><div class="h"></div><div class="h">Doing it yourself</div><div class="h">With DataSpaceHQ</div></div>
@@ -548,9 +548,14 @@
   <section id="who" class="reveal">
     <span class="eyebrow">Who it's for</span>
     <h2 style="margin-top:14px">Built for teams scaling on Snowflake.</h2>
-    <div class="who-grid">
-      <div class="card"><h3>Data &amp; platform leaders</h3><p>2+ data-producing teams, no dedicated platform function yet. You want consistency and governance across teams — without being the bottleneck for every request. Write the rules once; watch every domain from one console.</p></div>
-      <div class="card"><h3>Analytics engineering leads</h3><p>Under a "data as a product" mandate. You want every data product to ship with a real, versioned contract — not a wiki page nobody re-reads until something breaks.</p></div>
+    <p class="lead-2">If three or more of these are true, this was built for you.</p>
+    <div class="factrow" style="grid-template-columns:repeat(2,1fr); margin-top:28px">
+      <div class="fact"><b>Two or more teams producing data</b><span>and each one shaped its corner differently.</span></div>
+      <div class="fact"><b>No platform team — or one that's the bottleneck</b><span>every dataset, pipeline and grant waits on the same people.</span></div>
+      <div class="fact"><b>A "data as a product" mandate from above</b><span>with no standard contract behind it.</span></div>
+      <div class="fact"><b>A breaking change cost you a quarter</b><span>and nothing would catch the next one earlier.</span></div>
+      <div class="fact"><b>Personal data you can't fully account for</b><span>copied into places nobody tagged.</span></div>
+      <div class="fact"><b>An AI assistant about to be switched on</b><span>over data with no boundaries in it yet.</span></div>
     </div>
   </section>
 
