@@ -289,9 +289,24 @@
   .card:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--accent) 32%,var(--line))}
   .card .klab{font-size:.72rem; text-transform:uppercase; letter-spacing:.12em; font-weight:750; color:var(--accent)}
   /* built-on — quiet trust line under the hero, not a band */
-  .builton{display:flex; align-items:baseline; gap:6px 10px; flex-wrap:wrap; margin-top:40px; max-width:56ch}
-  .builton .bo-lab{font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700; color:var(--muted)}
-  .builton .bo-marks{font-size:.86rem; color:var(--muted)}
+  /* footprint — replaces a one-line "Built on" string nobody read. Every chip
+     is a Snowflake object this app actually creates or reads; the list was
+     checked against the executed DDL, not against the docs (Streams and
+     Dynamic Tables came off it that way — they are mentioned in comments and
+     never created). Grouped by the clusters a Snowflake person already
+     carries in their head, so the product lands on a map they own. */
+  .fp{margin-top:46px; border-top:1px solid var(--line); padding-top:28px}
+  .fp-h{font-size:1.02rem; font-weight:700; color:var(--ink); margin:0 0 4px}
+  .fp-s{font-size:.88rem; color:var(--muted); margin:0 0 22px; max-width:62ch}
+  .fp-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:18px 26px}
+  .fp-g h4{margin:0 0 9px; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
+    font-weight:700; color:var(--muted); display:flex; align-items:center; gap:7px}
+  .fp-g h4::before{content:""; width:7px; height:7px; border-radius:2px; background:var(--accent);
+    flex:0 0 auto}
+  .fp-g ul{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px}
+  .fp-g li{font-size:.79rem; color:var(--ink); border:1px solid var(--line); border-radius:999px;
+    padding:4px 11px; background:var(--surface); white-space:nowrap}
+
   /* fleet console */
   .fleet{margin-top:34px; border:1px solid var(--console-line); border-radius:var(--r); overflow:hidden; background:var(--console); box-shadow:var(--shadow-lg); color:var(--console-ink)}
   .fleet .fleet-bar{display:flex; align-items:center; gap:9px; padding:14px 18px; border-bottom:1px solid var(--console-line); font-size:.82rem; color:#9fb2c8}
@@ -465,9 +480,19 @@
       created.</figcaption>
     </figure>
 
-    <div class="builton">
-      <span class="bo-lab">Built on</span>
-      <span class="bo-marks">Snowflake Native App · Snowpark Containers · Apache Iceberg · Horizon tags &amp; policies · Semantic Views</span>
+    <div class="fp reveal">
+      <p class="fp-h">One install wires these together.</p>
+      <p class="fp-s">Not a layer on top of Snowflake — Snowflake's own objects, created and kept
+      in step for you. Everything below is something the app builds or reads in your account.</p>
+      <div class="fp-grid">
+        <div class="fp-g"><h4>Core platform</h4><ul><li>schemas</li><li>tables</li><li>views</li><li>virtual warehouses</li></ul></div>
+        <div class="fp-g"><h4>Governance & security</h4><ul><li>tags</li><li>masking policies</li><li>tag-based masking</li><li>access history</li></ul></div>
+        <div class="fp-g"><h4>Apps & development</h4><ul><li>Native App Framework</li><li>Streamlit in Snowflake</li><li>Container Services</li><li>compute pools</li></ul></div>
+        <div class="fp-g"><h4>Data engineering</h4><ul><li>tasks</li><li>stored procedures</li></ul></div>
+        <div class="fp-g"><h4>Analytics</h4><ul><li>Semantic Views</li><li>Snowsight</li></ul></div>
+        <div class="fp-g"><h4>Open ecosystem</h4><ul><li>Iceberg tables</li></ul></div>
+        <div class="fp-g"><h4>Monitoring</h4><ul><li>ACCOUNT_USAGE metering</li></ul></div>
+      </div>
     </div>
   </section>
 
