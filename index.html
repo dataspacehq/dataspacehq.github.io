@@ -83,7 +83,7 @@
     {
       "@type": "Question",
       "name": "Isn't this just an API in front of Snowflake?",
-      "acceptedAnswer": { "@type": "Answer", "text": "No. An API is one of several output ports. DataSpaceHQ is a factory for complete, governed data domains — with a lifecycle (ingest, transform, serve), enforced company guardrails, and a fleet console across all of them. The endpoint is the easy part; the governance and consistency are the product." }
+      "acceptedAnswer": { "@type": "Answer", "text": "No. The endpoint is the easy part. DataSpaceHQ builds the whole governed domain — where raw data lands, the curated tables, who owns it, what is personal, what it costs — and enforces your rules across every one of them from a single console. An API is just one way to read the result." }
     },
     {
       "@type": "Question",
@@ -92,7 +92,7 @@
     },
     {
       "@type": "Question",
-      "name": "Do we still need to wire SPCS, tasks and RBAC ourselves?",
+      "name": "Do we still have to wire up containers, tasks and roles ourselves?",
       "acceptedAnswer": { "@type": "Answer", "text": "DataSpaceHQ uses them under the hood — you just don't wire them. Ingest is an HTTP endpoint per mart that validates each event against the domain's schema and lands it in the raw layer — a batch large enough to be worth it is staged and bulk-COPYed rather than inserted row by row, the transform is generated for you and runs natively in Snowflake, serving runs on Snowpark Container Services, and governance maps to real Snowflake tags, masking policies and roles. Best practices, by default. If you already run dbt yourself, it keeps working alongside — we're not asking you to move it." }
     },
     {
@@ -393,8 +393,9 @@
       <div class="stack">
         <span class="eyebrow">Snowflake Native App</span>
         <h1><span class="nw">Self-serve data domains.</span><br>Governed <span class="grad">by&nbsp;design.</span></h1>
-        <p class="lede">Your teams stand up ingest → transform → serve on Snowflake — inside the
-        guardrails you set once, whether a person or an AI agent is building.</p>
+        <p class="lede">Your teams stand up ingest → transform → serve on Snowflake, inside
+        rules you set once. The same rules hold whether a person writes the pipeline or an AI
+        agent does.</p>
         <div class="cta-row">
           <a class="btn primary" href="#demo">Get a demo →</a>
           <a class="btn ghost" href="#how">See how it works</a>
@@ -407,7 +408,7 @@
         <!-- Lives inside the left column on purpose: the console is taller than
              the headline stack, and pulling this up fills what was otherwise a
              ~140px hole under the CTA row. -->
-        <p class="fine" style="margin-top:6px; max-width:52ch"><strong style="color:var(--ink)">Not staged.</strong> This exact sequence — provision, guardrails, a served endpoint — runs today as a real Snowflake Native App, on two separate real accounts, including one it was installed into cold and governed data it never created.</p>
+        <p class="fine" style="margin-top:6px; max-width:52ch"><strong style="color:var(--ink)">Not staged.</strong> This exact sequence — rules checked, domain created, endpoint answering — runs today as a real Snowflake Native App, on two separate real accounts, including one it was installed into cold and governed data it never created.</p>
       </div>
 
       <div class="console" aria-label="Provisioning a governed data domain">
@@ -433,10 +434,39 @@
         them. Data mesh promised a fix; in practice it's wikis and tribal knowledge.</p>
       </div>
       <ul>
-        <li><span class="x">✗</span><span>No two domains look alike — naming, layers, access, PII, all divergent.</span></li>
+        <li><span class="x">✗</span><span>No two domains look alike — naming, layers, access, personal data, all different.</span></li>
         <li><span class="x">✗</span><span>Your team gates every new dataset, pipeline and grant — or stops trying to.</span></li>
         <li><span class="x">✗</span><span>Nobody can safely navigate another team's data, so nobody notices when it breaks.</span></li>
       </ul>
+    </div>
+  </section>
+
+  <!-- READY FOR THE AI ERA -->
+  <section id="ai-era" class="reveal">
+    <span class="eyebrow">Why now</span>
+    <h2 style="margin-top:14px">An agent will build against your data this year.<br>It follows the rules it can find.</h2>
+    <p class="lead-2">Snowflake's own Cortex Code, Claude Code, whatever comes next — they write SQL and
+    pipelines from a sentence. They enforce the governance that already exists in your account. They
+    don't create any. Point one at a schema with no boundaries and no tagged columns and it will build
+    into the mess faster than your team ever could.</p>
+    <p class="lead-2" style="margin-top:14px">We're not an AI product. We're the rules an AI reads
+    first — tagged personal columns, domain boundaries, and an <code>AGENTS.md</code> in your
+    repository, in the format these tools already look for. It's generated from the tags actually on
+    your tables, so it can't quietly describe a different account than the one it governs.</p>
+    <div class="console" aria-label="A generated AGENTS.md file">
+      <div class="bar"><i></i><i></i><i></i><span class="t mono">AGENTS.md</span></div>
+      <div class="body mono fit">
+        <div class="ln"># storefront — governed by DataSpaceHQ</div>
+        <div class="ln">&nbsp;</div>
+        <div class="ln">## orders</div>
+        <div class="ln">- Personal columns (tagged <span class="ok">DSH_META.PII</span>): customer_email</div>
+        <div class="ln">&nbsp;&nbsp;<span class="ok">customer_email wasn't declared — Snowflake's</span></div>
+        <div class="ln">&nbsp;&nbsp;<span class="ok">classifier found it in the data</span></div>
+        <div class="ln">&nbsp;</div>
+        <div class="ln">## Rules for any agent touching this domain</div>
+        <div class="ln">- Don't write directly into a *_RAW schema</div>
+        <div class="ln">- Any new personal column must be tagged before it ships</div>
+      </div>
     </div>
   </section>
 
@@ -444,12 +474,12 @@
   <section id="how" class="reveal">
     <span class="eyebrow">How it works</span>
     <h2 style="margin-top:14px">Three steps. That's it.</h2>
-    <p class="lead-2">You describe the domain; DataSpaceHQ builds and governs it — no containers, dbt,
-    containers or grants to wire yourself.</p>
+    <p class="lead-2">You say what the domain should contain. DataSpaceHQ builds it and enforces
+    your rules — no containers, tasks or grants to wire yourself.</p>
     <div class="cards">
-      <div class="card"><div class="step mono">01 — describe or adopt</div><div class="klab">Blueprint</div><h3>Describe it, or adopt it</h3><p>A short blueprint for a new domain — or point at a table you already have, even in another database. No SQL or DDL.</p></div>
-      <div class="card"><div class="step mono">02 — provision</div><div class="klab">One action</div><h3>DataSpaceHQ provisions it</h3><p>Ingest → transform → serve stood up in minutes, validated against your company guardrails.</p></div>
-      <div class="card"><div class="step mono">03 — consume</div><div class="klab">Output ports</div><h3>Teams consume it</h3><p>A governed HTTP API, or a Snowflake view for SQL consumers. Callers never send SQL — only a route and filters you allow; PII and access are enforced either way.</p></div>
+      <div class="card"><div class="step mono">01 — define or adopt</div><div class="klab">A form</div><h3>Say what you need</h3><p>Fill in the tables and columns for a new domain — or point at one you already have, even in another database. No SQL to write.</p></div>
+      <div class="card"><div class="step mono">02 — create</div><div class="klab">One action</div><h3>DataSpaceHQ builds it</h3><p>Ingest → transform → serve, standing in minutes. Your rules are checked first: if one fails, nothing is created at all.</p></div>
+      <div class="card"><div class="step mono">03 — consume</div><div class="klab">Output ports</div><h3>Other teams use it</h3><p>A governed HTTP endpoint, or a Snowflake view for SQL users. Callers sign in, send no SQL of their own, and see personal columns masked unless your rules say otherwise.</p></div>
     </div>
   </section>
 
@@ -461,7 +491,7 @@
     DataSpaceHQ didn't create, built by someone who left, named three different ways. Point at it and it
     becomes a governed domain, without moving or duplicating a single row.</p>
     <div class="factrow">
-      <div class="fact"><b>Even across databases</b><span>Adopt a table that lives somewhere else entirely — read, contracted, drift-checked and its PII tagged and masked, in place. Nothing moves.</span></div>
+      <div class="fact"><b>Even across databases</b><span>Adopt a table that lives somewhere else entirely — read, contracted and drift-checked in place. Tagging its personal columns takes one line your admin runs once; we hand you the exact statement. Nothing moves.</span></div>
       <div class="fact"><b>Drift caught early</b><span>A silent column rename surfaces as a finding, not as a quarter of wrong reports.</span></div>
       <div class="fact"><b>A contract, automatically</b><span>Open-standard <a class="accent" href="https://bitol.io" target="_blank" rel="noopener">ODCS</a> — validated against the spec's own schema — generated from what's actually there.</span></div>
     </div>
@@ -482,49 +512,24 @@
     </div>
   </section>
 
-  <!-- READY FOR THE AI ERA -->
-  <section id="ai-era" class="reveal">
-    <span class="eyebrow">Why now</span>
-    <h2 style="margin-top:14px">Your AI agent will build fast. Make sure it builds safely.</h2>
-    <p class="lead-2">Snowflake's own CoCo — and Claude Code, and whatever comes after them — writes SQL,
-    dbt models and pipelines from plain English in seconds. By design, an agent enforces whatever
-    governance already exists in your account. It doesn't create any.</p>
-    <p class="lead-2" style="margin-top:14px">DataSpaceHQ is what it reads first: tagged PII, domain
-    boundaries, and a generated <code>AGENTS.md</code> at your repo root, in the exact format these
-    agents already look for. The faster building gets, the more this matters — not less.</p>
-    <div class="console" aria-label="A generated AGENTS.md file">
-      <div class="bar"><i></i><i></i><i></i><span class="t mono">AGENTS.md</span></div>
-      <div class="body mono fit">
-        <div class="ln"># storefront — governed by DataSpaceHQ</div>
-        <div class="ln">&nbsp;</div>
-        <div class="ln">## orders</div>
-        <div class="ln">- PII columns (tagged <span class="ok">DSH_META.PII</span>): customer_email</div>
-        <div class="ln">&nbsp;</div>
-        <div class="ln">## Rules for any agent touching this domain</div>
-        <div class="ln">- Don't write directly into a *_RAW schema</div>
-        <div class="ln">- Any new PII column must be tagged before it ships</div>
-      </div>
-    </div>
-  </section>
-
   <!-- OUTCOMES + COMPARISON -->
   <section id="outcomes" class="reveal">
     <span class="eyebrow">Why leaders adopt it</span>
     <h2 style="margin-top:14px">Autonomy for your teams.<br>One set of rules — yours.</h2>
-    <p class="lead-2">Set the guardrails once. Every domain has the same shape and inherits them —
-    quality, security, governance, access — so any team can move without waiting on you.</p>
+    <p class="lead-2">Write the rules once. Every domain comes out the same shape and inherits them — quality,
+    access, personal data, cost — so any team can move without waiting on you.</p>
     <div class="cards">
-      <div class="card"><div class="klab">Faster</div><h3>Minutes, not quarters</h3><p>A complete governed domain from a blueprint, in one action — instead of a platform project that gets repeated for every team.</p></div>
+      <div class="card"><div class="klab">Faster</div><h3>Minutes, not quarters</h3><p>A complete governed domain in one action — instead of a platform project repeated for every team.</p></div>
       <div class="card"><div class="klab">Leaner</div><h3>No platform to build</h3><p>No infra, DevOps or SRE, and nothing of ours running in your account. It manages itself, from one console.</p></div>
-      <div class="card"><div class="klab">Safer</div><h3>Governed by design</h3><p>Naming, PII tagging, masking and cost caps enforced automatically — then Snowflake's own classifier re-checks the data for PII nobody declared.</p></div>
+      <div class="card"><div class="klab">Safer</div><h3>Governed by design</h3><p>Naming, personal-data tagging and masking, and a monthly credit budget per domain — all enforced for you. Then Snowflake's own classifier re-reads the data and flags personal columns nobody declared.</p></div>
     </div>
 
     <div class="cmp">
       <div class="row"><div class="h"></div><div class="h">Doing it yourself</div><div class="h">With DataSpaceHQ</div></div>
       <div class="row"><div>A new governed domain</div><div class="diy">A quarter</div><div class="us"><b>Minutes</b></div></div>
       <div class="row"><div>Who builds it</div><div class="diy">A platform engineer</div><div class="us">An analyst / domain owner</div></div>
-      <div class="row"><div>Governance</div><div class="diy">Manual reviews &amp; a wiki</div><div class="us"><b>PII tagged &amp; masked, enforced</b> on every domain</div></div>
-      <div class="row"><div>PII nobody tagged</div><div class="diy">Found in an audit, or a breach</div><div class="us"><b>Flagged automatically</b> from the real data</div></div>
+      <div class="row"><div>Governance</div><div class="diy">Manual reviews &amp; a wiki</div><div class="us"><b>Tagged and masked</b> on every domain, after one grant you give it</div></div>
+      <div class="row"><div>Personal data nobody tagged</div><div class="diy">Found in an audit, or a breach</div><div class="us"><b>Flagged automatically</b> from the real data</div></div>
       <div class="row"><div>Who can touch what</div><div class="diy">Trust &amp; a naming convention</div><div class="us">Domain owners scoped to <b>their own domains</b></div></div>
       <div class="row"><div>The central team</div><div class="diy">The bottleneck</div><div class="us">Sets the rails, watches the fleet</div></div>
       <div class="row"><div>Infra &amp; ops</div><div class="diy">Hire &amp; run it</div><div class="us"><b>None</b></div></div>
@@ -544,7 +549,7 @@
     <span class="eyebrow">Who it's for</span>
     <h2 style="margin-top:14px">Built for teams scaling on Snowflake.</h2>
     <div class="who-grid">
-      <div class="card"><h3>Data &amp; platform leaders</h3><p>2+ data-producing teams, no dedicated platform function yet. You want consistency and governance across teams — without being the bottleneck for every request. Set guardrails once; watch the whole fleet from one console.</p></div>
+      <div class="card"><h3>Data &amp; platform leaders</h3><p>2+ data-producing teams, no dedicated platform function yet. You want consistency and governance across teams — without being the bottleneck for every request. Write the rules once; watch every domain from one console.</p></div>
       <div class="card"><h3>Analytics engineering leads</h3><p>Under a "data as a product" mandate. You want every data product to ship with a real, versioned contract — not a wiki page nobody re-reads until something breaks.</p></div>
     </div>
   </section>
@@ -554,11 +559,12 @@
     <span class="eyebrow">Questions</span>
     <h2 style="margin-top:14px">The things people ask first.</h2>
     <div class="faq">
-      <details><summary>Isn't this just an API in front of Snowflake?</summary><p>No. An API is one of several output ports. DataSpaceHQ is a factory for complete, governed data <em>domains</em> — with a lifecycle (ingest → transform → serve), enforced company guardrails, and a fleet console across all of them. The endpoint is the easy part; the governance and consistency are the product.</p></details>
+      <details><summary>Isn't this just an API in front of Snowflake?</summary><p>No. The endpoint is the easy part. DataSpaceHQ builds the whole governed <em>domain</em> — where raw data lands, the curated tables, who owns it, what's personal, what it costs — and enforces your rules across every one of them from a single console. An API is just one way to read the result.</p></details>
       <details><summary>Does my data leave Snowflake?</summary><p>Never. DataSpaceHQ is a Native App that runs entirely inside your Snowflake account. Nothing is copied to us or anywhere else. You pay Snowflake for compute directly; we're a software layer on top.</p></details>
-      <details><summary>Do we still need to wire SPCS, tasks and RBAC ourselves?</summary><p>DataSpaceHQ uses them under the hood — you just don't wire them. Ingest is an HTTP endpoint per mart that validates each event against the domain's schema and lands it in the raw layer — a batch large enough to be worth it is staged and bulk-COPYed rather than inserted row by row, the transform is generated for you and runs natively in Snowflake, serving runs on Snowpark Container Services, and governance maps to real Snowflake tags, masking policies and roles. Best practices, by default. If you already run dbt yourself, it keeps working alongside — we're not asking you to move it.</p></details>
+      <details><summary>Do we still have to wire up containers, tasks and roles ourselves?</summary><p>No — DataSpaceHQ uses them, you don't wire them. Ingest validates each event and lands it in your raw layer; the transform is generated and runs natively in Snowflake; serving runs on Snowpark Container Services; governance maps to real Snowflake tags, masking policies and roles. Standard Snowflake underneath, set up properly by default. If you already run dbt, it keeps working alongside — we're not asking you to move it.</p></details>
       <details><summary>What about data that lives in Databricks or another lakehouse?</summary><p>On the roadmap: govern and serve data in an external Iceberg catalog (Databricks, Glue) through Snowflake — without moving it. If that's your setup, tell us — we're picking design partners for exactly this.</p></details>
       <details><summary>We already use dbt contracts, or looked at Gable.</summary><p>dbt contracts only cover models built in dbt. Gable requires instrumenting your producer's codebase. DataSpaceHQ's contracts reach adopted tables too — including data that existed years before DataSpaceHQ did, in a database it didn't build.</p></details>
+      <details><summary>Can we just describe what we want in plain English?</summary><p>Yes, if Cortex is enabled on your Snowflake account: describe the domain and Snowflake's own AI drafts it, inside your account, for you to check and confirm before anything is created. It's an option, not the way in — the form does the same job, and both are checked against the same rules. Nothing is ever created without you pressing the button.</p></details>
       <details><summary>What does it cost?</summary><p>Pricing scales with how many domains you run. We're not publishing tiers while we're still shaping the product with design partners — book a walkthrough and we'll talk through what fits your setup.</p></details>
       <details><summary>Is it production-ready today?</summary><p>The core mechanics run today — install the app, provision a domain, get a governed, masked, cost-capped output port, on a real Snowflake account, not a slide. It's still early: a small group of design partners, hands-on, shaping the roadmap with us. If you're scaling on Snowflake and feeling the sprawl, this is the moment to get in.</p></details>
     </div>
@@ -704,7 +710,7 @@
     var seq = [
       {c:'p',    t:'dataspace provision storefront'},
       {c:'arrow',t:'→ raw · staging · marts created'},
-      {c:'arrow',t:'→ guardrails inherited · PII tagged'},
+      {c:'arrow',t:'→ rules applied · personal data tagged'},
       {c:'arrow',t:'→ ports live — /orders  /products'},
       {c:'ok',   t:'✓ governed domain ready'},
       {c:'sp',   t:''},
