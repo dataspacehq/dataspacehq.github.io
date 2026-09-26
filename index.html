@@ -116,7 +116,7 @@
     {
       "@type": "Question",
       "name": "Is it production-ready today?",
-      "acceptedAnswer": { "@type": "Answer", "text": "The core mechanics run today — install the app, provision a domain, get a governed, masked, cost-capped output port, on a real Snowflake account, not a slide. It's still early: a small group of design partners, hands-on, shaping the roadmap with us." }
+      "acceptedAnswer": { "@type": "Answer", "text": "The core mechanics run today — install the app, provision a domain, get a governed, masked, cost-capped output port. Not a slide. It's still early: a small group of design partners, hands-on, shaping the roadmap with us." }
     }
   ]
 }
@@ -483,14 +483,11 @@
       domain's detail showing its output port." width="1400" height="700" decoding="async"
       style="width:100%; height:auto; display:block; border:1px solid var(--line);
              border-radius:var(--r); box-shadow:var(--shadow-lg)">
-      <figcaption class="fine">The Domains page. These three domains are examples; the screen
-      is the real app, reading a real Snowflake account.</figcaption>
     </figure>
 
     <div class="fp reveal">
       <p class="fp-h">One install wires these together.</p>
-      <p class="fp-s">These are Snowflake's own objects. The app creates them and keeps them in
-      sync as your domains change — everything below is something it builds or reads in your account.</p>
+      <p class="fp-s">Snowflake's own objects, created and kept in sync for you.</p>
       <div class="fp-grid">
         <div class="fp-g"><h4>Core platform</h4><ul><li>schemas</li><li>tables</li><li>views</li><li>virtual warehouses</li></ul></div>
         <div class="fp-g"><h4>Governance & security</h4><ul><li>tags</li><li>masking policies</li><li>tag-based masking</li><li>access history</li></ul></div>
@@ -546,8 +543,7 @@
     governed domain and the personal columns come back masked, the layout is the one every domain
     has, and there is a file telling it what not to touch.</p>
         <p class="lead-2" style="margin-top:26px">We're not an AI product. We're the rules an AI reads
-    first — and they're generated from the tags actually on your tables, so they can't quietly
-    describe a different account than the one they govern.</p>
+    first — generated from the tags actually on your tables.</p>
       </div>
       <div class="console" aria-label="A generated AGENTS.md file">
       <div class="bar"><i></i><i></i><i></i><span class="t mono">AGENTS.md</span></div>
@@ -663,7 +659,7 @@
       <details><summary>Can we just describe what we want in plain English?</summary><p>Yes, if Cortex is enabled on your Snowflake account: describe the domain and Snowflake's own AI drafts it, inside your account, for you to check and confirm before anything is created. It's an option, not the way in — the form does the same job, and both are checked against the same rules. Nothing is ever created without you pressing the button.</p></details>
       <details><summary>You're one person. What happens to us if you stop?</summary><p>Nothing switches off. DataSpaceHQ is a Native App installed in your Snowflake account — there is no hosted service of ours to lose, no licence server to phone home, and no credentials on our side. It keeps running whether or not we do. What it produces is yours and open: the data contract is ODCS, a Linux Foundation standard; the rules file is plain markdown; tagging, masking and roles are real Snowflake objects you can read and change without us; the transform is plain Snowflake SQL. One honest caveat, because it is how Native Apps work: domains this app creates live in the app's own database, so moving them out is a <code>CREATE TABLE … AS SELECT</code> — normal Snowflake, no export tool, no proprietary format. Tables you adopt never moved in the first place.</p></details>
       <details><summary>What does it cost?</summary><p>Pricing scales with how many domains you run. We're not publishing tiers while we're still shaping the product with design partners — book a walkthrough and we'll talk through what fits your setup.</p></details>
-      <details><summary>Is it production-ready today?</summary><p>The core mechanics run today — install the app, provision a domain, get a governed, masked, cost-capped output port, on a real Snowflake account, not a slide. It's still early: a small group of design partners, hands-on, shaping the roadmap with us. If you're scaling on Snowflake and this is already your week, now is the moment to get in.</p></details>
+      <details><summary>Is it production-ready today?</summary><p>The core mechanics run today — install the app, provision a domain, get a governed, masked, cost-capped output port. Not a slide. It's still early: a small group of design partners, hands-on, shaping the roadmap with us. If you're scaling on Snowflake and this is already your week, now is the moment to get in.</p></details>
     </div>
   </section>
 
@@ -709,8 +705,8 @@
         <div class="stack" style="display:flex;flex-direction:column;gap:16px;align-items:flex-start">
           <span class="scarcity">● Taking a small number of design partners</span>
           <h2>See it on your data.</h2>
-          <p style="max-width:32em">A 25-minute walkthrough — I provision a governed domain live, on a
-          real Snowflake account. No install required to watch, and no obligation after.</p>
+          <p style="max-width:32em">Twenty-five minutes. I build a governed domain in front of you,
+          end to end. Nothing to install to watch it.</p>
           <p style="max-width:32em; margin-top:-4px">If it fits, we talk about a design partnership:
           you run it on your own Snowflake, I shape the roadmap around what you actually hit. Free
           while we're at this stage.</p>
