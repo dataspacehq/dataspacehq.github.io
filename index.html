@@ -216,7 +216,7 @@
 
   section{padding:88px 0; border-top:1px solid var(--line)}
   .eyebrow + h2{margin-top:14px}
-  .hero{border-top:0; padding:64px 0 44px; position:relative}
+  .hero{border-top:0; padding:52px 0 40px; position:relative}
   .hero::before{content:""; position:absolute; inset:-30% 0 auto 0; height:900px; pointer-events:none;
     background:radial-gradient(900px 420px at 50% 62%, color-mix(in srgb,var(--accent) 17%,transparent), transparent 70%),
                radial-gradient(620px 300px at 22% 6%, color-mix(in srgb,var(--accent-2) 13%,transparent), transparent 70%);}
@@ -234,7 +234,7 @@
   /* The shot runs wider than the text column — the prose needs a measure, the
      product does not. Clamped so it never touches the viewport edge and never
      grows past the image's own pixels. */
-  .hero-shot{--shot-w:min(calc(100vw - 96px), 1280px); margin:60px 0 0;
+  .hero-shot{--shot-w:min(calc(100vw - 96px), 1280px); margin:12px 0 0;
     width:var(--shot-w); margin-left:calc((100% - var(--shot-w)) / 2)}
   .hero-shot img{border-bottom-left-radius:0; border-bottom-right-radius:0; border-bottom:0}
   /* The image stops, the page keeps going: a hard bottom edge under a hero
@@ -242,16 +242,15 @@
   .hero-shot .frame{position:relative}
   .hero-shot .frame::after{content:""; position:absolute; left:0; right:0; bottom:0; height:120px;
     pointer-events:none; background:linear-gradient(to bottom, transparent, var(--bg))}
-  .hero-shot .shot-lead{font-size:1.05rem; font-weight:650; color:var(--ink); margin:0 0 14px}
+  .shot-lead{font-size:.76rem; letter-spacing:.14em; text-transform:uppercase;
+    font-weight:700; color:var(--accent); margin:42px 0 0}
   
   /* Centred because the product shot below runs the full container width; a
      left-aligned column left ~400px of dead space beside the headline. */
-  .hero .stack{display:flex; flex-direction:column; gap:20px; align-items:center; text-align:center}
-  /* Centred text needs a shorter measure than left-aligned, and balanced
-     breaks — without these the lede wrapped into four ragged lines. */
-  .hero .stack .lede{max-width:38em; text-wrap:balance}
-  .hero h1{text-wrap:balance}
-  .hero-shot .shot-lead{text-align:center}
+  .hero .stack{display:flex; flex-direction:column; gap:18px; align-items:flex-start; text-align:left}
+  .hero .stack .lede{max-width:34em}
+  .hero h1{text-wrap:balance; max-width:16ch}
+
   .lede{font-size:1.2rem; max-width:32em; color:var(--muted)}
   .cta-row{display:flex; gap:12px; flex-wrap:wrap}
   .microtrust{display:flex; gap:16px; flex-wrap:wrap; font-size:.84rem; color:var(--muted); margin-top:2px}
@@ -461,8 +460,8 @@
       </div>
     </div>
 
+    <p class="shot-lead reveal">It's a page in Snowsight. Not another tool.</p>
     <figure class="hero-shot reveal">
-      <p class="shot-lead">It's a page in Snowsight. Not another tool.</p>
       <div class="frame"><img src="/console.png" alt="DataSpaceHQ open in Snowflake: the company's rules across the
       top, three governed domains with their owner, status, storage, warehouse and layers, and one
       domain's detail showing its output port." width="1400" height="700" decoding="async"
