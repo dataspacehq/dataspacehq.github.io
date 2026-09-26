@@ -231,11 +231,7 @@
      Beside it, in a ~380px column, a 1400px screenshot is unreadable — which is
      how a mock terminal ended up in the hero of a product whose whole point is
      that it is *not* a command-line tool. */
-  /* The shot runs wider than the text column — the prose needs a measure, the
-     product does not. Clamped so it never touches the viewport edge and never
-     grows past the image's own pixels. */
-  .hero-shot{--shot-w:min(calc(100vw - 96px), 1280px); margin:12px 0 0;
-    width:var(--shot-w); margin-left:calc((100% - var(--shot-w)) / 2)}
+  .hero-shot{margin:12px 0 0}
   .hero-shot img{border-bottom-left-radius:0; border-bottom-right-radius:0; border-bottom:0}
   /* The image stops, the page keeps going: a hard bottom edge under a hero
      screenshot reads as a pasted rectangle. */
