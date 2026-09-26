@@ -80,6 +80,8 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
+    { "@type": "Question", "name": "You're one person. What happens to us if you stop?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Nothing switches off. DataSpaceHQ is a Native App installed in your Snowflake account \u2014 there is no hosted service of ours to lose, no licence server to phone home, and no credentials on our side. It keeps running whether or not we do. What it produces is yours and open: the data contract is ODCS, a Linux Foundation standard; the rules file is plain markdown; tagging, masking and roles are real Snowflake objects you can read and change without us; the transform is plain Snowflake SQL. One honest caveat, because it is how Native Apps work: domains this app creates live in the app's own database, so moving them out is a CREATE TABLE ... AS SELECT \u2014 normal Snowflake, no export tool, no proprietary format. Tables you adopt never moved in the first place." } },
     {
       "@type": "Question",
       "name": "Isn't this just an API in front of Snowflake?",
@@ -394,9 +396,10 @@
       <div class="stack">
         <span class="eyebrow">Snowflake Native App</span>
         <h1><span class="nw">Self-serve data domains.</span><br>Governed <span class="grad">by&nbsp;design.</span></h1>
-        <p class="lede">Your teams stand up ingest → transform → serve on Snowflake, inside
-        rules you set once. The same rules hold whether a person writes the pipeline or an AI
-        agent does.</p>
+        <p class="lede"><strong style="color:var(--ink)">A renamed column can break a dashboard
+        for three months before anyone notices.</strong> DataSpaceHQ gives every team the same
+        governed shape — ingest → transform → serve — inside rules you set once. The same rules
+        hold whether a person builds it or an AI agent does.</p>
         <div class="cta-row">
           <a class="btn primary" href="#demo">Get a demo →</a>
           <a class="btn ghost" href="#how">See how it works</a>
@@ -429,10 +432,9 @@
     <div class="prob">
       <div>
         <span class="eyebrow">The problem</span>
-        <h2 style="margin-top:14px">A renamed column can break a dashboard for three months before anyone notices.</h2>
-        <p class="lead-2">It doesn't take a bad actor — just a routine change nothing was watching.
-        Every team builds differently, and the rules live in a wiki that documents them instead of
-        enforcing them.</p>
+        <h2 style="margin-top:14px">Every team builds it differently. The rules live in a wiki.</h2>
+        <p class="lead-2">A wiki documents rules; it never enforces them. So the shapes drift, and
+        a routine change nobody was watching turns into a quarter of wrong numbers.</p>
       </div>
       <ul>
         <li><span class="x">✗</span><span>No two domains look alike — naming, layers, access, personal data, all different.</span></li>
@@ -571,6 +573,7 @@
       <details><summary>What about data that lives in Databricks or another lakehouse?</summary><p>On the roadmap: govern and serve data in an external Iceberg catalog (Databricks, Glue) through Snowflake — without moving it. If that's your setup, tell us — we're picking design partners for exactly this.</p></details>
       <details><summary>We already use dbt contracts, or looked at Gable.</summary><p>dbt contracts only cover models built in dbt. Gable requires instrumenting your producer's codebase. DataSpaceHQ's contracts reach adopted tables too — including data that existed years before DataSpaceHQ did, in a database it didn't build.</p></details>
       <details><summary>Can we just describe what we want in plain English?</summary><p>Yes, if Cortex is enabled on your Snowflake account: describe the domain and Snowflake's own AI drafts it, inside your account, for you to check and confirm before anything is created. It's an option, not the way in — the form does the same job, and both are checked against the same rules. Nothing is ever created without you pressing the button.</p></details>
+      <details><summary>You're one person. What happens to us if you stop?</summary><p>Nothing switches off. DataSpaceHQ is a Native App installed in your Snowflake account — there is no hosted service of ours to lose, no licence server to phone home, and no credentials on our side. It keeps running whether or not we do. What it produces is yours and open: the data contract is ODCS, a Linux Foundation standard; the rules file is plain markdown; tagging, masking and roles are real Snowflake objects you can read and change without us; the transform is plain Snowflake SQL. One honest caveat, because it is how Native Apps work: domains this app creates live in the app's own database, so moving them out is a <code>CREATE TABLE … AS SELECT</code> — normal Snowflake, no export tool, no proprietary format. Tables you adopt never moved in the first place.</p></details>
       <details><summary>What does it cost?</summary><p>Pricing scales with how many domains you run. We're not publishing tiers while we're still shaping the product with design partners — book a walkthrough and we'll talk through what fits your setup.</p></details>
       <details><summary>Is it production-ready today?</summary><p>The core mechanics run today — install the app, provision a domain, get a governed, masked, cost-capped output port, on a real Snowflake account, not a slide. It's still early: a small group of design partners, hands-on, shaping the roadmap with us. If you're scaling on Snowflake and feeling the sprawl, this is the moment to get in.</p></details>
     </div>
