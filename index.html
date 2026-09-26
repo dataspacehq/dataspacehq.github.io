@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DataSpaceHQ — Governed Self-Serve Data Domains on Snowflake</title>
+<link rel="preload" as="image" href="/console.png" fetchpriority="high">
 <meta name="description" content="A renamed column can break a dashboard for three months. DataSpaceHQ gives every team on Snowflake the same governed shape — inside rules you set once. Runs as a Native App in your own account.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DataSpaceHQ">
@@ -215,7 +216,7 @@
 
   section{padding:88px 0; border-top:1px solid var(--line)}
   .eyebrow + h2{margin-top:14px}
-  .hero{border-top:0; padding:72px 0 44px; position:relative; overflow:hidden}
+  .hero{border-top:0; padding:64px 0 44px; position:relative; overflow:hidden}
   .hero::before{content:""; position:absolute; inset:-40% 0 auto -10%; height:520px; pointer-events:none;
     background:radial-gradient(720px 360px at 78% 20%, color-mix(in srgb,var(--accent) 20%,transparent), transparent 70%),
                radial-gradient(560px 320px at 15% 0%, color-mix(in srgb,var(--accent-2) 16%,transparent), transparent 70%);}
@@ -230,13 +231,16 @@
      Beside it, in a ~380px column, a 1400px screenshot is unreadable — which is
      how a mock terminal ended up in the hero of a product whose whole point is
      that it is *not* a command-line tool. */
-  .hero-shot{margin:44px 0 0}
-  .hero-shot .shot-lead{font-size:1.15rem; font-weight:700; color:var(--ink); margin:0 0 16px}
+  .hero-shot{margin:60px 0 0}
+  .hero-shot .shot-lead{font-size:1.05rem; font-weight:650; color:var(--ink); margin:0 0 14px}
   
   /* Centred because the product shot below runs the full container width; a
      left-aligned column left ~400px of dead space beside the headline. */
-  .hero .stack{display:flex; flex-direction:column; gap:22px; align-items:center; text-align:center}
-  .hero .stack .lede{max-width:34em}
+  .hero .stack{display:flex; flex-direction:column; gap:20px; align-items:center; text-align:center}
+  /* Centred text needs a shorter measure than left-aligned, and balanced
+     breaks — without these the lede wrapped into four ragged lines. */
+  .hero .stack .lede{max-width:38em; text-wrap:balance}
+  .hero h1{text-wrap:balance}
   .hero-shot .shot-lead{text-align:center}
   .lede{font-size:1.2rem; max-width:32em; color:var(--muted)}
   .cta-row{display:flex; gap:12px; flex-wrap:wrap}
@@ -434,8 +438,7 @@
         <h1><span class="nw">Self-serve data domains.</span><br>Governed <span class="grad">by&nbsp;design.</span></h1>
         <p class="lede"><strong style="color:var(--ink)">A renamed column can break a dashboard
         for three months before anyone notices.</strong> DataSpaceHQ gives every team the same
-        governed shape — ingest → transform → serve — inside rules you set once. The same rules
-        hold whether a person builds it or an AI agent does.</p>
+        shape — ingest → transform → serve — inside rules you write once.</p>
         <div class="cta-row">
           <a class="btn primary" href="#demo">Get a demo →</a>
           <a class="btn ghost" href="#how">See how it works</a>
@@ -453,6 +456,7 @@
       <img src="/console.png" alt="DataSpaceHQ open in Snowflake: the company's rules across the
       top, three governed domains with their owner, status, storage, warehouse and layers, and one
       domain's detail showing its output port." width="1400" height="700" decoding="async"
+      fetchpriority="high"
       style="width:100%; height:auto; display:block; border:1px solid var(--line);
              border-radius:var(--r); box-shadow:var(--shadow-lg)">
     </figure>
