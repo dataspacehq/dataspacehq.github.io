@@ -130,8 +130,11 @@
     --shadow-lg:0 30px 80px rgba(11,18,32,.14);
     --r:14px; --maxw:1120px;
   }
+  /* Guarded: without :not([data-theme="light"]) an explicit light choice on a
+     dark OS kept every dark token and only flipped color-scheme — light
+     scrollbars over a dark page. */
   @media (prefers-color-scheme:dark){
-    :root{ --bg:#080E18; --surface:#0E1826; --ink:#EAF1F8; --muted:#93A4B7; --line:#1C2A3B;
+    :root:not([data-theme="light"]){ --bg:#080E18; --surface:#0E1826; --ink:#EAF1F8; --muted:#93A4B7; --line:#1C2A3B;
       --accent:#45C0E5; --accent-2:#8B87F5; --signal:#35C88A; --danger:#F07167;
       --console:#060C16; --console-line:#1A2A40; --console-ink:#DDE7F1;
       --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 44px rgba(0,0,0,.5); --shadow-lg:0 30px 90px rgba(0,0,0,.6); }
@@ -174,7 +177,31 @@
   .btn:hover{transform:translateY(-2px)}
   .btn.primary{background:var(--ink); color:var(--bg)}
   .btn.ghost{background:transparent; color:var(--ink); border:1px solid var(--line); box-shadow:none}
+  .nav-cta .btn{padding:9px 15px; font-size:.9rem; font-weight:640; border-radius:9px;
+    background:transparent; color:var(--ink); border:1px solid var(--line); box-shadow:none}
+  .nav-cta .btn:hover{transform:none; border-color:var(--accent); color:var(--accent)}
   a:focus-visible,.btn:focus-visible,summary:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
+
+
+  /* shape diagram — the one idea the page was spending 80 words to describe:
+     three teams, three different shapes, vs three identical governed ones.
+     Two SVGs rather than one so they stack (and stay legible) on a phone
+     instead of scaling a single wide viewBox down to 6px text. */
+  .diagram{margin-top:38px; display:grid; grid-template-columns:1fr 1fr; gap:26px; align-items:start}
+  @media (max-width:860px){ .diagram{grid-template-columns:1fr} }
+  .diagram figure{margin:0}
+  .diagram svg{width:100%; height:auto; display:block}
+  .dg-cap{font-size:.84rem; color:var(--muted); margin-top:10px; line-height:1.6}
+  .dg-cap b{color:var(--ink); font-weight:700}
+  .dg-box{fill:var(--surface); stroke:var(--line); stroke-width:1}
+  .dg-gov{fill:color-mix(in srgb,var(--accent) 9%, var(--surface));
+          stroke:color-mix(in srgb,var(--accent) 42%, var(--line)); stroke-width:1}
+  .dg-name{fill:var(--ink); font-size:15px; font-weight:600}
+  .dg-team{fill:var(--muted); font-size:13.5px}
+  .dg-head{fill:var(--muted); font-size:12.5px; font-weight:700; letter-spacing:.1em}
+  .dg-rules{fill:none; stroke:color-mix(in srgb,var(--accent) 50%, transparent);
+            stroke-width:1.5; stroke-dasharray:7 7}
+  .dg-rules-t{fill:var(--accent); font-size:12.5px; font-weight:700; letter-spacing:.08em}
 
   /* nav */
   header.nav{position:sticky; top:0; z-index:40; backdrop-filter:blur(12px);
@@ -199,8 +226,19 @@
      still yielded 338px. minmax(0,…) stops the text column from claiming more
      than the floor it genuinely needs, which is what actually widens the
      console. Don't "fix" this back to plain fr units. */
-  .hero-grid{position:relative; display:grid; grid-template-columns:minmax(0,auto) minmax(380px,1fr); gap:40px; align-items:start}
-  .hero .stack{display:flex; flex-direction:column; gap:22px; align-items:flex-start}
+  .hero-grid{position:relative; display:grid; grid-template-columns:minmax(0,1fr); gap:40px; align-items:start}
+  /* The product shot runs full width under the headline rather than beside it.
+     Beside it, in a ~380px column, a 1400px screenshot is unreadable — which is
+     how a mock terminal ended up in the hero of a product whose whole point is
+     that it is *not* a command-line tool. */
+  .hero-shot{margin:44px 0 0}
+  .hero-shot .shot-lead{font-size:1.15rem; font-weight:700; color:var(--ink); margin:0 0 16px}
+  .hero-shot figcaption{margin-top:13px; max-width:78ch}
+  /* Centred because the product shot below runs the full container width; a
+     left-aligned column left ~400px of dead space beside the headline. */
+  .hero .stack{display:flex; flex-direction:column; gap:22px; align-items:center; text-align:center}
+  .hero .stack .lede{max-width:34em}
+  .hero-shot .shot-lead{text-align:center}
   .lede{font-size:1.2rem; max-width:32em; color:var(--muted)}
   .cta-row{display:flex; gap:12px; flex-wrap:wrap}
   .microtrust{display:flex; gap:16px; flex-wrap:wrap; font-size:.84rem; color:var(--muted); margin-top:2px}
@@ -410,17 +448,22 @@
           <span><span class="d"></span> Your data never leaves</span>
           <span><span class="d"></span> No infra to run</span>
         </div>
-        <!-- Lives inside the left column on purpose: the console is taller than
-             the headline stack, and pulling this up fills what was otherwise a
-             ~140px hole under the CTA row. -->
-        <p class="fine" style="margin-top:6px; max-width:52ch"><strong style="color:var(--ink)">Not staged.</strong> This exact sequence — rules checked, domain created, endpoint answering — runs today as a real Snowflake Native App, on two separate real accounts, including one it was installed into cold and governed data it never created.</p>
-      </div>
-
-      <div class="console" aria-label="Provisioning a governed data domain">
-        <div class="bar"><i></i><i></i><i></i><span class="t mono">dataspace · your account</span></div>
-        <div class="body mono" id="console"></div>
       </div>
     </div>
+
+    <figure class="hero-shot reveal">
+      <p class="shot-lead">It's a page in Snowsight. Not another tool.</p>
+      <img src="/console.png" alt="DataSpaceHQ open in Snowflake: the company's rules across the
+      top, three governed domains with their owner, status, storage, warehouse and layers, and one
+      domain's detail showing its output port." width="1400" height="700" decoding="async"
+      style="width:100%; height:auto; display:block; border:1px solid var(--line);
+             border-radius:var(--r); box-shadow:var(--shadow-lg)">
+      <figcaption class="fine">Illustrative domains; everything on this screen is read from your
+      own Snowflake account. <strong style="color:var(--ink)">Not staged.</strong> Rules checked,
+      domain created, endpoint answering — that runs today as a real Snowflake Native App on two
+      separate real accounts, including one it was installed into cold, governing data it never
+      created.</figcaption>
+    </figure>
 
     <div class="builton">
       <span class="bo-lab">Built on</span>
@@ -442,6 +485,19 @@
         <li><span class="x">✗</span><span>Your team gates every new dataset, pipeline and grant — or stops trying to.</span></li>
         <li><span class="x">✗</span><span>Nobody can safely navigate another team's data, so nobody notices when it breaks.</span></li>
       </ul>
+    </div>
+
+    <div class="diagram">
+      <figure>
+        <svg viewBox="0 0 560 300" role="img" aria-label="Three teams today: growth has two stages, finance has three with a versioned name, support has one undivided blob. No two alike, and one holds unmarked personal data."><text class="dg-head" x="0" y="14">TODAY</text><text class="dg-team" x="0" y="58">growth</text><rect class="dg-box" x="0" y="66" width="150" height="44" rx="8"/><text class="dg-name" x="75.0" y="93" text-anchor="middle">customers</text><path d="M151 88 l9 0" stroke="var(--muted)" stroke-width="1.5" opacity=".55"/><rect class="dg-box" x="162" y="66" width="92" height="44" rx="8"/><text class="dg-name" x="208.0" y="93" text-anchor="middle">dash</text><text class="dg-team" x="0" y="128">finance</text><rect class="dg-box" x="0" y="136" width="112" height="44" rx="8"/><text class="dg-name" x="56.0" y="163" text-anchor="middle">landing</text><path d="M113 158 l9 0" stroke="var(--muted)" stroke-width="1.5" opacity=".55"/><rect class="dg-box" x="124" y="136" width="124" height="44" rx="8"/><text class="dg-name" x="186.0" y="163" text-anchor="middle">curated</text><path d="M249 158 l9 0" stroke="var(--muted)" stroke-width="1.5" opacity=".55"/><rect class="dg-box" x="260" y="136" width="104" height="44" rx="8"/><text class="dg-name" x="312.0" y="163" text-anchor="middle">rpt_v2</text><text class="dg-team" x="0" y="198">support</text><rect class="dg-box" x="0" y="206" width="214" height="44" rx="8"/><text class="dg-name" x="107.0" y="233" text-anchor="middle">support_data</text><circle cx="232" cy="228" r="5" fill="var(--danger)"/><text class="dg-team" x="246" y="232" fill="var(--danger)">personal data, unmarked</text><text class="dg-team" x="0" y="292">no two alike — and nothing checks</text></svg>
+        <p class="dg-cap">Three teams, three shapes. <b>Nobody can read another team's data
+        without asking its author</b> — so nobody notices when it breaks.</p>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 560 300" role="img" aria-label="With DataSpaceHQ: all three teams have the same raw, staging, marts shape, inside one set of rules, with personal data marked and masked."><text class="dg-head" x="0" y="14">WITH DATASPACEHQ</text><text class="dg-rules-t" x="0" y="34">YOUR RULES</text><rect class="dg-rules" x="0" y="42" width="520" height="228" rx="14"/><text class="dg-team" x="16" y="58">growth</text><rect class="dg-gov" x="16" y="66" width="140" height="44" rx="8"/><text class="dg-name" x="86.0" y="93" text-anchor="middle">raw</text><path d="M155 88 l9 0" stroke="var(--muted)" stroke-width="1.5" opacity=".55"/><rect class="dg-gov" x="166" y="66" width="140" height="44" rx="8"/><text class="dg-name" x="236.0" y="93" text-anchor="middle">staging</text><path d="M305 88 l9 0" stroke="var(--muted)" stroke-width="1.5" opacity=".55"/><rect class="dg-gov" x="316" y="66" width="140" height="44" rx="8"/><text class="dg-name" x="386.0" y="93" text-anchor="middle">marts</text><circle cx="484" cy="88" r="5" fill="var(--signal)"/><text class="dg-team" x="16" y="128">finance</text><rect class="dg-gov" x="16" y="136" width="140" height="44" rx="8"/><text class="dg-name" x="86.0" y="163" text-anchor="middle">raw</text><path d="M155 158 l9 0" stroke="var(--muted)" stroke-width="1.5" opacity=".55"/><rect class="dg-gov" x="166" y="136" width="140" height="44" rx="8"/><text class="dg-name" x="236.0" y="163" text-anchor="middle">staging</text><path d="M305 158 l9 0" stroke="var(--muted)" stroke-width="1.5" opacity=".55"/><rect class="dg-gov" x="316" y="136" width="140" height="44" rx="8"/><text class="dg-name" x="386.0" y="163" text-anchor="middle">marts</text><circle cx="484" cy="158" r="5" fill="var(--signal)"/><text class="dg-team" x="16" y="198">support</text><rect class="dg-gov" x="16" y="206" width="140" height="44" rx="8"/><text class="dg-name" x="86.0" y="233" text-anchor="middle">raw</text><path d="M155 228 l9 0" stroke="var(--muted)" stroke-width="1.5" opacity=".55"/><rect class="dg-gov" x="166" y="206" width="140" height="44" rx="8"/><text class="dg-name" x="236.0" y="233" text-anchor="middle">staging</text><path d="M305 228 l9 0" stroke="var(--muted)" stroke-width="1.5" opacity=".55"/><rect class="dg-gov" x="316" y="206" width="140" height="44" rx="8"/><text class="dg-name" x="386.0" y="233" text-anchor="middle">marts</text><circle cx="484" cy="228" r="5" fill="var(--signal)"/><text class="dg-team" x="0" y="292" fill="var(--signal)">personal data marked and masked — because the rules say so</text></svg>
+        <p class="dg-cap">Same shape every time, inside rules you set once. <b>A change that would
+        break the shape is refused before anything is created</b>.</p>
+      </figure>
     </div>
   </section>
 
@@ -491,25 +547,6 @@
       <div class="card"><div class="step mono">02 — create</div><div class="klab">One action</div><h3>DataSpaceHQ builds it</h3><p>Ingest → transform → serve, standing in minutes. Your rules are checked first: if one fails, nothing is created at all.</p></div>
       <div class="card"><div class="step mono">03 — consume</div><div class="klab">Output ports</div><h3>Other teams use it</h3><p>A governed HTTP endpoint, or a Snowflake view for SQL users. Callers sign in, send no SQL of their own, and see personal columns masked unless your rules say otherwise.</p></div>
     </div>
-  </section>
-
-  <section id="console-shot" class="reveal" style="padding-top:0">
-    <span class="eyebrow">What you'd be looking at</span>
-    <h2 style="margin-top:14px">It's a page in Snowsight. Not another tool.</h2>
-    <p class="lead-2">Your rules across the top, every domain and its state beneath, and the
-    contract, the rules file and the lineage a click away. Your team opens it where they already
-    work — nothing new to log into, no account to provision for anyone, and nothing of ours
-    running anywhere.</p>
-    <figure style="margin:30px 0 0">
-      <img src="/console.png" alt="The DataSpaceHQ console: company rules across the top, three
-      governed domains with their owner, status, storage, warehouse and layers, and a detail view
-      of one domain showing its output port." width="1400" height="700"
-      loading="lazy" decoding="async"
-      style="width:100%; height:auto; display:block; border:1px solid var(--line);
-             border-radius:var(--r); box-shadow:var(--shadow-lg)">
-      <figcaption class="fine" style="margin-top:12px">Illustrative domains. Everything on this
-      screen is read from your own Snowflake account.</figcaption>
-    </figure>
   </section>
 
   <!-- GOVERNS WHAT YOU ALREADY HAVE -->
@@ -727,51 +764,6 @@
         });
       });
     });
-  })();
-
-  // ---- animated provisioning console (renders content first, then animates) ----
-  (function(){
-    var el = document.getElementById('console');
-    if(!el) return;
-    // Keep every line short enough to fit the console on one line at the
-    // hero's desktop width — a wrapped line changes the content height and
-    // was visibly moving the box mid-animation (see the .console .body note).
-    var seq = [
-      {c:'p',    t:'dataspace provision storefront'},
-      {c:'arrow',t:'→ raw · staging · marts created'},
-      {c:'arrow',t:'→ rules applied · personal data tagged'},
-      {c:'arrow',t:'→ ports live — /orders  /products'},
-      {c:'ok',   t:'✓ governed domain ready'},
-      {c:'sp',   t:''},
-      {c:'p',    t:'curl …/orders?tier=enterprise'},
-      {c:'ok',   t:'200 OK — [ { "order_id":"ord-01", … } ]'},
-      {c:'arrow',t:'→ no SQL from callers'},
-      {c:'sp',   t:''},
-      {c:'p',    t:'dataspace adopt legacy_customers.orders'},
-      {c:'arrow',t:'→ drift-checked · contract generated'},
-      {c:'ok',   t:'✓ governed — data we didn\'t create'}
-    ];
-    function add(cls, txt){ var d=document.createElement('div'); d.className='ln '+cls; d.textContent=txt; el.appendChild(d); el.scrollTop=el.scrollHeight; return d; }
-    function renderAll(){ el.textContent=''; for(var i=0;i<seq.length;i++){ var s=seq[i]; add(s.c==='sp'?'':s.c, s.t||' '); } }
-    renderAll(); // always visible, even if the animation can't run
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(reduce) return;
-    var timers=[];
-    function reset(){ for(var i=0;i<timers.length;i++) clearTimeout(timers[i]); timers=[]; el.textContent=''; }
-    function typeLine(txt){
-      var d=add('p',''), cur=document.createElement('span'); cur.className='cur'; d.appendChild(cur);
-      var i=0; (function step(){ if(i<txt.length){ cur.insertAdjacentText('beforebegin', txt.charAt(i++)); timers.push(setTimeout(step,32)); } else { cur.remove(); } })();
-    }
-    function loop(){
-      reset(); var delay=0;
-      seq.forEach(function(s){
-        if(s.c==='p'){ timers.push(setTimeout(function(){ typeLine(s.t); }, delay)); delay += 32*s.t.length + 420; }
-        else if(s.c==='sp'){ timers.push(setTimeout(function(){ add('',' '); }, delay)); delay += 140; }
-        else { timers.push(setTimeout(function(){ add(s.c, s.t); }, delay)); delay += 640; }
-      });
-      timers.push(setTimeout(loop, delay + 2800));
-    }
-    timers.push(setTimeout(loop, 900));
   })();
 
   // ---- scroll reveal ----
