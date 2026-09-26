@@ -310,23 +310,6 @@
   .fp-g li{font-size:.79rem; color:var(--ink); border:1px solid var(--line); border-radius:999px;
     padding:4px 11px; background:var(--surface); white-space:nowrap}
 
-  /* fleet console */
-
-  
-  
-   .fleet .fleet-row span{color:#9fb2c8}
-  
-  @media (max-width:600px){  .fleet .fleet-row span:nth-child(2),.fleet .fleet-row span:nth-child(3){display:none} }
-  /* system-at-scale diagram (data-engineering lifecycle: ingest→transform→serve + undercurrents) */
-
-  
-
-  
-
-  
-
-  
-  
   .card h3{margin-top:12px} .card p{margin-top:9px; font-size:.96rem}
   .card .step{font-family:ui-monospace,Menlo,monospace; font-size:.8rem; color:var(--muted); margin-bottom:6px}
 
@@ -361,9 +344,6 @@
      on a 390px phone. Found measuring the real mobile viewport. Let it shrink
      and let the buttons wrap. */
   .midcta .cta-row{flex:0 1 auto; min-width:0}
-
-  /* who */
-  .who-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:34px}
 
   /* founder */
   .founder{display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr); gap:38px; margin-top:32px; align-items:start}
@@ -420,7 +400,6 @@
   @media (prefers-reduced-motion:reduce){ .reveal{opacity:1; transform:none} .cur{animation:none} }
   @media (max-width:900px){
     .hero-grid,.prob,.cta-grid{grid-template-columns:1fr; gap:34px}
-    .cards,.who-grid{grid-template-columns:1fr}
     .cmp .row{grid-template-columns:1fr} .cmp .h{display:none}
     .cmp .row>div{border-top:1px solid var(--line)} .cmp .row>div:first-child{border-top:0; font-weight:700; color:var(--ink)}
   }
