@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DataSpaceHQ — Governed Self-Serve Data Domains on Snowflake</title>
 <link rel="preload" as="image" href="/console.png" fetchpriority="high">
-<meta name="description" content="A renamed column can break a dashboard for three months. DataSpaceHQ gives every team on Snowflake the same shape — ingest, transform, serve — inside rules you write once. Runs as a Native App in your own account.">
+<meta name="description" content="A renamed column can break a dashboard for three months. DataSpaceHQ gives every team on Snowflake the same shape — where data lands, how it's typed, who can read it, what it promises — inside rules you write once. Runs as a Native App in your own account.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DataSpaceHQ">
 <meta property="og:title" content="Governed data domains on Snowflake — DataSpaceHQ">
-<meta property="og:description" content="A renamed column can break a dashboard for three months. DataSpaceHQ gives every team on Snowflake the same shape — ingest, transform, serve — inside rules you write once. Runs as a Native App in your own account.">
+<meta property="og:description" content="A renamed column can break a dashboard for three months. DataSpaceHQ gives every team on Snowflake the same shape — where data lands, how it's typed, who can read it, what it promises — inside rules you write once. Runs as a Native App in your own account.">
 <meta property="og:url" content="https://dataspacehq.com/">
 <meta property="og:image" content="https://dataspacehq.com/og.png">
 <meta property="og:image:width" content="1200">
@@ -17,7 +17,7 @@
   <meta property="og:image:alt" content="DataSpaceHQ — a renamed column broke it. Nothing was watching.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Governed data domains on Snowflake — DataSpaceHQ">
-<meta name="twitter:description" content="A renamed column can break a dashboard for three months. DataSpaceHQ gives every team on Snowflake the same shape — ingest, transform, serve — inside rules you write once. Runs as a Native App in your own account.">
+<meta name="twitter:description" content="A renamed column can break a dashboard for three months. DataSpaceHQ gives every team on Snowflake the same shape — where data lands, how it's typed, who can read it, what it promises — inside rules you write once. Runs as a Native App in your own account.">
 <meta name="twitter:image" content="https://dataspacehq.com/og.png">
 <link rel="canonical" href="https://dataspacehq.com/">
 <meta name="theme-color" content="#080E18">
@@ -73,7 +73,7 @@
   "name": "DataSpaceHQ",
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "Snowflake",
-  "description": "A Snowflake Native App that provisions governed, self-serve data domains — ingest, transform, serve — inside your own Snowflake account.",
+  "description": "A Snowflake Native App that provisions governed, self-serve data domains — typed at the boundary, PII tagged where it lands, a contract on what they publish — inside your own Snowflake account.",
   "url": "https://dataspacehq.com/"
 }
 </script>
@@ -97,7 +97,7 @@
     {
       "@type": "Question",
       "name": "Do we still have to wire up containers, tasks and roles ourselves?",
-      "acceptedAnswer": { "@type": "Answer", "text": "DataSpaceHQ uses them under the hood — you just don't wire them. Ingest is an HTTP endpoint per mart that validates each event against the domain's schema and lands it in the raw layer — a batch large enough to be worth it is staged and bulk-COPYed rather than inserted row by row, the transform is generated for you and runs natively in Snowflake, serving runs on Snowpark Container Services, and governance maps to real Snowflake tags, masking policies and roles. Best practices, by default. If you already run dbt yourself, it keeps working alongside — we're not asking you to move it." }
+      "acceptedAnswer": { "@type": "Answer", "text": "DataSpaceHQ uses them under the hood — you just don't wire them. Ingest is an HTTP endpoint per mart that validates each event against the domain's schema and lands it in the raw layer — a batch large enough to be worth it is staged and bulk-COPYed rather than inserted row by row, the transform layer is generated for you — typed projections from raw through to curated, running natively in Snowflake, so the shape exists before anyone writes a line of business logic, serving runs on Snowpark Container Services, and governance maps to real Snowflake tags, masking policies and roles. Best practices, by default. If you already run dbt yourself, it keeps working alongside — we're not asking you to move it." }
     },
     {
       "@type": "Question",
@@ -460,7 +460,8 @@
         <h1><span class="nw">Self-serve data domains.</span><br>Governed <span class="grad">by&nbsp;design.</span></h1>
         <p class="lede"><strong style="color:var(--ink)">A renamed column can break a dashboard
         for three months before anyone notices.</strong> DataSpaceHQ gives every team the same
-        shape — ingest → transform → serve — inside rules you write once.</p>
+        shape — where data lands, how it's typed, who can read it, and what it promises
+        downstream — inside rules you write once. You still write your own SQL.</p>
         <div class="cta-row">
           <a class="btn primary" href="#demo">Get a demo →</a>
           <a class="btn ghost" href="#how">See how it works</a>
