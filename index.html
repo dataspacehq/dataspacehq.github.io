@@ -366,25 +366,11 @@
      and let the buttons wrap. */
   .midcta .cta-row{flex:0 1 auto; min-width:0}
 
-  /* founder */
-  .founder{display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr); gap:38px; margin-top:32px; align-items:start}
   /* Photo above the text, not beside it: side-by-side left the role line ~180px
      wide and it broke across four lines. */
-  .f-card{display:flex; flex-direction:column; gap:14px; align-items:flex-start; padding:22px;
-    border:1px solid var(--line); border-radius:var(--r); background:var(--surface); box-shadow:var(--shadow)}
-  .f-photo{position:relative; width:66px; height:66px; border-radius:50%; flex:none; display:flex;
-    align-items:center; justify-content:center; font-weight:750; font-size:1.06rem; letter-spacing:.02em;
-    color:var(--accent); background:color-mix(in srgb,var(--accent) 13%,transparent);
-    border:1px solid color-mix(in srgb,var(--accent) 30%,transparent); overflow:hidden}
   /* The source is a square candid with the subject right-of-centre, so a default
      centre crop fills the circle with background. Pull the focal point onto the face. */
-  .f-photo img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-    object-position:68% 22%; border-radius:50%}
-  .f-name{font-weight:700; color:var(--ink); font-size:1.04rem}
-  .f-role{font-size:.84rem; color:var(--muted); margin-top:4px; line-height:1.45}
-  .f-body p{font-size:1rem; max-width:44em}
   @media (max-width:820px){
-    .founder{grid-template-columns:1fr; gap:22px}
     .f-card{padding:16px}
   }
 
@@ -665,37 +651,6 @@
   <!-- WHO'S BUILDING IT — a design partner is choosing a person, not just software.
        Until this existed the site was entirely anonymous, which is a strange thing
        to ask someone to commit to. Photo slot is marked below. -->
-  <section id="founder" class="reveal">
-    <span class="eyebrow">Who's building it</span>
-    <h2 style="margin-top:14px">You'd be working with me, directly.</h2>
-    <div class="founder">
-      <div class="f-card">
-        <!-- Save a square headshot as /founder.jpg and it replaces the monogram
-             automatically — the img sits on top and the initials show through
-             only if the file is missing (onerror hides it). No markup change
-             needed when the photo lands. -->
-        <div class="f-photo">DR<img src="/founder.jpeg" alt="Dmitrii Raev"
-          onerror="this.remove()" loading="lazy" width="800" height="800"></div>
-        <div>
-          <div class="f-name">Dmitrii Raev</div>
-          <div class="f-role">Founder, DataSpaceHQ · Previously Head of Data Products
-          Engineering at AUTODOC</div>
-        </div>
-      </div>
-      <div class="f-body">
-        <p>Seventeen years in software and data engineering, the last five running a 50+ engineer
-        organisation across data engineering, data products and platform. I also led the business
-        case that moved that company onto Snowflake — the commercial assessment, the executive
-        presentation, and then living with what we built afterwards.</p>
-        <p style="margin-top:12px">So I've been on your side of this decision. DataSpaceHQ is the
-        version where the rules come first instead of arriving later as a review.</p>
-        <p style="margin-top:12px"><strong>There's no sales team here.</strong> The walkthrough is
-        me, the person who answers your email is me, and if something's missing for your setup,
-        I'm the one who builds it. That's the real reason to do this now rather than in a year —
-        at this size your problem goes straight into the product, not into a backlog.</p>
-      </div>
-    </div>
-  </section>
 
   <!-- CTA -->
   <section id="demo" class="reveal">
