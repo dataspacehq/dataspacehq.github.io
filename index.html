@@ -414,7 +414,6 @@
      one row and each wraps its own text mid-word (found live, 500px width).
      Drop the two decorative/secondary items; logo + primary CTA is enough. */
   @media (max-width:640px){
-    section{padding:52px 0}
     .nav .pill{display:none}
   }
 
@@ -427,6 +426,39 @@
      bottom, where source order cannot bite it again. */
   @media (max-width:820px){
     .cards{grid-template-columns:1fr; gap:18px}
+  }
+
+  /* ---- vertical rhythm on small screens -------------------------------------
+     Scaled as a system, not one value at a time. An earlier pass took section
+     padding from 88px to 52px and left every inner block at its desktop size —
+     .hero at 52/40, .cta-band at 44 all round, a dozen margin-tops between 34
+     and 46 — so the outer rhythm tightened while the inner one did not, and the
+     proportions broke. Everything here moves together at roughly 0.6x, which is
+     about where a 1120px layout reads correctly at phone width.
+
+     .cta-band is the one that hurt most: 44px of padding is 88px of a 390px
+     screen, leaving 254px for the words inside it.
+
+     Last in the file on purpose — a media query does not raise specificity, and
+     an override placed above its base rule silently does nothing. That is how
+     the three steps stayed in three columns through one "fix". */
+  @media (max-width:820px){
+    section{padding:68px 0}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 18px}
+    section{padding:56px 0}
+    .hero{padding:34px 0 28px}
+    .diagram{margin-top:24px}
+    .shot-lead{margin-top:26px}
+    .factrow{margin:18px 0 22px}
+    .cards{margin-top:24px; gap:14px}
+    .fp{margin-top:28px}
+    .cmp{margin-top:22px}
+    .midcta{margin-top:28px}
+    .faq{margin-top:22px}
+    .cta-band{padding:24px 20px}
+    footer{padding:32px 0 44px}
   }
 </style>
 </head>
