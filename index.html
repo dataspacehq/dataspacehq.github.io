@@ -299,12 +299,7 @@
   .fact b{color:var(--ink); font-weight:680; font-size:.97rem}
   .fact span{color:var(--muted); font-size:.92rem; line-height:1.55}
   .factrow.two{grid-template-columns:repeat(2,1fr); margin-top:28px}
-  @media (max-width:820px){
-    /* The three steps had no breakpoint at all: at phone width they stayed a
-       three-column grid about 150px wide each, wrapping to one or two words a
-       line, with the third card off-screen. Seen on a real iPhone — and this
-       is the section that explains the product. */
-    .cards{grid-template-columns:1fr; gap:18px} .factrow,.factrow.two{grid-template-columns:1fr; gap:16px} }
+  @media (max-width:820px){ .factrow,.factrow.two{grid-template-columns:1fr; gap:16px} }
 
   /* generic cards */
   .lead-2{max-width:34em; margin-top:14px}
@@ -421,6 +416,17 @@
   @media (max-width:640px){
     section{padding:52px 0}
     .nav .pill{display:none}
+  }
+
+  /* ---- mobile overrides, deliberately last ----------------------------------
+     The first attempt at this put `.cards{grid-template-columns:1fr}` in the
+     820px block that happens to sit *above* the base `.cards` declaration. A
+     media query does not raise specificity, so the later base rule won and the
+     three steps stayed in three ~150px columns on a phone, wrapping to one or
+     two words a line. Anything that has to beat a base rule goes here, at the
+     bottom, where source order cannot bite it again. */
+  @media (max-width:820px){
+    .cards{grid-template-columns:1fr; gap:18px}
   }
 </style>
 </head>
